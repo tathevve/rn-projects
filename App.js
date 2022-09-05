@@ -32,45 +32,54 @@ const App = () => {
     { name: 'Item 8' },
   ])
 
-  const datas = [
+  const [datas, setDatas] = useState([
     {
-      title: 'title 1',
+      title: 'alo 1',
       data: ['item 1-1', 'item 1-2', 'item 1-3']
     },
-    {
-      title: 'title 2',
-      data: ['item 2-1', 'item 2-2', 'item 2-3']
-    },
-    {
-      title: 'title 3',
-      data: ['item 3-1']
-    },
-    {
-      title: 'title 4',
-      data: ['item 4-1', 'item 4-2']
-    },
-  ]
+  ])
 
   const [refreshing, setRefreshing] = useState(false)
 
   const onRefresh = () => {
     setRefreshing(true);
-    setItems([...items, { key: '69', name: 'item 69' }]);
+    const arrlength = datas.length+1;
+    console.log(arrlength,'a')
+
+    setDatas([...datas, {
+      title: 'alo ' + arrlength,
+      data: ['item ' + arrlength + '-1', 'item ' + arrlength+'-2']
+    }]);
+    //datas.push({ title: 'title' + '' })
     setRefreshing(false)
   }
+
 
   return (
     <SectionList
       keyExtractor={(item, index) => index.toString()}
+
+      // sections={datas}
+      // renderItem={({ item }) => (
+      //   <Text style={styles.text}>{item}</Text>
+      // )}
       sections={datas}
-      renderItem={({ item }) => (
-          <Text style={styles.text}>{item}</Text>
-      )}
       renderSectionHeader={({ section }) => (
         <View style={styles.item} >
           <Text style={styles.text}>{section.title}</Text>
         </View>
       )}
+      renderItem={({ item }) =>
+        //<View style={styles.item} >
+          <Text style={styles.text}>{item}</Text>
+        //</View>
+      }
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          colors={['#ff00ff']}
+        />}
     />
     // <FlatList
     //   keyExtractor={(item, index) => index.toString()}
