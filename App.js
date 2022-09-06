@@ -16,105 +16,41 @@ import {
   RefreshControl,
   FlatList,
   SectionList,
+  TextInput,
 } from 'react-native';
 
 
 const App = () => {
 
-  const [items, setItems] = useState([
-    { name: 'Item 1' },
-    { name: 'Item 2' },
-    { name: 'Item 3' },
-    { name: 'Item 4' },
-    { name: 'Item 5' },
-    { name: 'Item 6' },
-    { name: 'Item 7' },
-    { name: 'Item 8' },
-  ])
-
-  const [datas, setDatas] = useState([
-    {
-      title: 'alo 1',
-      data: ['item 1-1', 'item 1-2', 'item 1-3']
-    },
-  ])
-
-  const [refreshing, setRefreshing] = useState(false)
-
-  const onRefresh = () => {
-    setRefreshing(true);
-    const arrlength = datas.length+1;
-    console.log(arrlength,'a')
-
-    setDatas([...datas, {
-      title: 'alo ' + arrlength,
-      data: ['item ' + arrlength + '-1', 'item ' + arrlength+'-2']
-    }]);
-    //datas.push({ title: 'title' + '' })
-    setRefreshing(false)
+  const [name, setName] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+  const onPressHandler = () => {
+    setSubmitted(!submitted)
   }
 
-
   return (
-    <SectionList
-      keyExtractor={(item, index) => index.toString()}
-
-      // sections={datas}
-      // renderItem={({ item }) => (
-      //   <Text style={styles.text}>{item}</Text>
-      // )}
-      sections={datas}
-      renderSectionHeader={({ section }) => (
-        <View style={styles.item} >
-          <Text style={styles.text}>{section.title}</Text>
-        </View>
-      )}
-      renderItem={({ item }) =>
-        //<View style={styles.item} >
-          <Text style={styles.text}>{item}</Text>
-        //</View>
+    <View style={styles.body}>
+      <Text style={styles.text}>
+        Please write your name
+      </Text>
+      <TextInput style={styles.input}
+        placeholder='e.g John'
+        
+        onChangeText={(value) => setName(value)}
+      />
+      <Button
+        title={submitted ? 'clear' : 'Alo'}
+        onPress={onPressHandler}
+      />
+      {
+        submitted ?
+          <Text style={styles.text}>
+            Your are registered as {name}
+          </Text>
+          : null
       }
-      refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-          colors={['#ff00ff']}
-        />}
-    />
-    // <FlatList
-    //   keyExtractor={(item, index) => index.toString()}
-    //   data={items}
-    //   renderItem={ ({item}) =>
-    //     <View style={styles.item} >
-    //       <Text style={styles.text}>{item.name}</Text>
-    //     </View>
-    //   }
-    //     refreshControl={
-    //     <RefreshControl
-    //       refreshing={refreshing}
-    //       onRefresh={onRefresh}
-    //       colors ={['#ff00ff']}
-    //     />}
-    // />
-    // <ScrollView
-    //   style={styles.body}
-    //   refreshControl={
-    //     <RefreshControl
-    //       refreshing={refreshing}
-    //       onRefresh={onRefresh}
-    //       colors ={['#ff00ff']}
-    //     />}
-    // >
-    //   {
-    //     items.map((object) => {
-    //       return (
-    //         <View style={styles.item} key={object.key}>
-    //           <Text style={styles.text}>{object.item}</Text>
-    //         </View>
-    //       )
-    //     })
-    //   }
-    // </ScrollView>
+
+    </View>
   );
 };
 
@@ -122,17 +58,23 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     backgroundColor: 'white',
+    alignItems: 'center'
   },
-  item: {
-    backgroundColor: '#AAA',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 10
-  },
+
   text: {
-    fontSize: 40,
+    fontSize: 20,
     margin: 10
   },
+  input: {
+    borderWidth: 1,
+    width: 200,
+    borderColor: 'grey',
+    borderRadius: 50,
+    textAlign: 'center',
+    fontSize: 20,
+    marginBottom: 15,
+
+  }
 });
 
 export default App;
