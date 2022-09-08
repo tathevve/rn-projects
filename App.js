@@ -2,21 +2,15 @@ import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
-  Button,
   View,
-  ScrollView,
-  RefreshControl,
-  FlatList,
-  SectionList,
   TextInput,
-  Touchable,
-  TouchableOpacity,
   Pressable,
-  Alert,
-  ToastAndroid,
   Modal,
   Image,
+  ImageBackground,
 } from 'react-native';
+import Knopka from './src/CustomButton';
+import Header from './src/Header';
 
 
 const App = () => {
@@ -45,7 +39,11 @@ const App = () => {
   }
 
   return (
-    <View style={styles.body}>
+    <ImageBackground
+      style={styles.body}
+      source={{ uri: "https://reactjs.org/logo-og.png" }} resizeMode="cover"
+    >
+      <Header />
       <Modal
         transparent
         visible={showWarning}
@@ -84,15 +82,20 @@ const App = () => {
         title={}
         onPress={onPressHandler}
       /> */}
-      <Pressable
+      {/* <Pressable
         onPress={onPressHandler}
         style={({ pressed }) => [
           { backgroundColor: pressed ? '#CAC' : '#ABA' },
           styles.button
         ]}
       >
-        <Text style={styles.text}>{submitted ? 'clear' : 'Alo'}</Text>
-      </Pressable>
+        <Text style={styles.text}> {submitted ? 'clear' : 'Alo'} </Text>
+      </Pressable> */}
+
+      <Knopka
+        onPressFunction={onPressHandler}
+        title={submitted ? 'clear' : 'Alo'}
+      />
       {
         submitted ?
           <View style={styles.body}>
@@ -108,26 +111,27 @@ const App = () => {
 
           : <Image
             style={styles.image}
-            source={require('./assets/error.png')}
+            source={{ uri: 'https://i.vimeocdn.com/portrait/58832_300x300.jpg' }}
             resizeMode='stretch'
           />
       }
-
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center'
+    // backgroundColor: 'white',
+    alignItems: 'center',
   },
 
   text: {
     fontSize: 20,
     margin: 10,
-    textAlign: 'center'
+    textAlign: 'center',
+    color:'white'
+
   },
   input: {
     borderWidth: 1,
