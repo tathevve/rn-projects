@@ -4,8 +4,8 @@ import { View, Text, Button, StyleSheet, Pressable } from 'react-native';
 export default function ScreenA({ navigation }) {
 
     const onPressHandler = () => {
-        // navigation.navigate('Screen_B')
-        navigation.toggleDrawer()
+        navigation.navigate('Screen_B')
+        // navigation.toggleDrawer()
     }
 
     return (
@@ -26,14 +26,13 @@ export default function ScreenA({ navigation }) {
 
 const styles = StyleSheet.create({
     body: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     text: {
-      fontSize: 40,
-      fontWeight: 'bold',
-      margin: 10
+        fontSize: 40,
+        fontWeight: 'bold',
+        margin: 10
     }
-  })
-  
+})

@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { View, Text, Button, StyleSheet, Pressable } from 'react-native';
 
-export default function ScreenB({ navigation }) {
+export default function ScreenB({ navigation, route }) {
+
+  const {ItemName, ItemId} = route.params;
 
   const onPressHandler = () => {
     // navigation.navigate("Screen_A")
     navigation.goBack()
+    // navigation.setParams({ItemId: 14})
   }
 
   return (
@@ -20,6 +23,12 @@ export default function ScreenB({ navigation }) {
           back
         </Text>
       </Pressable>
+      <Text style={styles.text}>
+        {ItemName}
+      </Text>
+      <Text style={styles.text}>
+        ID: {ItemId}
+      </Text>
     </View>
   )
 }

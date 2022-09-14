@@ -22,7 +22,7 @@ function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator
-        initialRouteName='Screen_A'
+        // initialRouteName='Screen_A'
         // drawerPosition='right' ????
         screenOptions={{
           drawerType: 'back',
@@ -34,20 +34,20 @@ function App() {
             backgroundColor: '#c6cbef',
             width: 250
           },
-          headerShown:true,
-          swipeEnabled:true,
+          headerShown: true,
+          swipeEnabled: true,
           gestureEnabled: false,
           headerTitleAlign: 'center',
           headerStyle: {
-            backgroundColor:'#0080ff'
+            backgroundColor: '#0080ff'
           },
           headerTintColor: '#ffffff',
           headerTitleStyle: {
             fontSize: 25,
-            fontWeight:'bold'
+            fontWeight: 'bold'
           }
         }}
-        
+
       >
         <Drawer.Screen
           name="Screen_A"
@@ -56,7 +56,7 @@ function App() {
             title: 'abo',
             drawerIcon: ({ focused }) => (
               <FontAwesome5
-                name='btc'
+                name='autoprefixer'
                 size={focused ? 25 : 20}
                 color={focused ? '#0080ff' : '#999999'}
               />
@@ -70,12 +70,13 @@ function App() {
             title: 'edo',
             drawerIcon: ({ focused }) => (
               <FontAwesome5
-                name='autoprefixer'
+                name='btc'
                 size={focused ? 25 : 20}
                 color={focused ? '#0080ff' : '#999999'}
               />
             )
           }}
+          initialParams={{ ItemName: 'Item from Drawer', ItemId: 12 }}
         />
       </Drawer.Navigator>
     </NavigationContainer>
