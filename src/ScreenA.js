@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, Text, Button, StyleSheet, Pressable } from 'react-native';
 
-export default function ScreenA({ navigation }) {
+export default function ScreenA({ navigation, route }) {
 
     const onPressHandler = () => {
         navigation.navigate('Screen_B')
@@ -20,6 +20,9 @@ export default function ScreenA({ navigation }) {
                     Go to Screen B
                 </Text>
             </Pressable>
+            <Text style={styles.text}>
+                {route.params?.Message}
+            </Text>
         </View>
     )
 }
