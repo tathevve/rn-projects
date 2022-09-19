@@ -12,63 +12,97 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from './src/screens/Login';
+import { Provider } from 'react-redux';
+import { Store } from './src/redux/store';
 
-
+const Stack = createStackNavigator();
 
 // const Tab = createMaterialBottomTabNavigator()
 // const Tab = createMaterialTopTabNavigator()
-const Stack = createStackNavigator();
+// const Stack = createStackNavigator();
 
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName='Login'
-        // drawerPosition='right' ????
-        screenOptions={{
-          drawerType: 'back',
-          drawerPosition: 'left',
-          swipeEdgeWidth: 500,
-          drawerHideStatusBarOnOpen: false,
-          overlayColor: '#00000090',
-          drawerStyle: {
-            backgroundColor: '#c6cbef',
-            width: 250
-          },
-          headerShown: true,
-          swipeEnabled: true,
-          gestureEnabled: false,
-          headerTitleAlign: 'center',
-          headerStyle: {
-            backgroundColor: '#0080ff'
-          },
-          headerTintColor: '#ffffff',
-          headerTitleStyle: {
-            fontSize: 25,
-            fontWeight: 'bold'
-          }
-        }}
-
-      >
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{
-
+    <Provider store={Store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Login"
+          screenOptions={{
+            headerTitleAlign: 'center',
+            headerStyle: {
+              backgroundColor: '#0080ff'
+            },
+            headerTintColor: '#ffffff',
+            headerTitleStyle: {
+              fontSize: 25,
+              fontWeight: 'bold'
+            }
           }}
-        />
+        >
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
 
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{
-            headerShown:false
-          }}
-        />
 
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator
+    //     initialRouteName='Login'
+    //     // drawerPosition='right' ????
+    //     screenOptions={{
+    //       drawerType: 'back',
+    //       drawerPosition: 'left',
+    //       swipeEdgeWidth: 500,
+    //       drawerHideStatusBarOnOpen: false,
+    //       overlayColor: '#00000090',
+    //       drawerStyle: {
+    //         backgroundColor: '#c6cbef',
+    //         width: 250
+    //       },
+    //       headerShown: true,
+    //       swipeEnabled: true,
+    //       gestureEnabled: false,
+    //       headerTitleAlign: 'center',
+    //       headerStyle: {
+    //         backgroundColor: '#0080ff'
+    //       },
+    //       headerTintColor: '#ffffff',
+    //       headerTitleStyle: {
+    //         fontSize: 25,
+    //         fontWeight: 'bold'
+    //       }
+    //     }}
+
+    //   >
+    //     <Stack.Screen
+    //       name="Home"
+    //       component={Home}
+    //       options={{
+
+    //       }}
+    //     />
+
+    //     <Stack.Screen
+    //       name="Login"
+    //       component={Login}
+    //       options={{
+    //         headerShown:false
+    //       }}
+    //     />
+
+    //   </Stack.Navigator>
+    // </NavigationContainer>
   );
 }
 
