@@ -116,6 +116,10 @@ export default function Home({ navigation, route }) {
             ]}>
                 Welcome {name} !
             </Text>
+            <CustomButton 
+                title="Open Camera"
+                onPressFunction={() => {navigation.navigate('Camera')}}
+            />
             <FlatList
                 data={cities}
                 renderItem={({ item }) => (

@@ -16,6 +16,7 @@ import { Provider } from 'react-redux';
 import { Store } from './src/redux/store';
 import PushNotification, { Importance } from "react-native-push-notification";
 import Map from './src/screens/Map';
+import Camera from './src/screens/Camera';
 
 const Stack = createStackNavigator();
 
@@ -59,6 +60,10 @@ function App() {
           <Stack.Screen
             name="Map"
             component={Map}
+          />
+          <Stack.Screen
+            name="Camera"
+            component={Camera}
           />
         </Stack.Navigator>
       </NavigationContainer>
