@@ -12,28 +12,58 @@ import {
 import CustomButton from '../CustomButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { setName, setAge, increaseAge, getCities } from '../redux/actions';
+import PushNotification, { Importance } from "react-native-push-notification";
 
-// const db = SQLite.openDatabase(
-//     {
-//         name: 'MainDB',
-//         location: 'default',
-//     },
-//     () => { },
-//     error => { console.log(error) }
-// );
 
 export default function Home({ navigation, route }) {
 
     const { name, age, cities } = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
 
-    // const [name, setName] = useState('');
-    // const [age, setAge] = useState('');
+
+    const createChannelInitial = () => {
+        PushNotification.createChannel(
+            {
+                channelId: `ncmzncmznxvzxvnm`, // (required)
+                channelName: "My channel", // (required)
+                channelDescription: "A channel to categorise your notifications", // (optional) default: undefined.
+                playSound: false, // (optional) default: true
+                soundName: "default", // (optional) See `soundName` parameter of `localNotification` function
+                importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
+                vibrate: true, // (optional) default: true. Creates the default vibration pattern if true.
+            },
+            (created) => console.log(`createChannel returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
+        );
+    }
+
+
+    React.useEffect(() => {
+        createChannelInitial();
+    }, [])
+
+
 
     useEffect(() => {
         getData();
         dispatch(getCities());
     }, []);
+
+    const handleNotification = (item) => {
+
+
+        console.log(item, 'item')
+        // PushNotification.cancelAllLocalNotifications();
+
+        PushNotification.localNotification({
+            channelId: "ncmzncmznxvzxvnm",
+            title: "You clicked on " + item.country,
+            message: item.city,
+            bigText: item.city + " is one of the largest and most beatiful cities in " + item.country,
+            color: "red",
+            // id: index
+        });
+
+    }
 
     const getData = () => {
         try {
@@ -45,21 +75,7 @@ export default function Home({ navigation, route }) {
                         setAge(user.Age);
                     }
                 })
-            // db.transaction((tx) => {
-            //     tx.executeSql(
-            //         "SELECT Name, Age FROM Users",
-            //         [],
-            //         (tx, results) => {
-            //             var len = results.rows.length;
-            //             if (len > 0) {
-            //                 var userName = results.rows.item(0).Name;
-            //                 var userAge = results.rows.item(0).Age;
-            //                 dispatch(setName(userName));
-            //                 dispatch(setAge(userAge));
-            //             }
-            //         }
-            //     )
-            // })
+          
         } catch (error) {
             console.log(error);
         }
@@ -74,14 +90,7 @@ export default function Home({ navigation, route }) {
                     Name: name
                 }
                 await AsyncStorage.mergeItem('UserData', JSON.stringify(user));
-                // db.transaction((tx) => {
-                //     tx.executeSql(
-                //         "UPDATE Users SET Name=?",
-                //         [name],
-                //         () => { Alert.alert('Success!', 'Your data has been updated.') },
-                //         error => { console.log(error) }
-                //     )
-                // })
+            
             } catch (error) {
                 console.log(error);
             }
@@ -91,18 +100,14 @@ export default function Home({ navigation, route }) {
     const removeData = async () => {
         try {
             await AsyncStorage.clear();
-            // db.transaction((tx) => {
-            //     tx.executeSql(
-            //         "DELETE FROM Users",
-            //         [],
-            //         () => { navigation.navigate('Login') },
-            //         error => { console.log(error) }
-            //     )
-            // })
+            
         } catch (error) {
             console.log(error);
         }
     }
+
+
+
 
     return (
         <View style={styles.body}>
@@ -114,7 +119,15 @@ export default function Home({ navigation, route }) {
             <FlatList
                 data={cities}
                 renderItem={({ item }) => (
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            handleNotification(item)
+                            navigation.navigate('Map', {
+                                city: item.city,
+                                lat: item.lat,
+                                lng: item.lng,
+                            })
+                        }}>
                         <View style={styles.item}>
                             <Text style={styles.title}>{item.country}</Text>
                             <Text style={styles.subtitle}>{item.city}</Text>

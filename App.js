@@ -14,6 +14,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './src/screens/Login';
 import { Provider } from 'react-redux';
 import { Store } from './src/redux/store';
+import PushNotification, { Importance } from "react-native-push-notification";
+import Map from './src/screens/Map';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +25,9 @@ const Stack = createStackNavigator();
 
 
 function App() {
+
+
+  
   return (
     <Provider store={Store}>
       <NavigationContainer>
@@ -50,6 +55,10 @@ function App() {
           <Stack.Screen
             name="Home"
             component={Home}
+          />
+          <Stack.Screen
+            name="Map"
+            component={Map}
           />
         </Stack.Navigator>
       </NavigationContainer>

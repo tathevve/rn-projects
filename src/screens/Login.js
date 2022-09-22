@@ -11,6 +11,7 @@ import CustomButton from '../CustomButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSelector, useDispatch } from 'react-redux';
 import { setName, setAge } from '../redux/actions';
+// import PushNotification from "react-native-push-notification";
 
 
 
@@ -25,17 +26,19 @@ export default function Login({ navigation }) {
     useEffect(() => {
         // createTable();
         getData();
+        createChannels();
     }, []);
 
-    // const createTable = () => {
-    //     db.transaction((tx) => {
-    //         tx.executeSql(
-    //             "CREATE TABLE IF NOT EXISTS "
-    //             + "Users "
-    //             + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Age INTEGER);"
-    //         )
-    //     })
-    // }
+  
+
+    const createChannels = () => {
+        // PushNotification.createChannel(
+        //     {
+        //         channelId: "test-channel",
+        //         channelName: "Test Channel"
+        //     }
+        // )
+    }
 
     const getData = () => {
         try {
@@ -45,18 +48,7 @@ export default function Login({ navigation }) {
                         navigation.navigate('Home');
                     }
                 })
-            // db.transaction((tx) => {
-            //     tx.executeSql(
-            //         "SELECT Name, Age FROM Users",
-            //         [],
-            //         (tx, results) => {
-            //             var len = results.rows.length;
-            //             if (len > 0) {
-            //                 navigation.navigate('Home');
-            //             }
-            //         }
-            //     )
-            // })
+        
         } catch (error) {
             console.log(error);
         }
@@ -74,15 +66,7 @@ export default function Login({ navigation }) {
                     Age: age
                 }
                 await AsyncStorage.setItem('UserData', JSON.stringify(user));
-                // await db.transaction(async (tx) => {
-                    // await tx.executeSql(
-                    //     "INSERT INTO Users (Name, Age) VALUES ('" + name + "'," + age + ")"
-                    // );
-                    // await tx.executeSql(
-                    //     "INSERT INTO Users (Name, Age) VALUES (?,?)",
-                    //     [name, age]
-                    // );
-                // })
+             
                 navigation.navigate('Home');
             } catch (error) {
                 console.log(error);
