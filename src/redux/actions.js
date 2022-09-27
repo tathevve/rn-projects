@@ -3,7 +3,24 @@ export const SET_USER_AGE = 'SET_USER_AGE';
 export const INCREASE_AGE = 'INCREASE_AGE';
 export const GET_CITIES = 'GET_CITIES';
 
+export const SET_TASKS = 'SET_TASKS'
+export const SET_TASK_ID = 'SET_TASK_ID'
+
 const API_URL = 'https://mocki.io/v1/aac8b81a-139c-4235-82e6-0dbadf33f2b7';
+
+export const setTasks = tasks => dispatch => {
+    dispatch({
+        type: SET_TASKS,
+        payload: tasks
+    })
+}
+
+export const setTaskID = taskID => dispatch => {
+    dispatch({
+        type: SET_TASK_ID,
+        payload: taskID
+    })
+}
 
 export const getCities = () => {
     try {

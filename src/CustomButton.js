@@ -9,7 +9,7 @@ const Knopka = (props) => {
         <Pressable
             onPress={props.onPressFunction}
             style={({ pressed }) => [
-                { backgroundColor: pressed ? '#CAC' : '#ABA' },
+                { backgroundColor: pressed ? '#0080ff' : '#1eb900' },
                 styles.button
             ]}
         >
@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     button: {
         width: 150,
         height: 50,
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRadius:10
     },
 })
 
