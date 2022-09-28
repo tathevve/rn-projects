@@ -16,7 +16,7 @@ export default function Splash({ navigation }) {
     useEffect(() => {
         createChannels();
         setTimeout(() => {
-            navigation.replace('My Tasks')
+            navigation.replace('ThesisHome')
         },2000)
     }, []);
 

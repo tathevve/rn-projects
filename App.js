@@ -18,6 +18,7 @@ import PushNotification, { Importance } from "react-native-push-notification";
 import Map from './src/screens/Map';
 import Camera from './src/screens/Camera';
 import Task from './src/screens/Task';
+import ThesisHome from './src/screens/ThesisHome';
 
 
 const Tab = createMaterialBottomTabNavigator()
@@ -71,7 +72,7 @@ function App() {
     <Provider store={Store}>
       <NavigationContainer>
         <RootStack.Navigator
-          initialRouteName="Splash"
+          initialRouteName="ThesisHome"
           screenOptions={{
             headerTitleAlign: 'center',
             headerStyle: {
@@ -84,6 +85,13 @@ function App() {
             }
           }}
         >
+          <RootStack.Screen
+            name="ThesisHome"
+            component={ThesisHome}
+            options={{
+              headerShown: false,
+            }}
+          />
           <RootStack.Screen
             name="Splash"
             component={Splash}
