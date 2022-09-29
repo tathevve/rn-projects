@@ -1,36 +1,388 @@
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native'
 import React from 'react'
 import { BottomNavigation, Button, IconButton, Text } from 'react-native-paper';
+import Carousel from 'react-native-reanimated-carousel';
+
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 
 const FavouriteRoute = () => <Text>Wishlist</Text>;
 
 const HomeRoute = () => {
+
     return (
-        <View>
-            <View>
+        <ScrollView contentContainerStyle={{ backgroundColor: "white" }}>
+            <View style={styles.bodyHome}>
                 <View style={styles.logo}>
                     <Image
-
+                        style={{ width: windowWidth, height: windowHeight / 2, }}
+                        resizeMode='contain'
                         source={require('../../assets/data.jpeg')}
                     />
                     <View style={styles.textView}>
-                        <Text style={styles.textUpper}>Valentino Garavani: all pink everything</Text>
-                        <Text style={styles.text}>Creative Director Pierpaolo Piccioli’s new Valentino Pink PP collection turns fashion’s boldest shade into an ultra-wearable modern neutral — discover the runway highlights here</Text>
+                        <Text style={styles.title}>Valentino Garavani: all pink everything</Text>
+                        <Text style={styles.subtitle}>Creative Director Pierpaolo Piccioli’s new Valentino Pink PP collection turns fashion’s boldest shade into an ultra-wearable modern neutral — discover the runway highlights here</Text>
                     </View>
 
                     <Button mode="outlined" textColor='black'
-                        style={{ width: '80%', }}
-                        contentStyle={{textAlign:'center'}}
+                        style={{ width: '100%', }}
+                        contentStyle={{ textAlign: 'center' }}
                         onPress={() => console.log('Pressed explore')}>
                         Explore More
                     </Button>
                 </View>
+                <View style={styles.logo}>
+                    <View style={styles.textView}>
+                        <Text style={styles.textUpper}>New in</Text>
+                        <Text style={styles.text}>hand-picked daily from the world’s best brands and boutiques</Text>
+                    </View>
+                    <View style={{ flex: 1, marginBottom: 25 }}>
+                        <Carousel
+                            loop
+                            width={windowWidth}
+                            height={windowHeight / 4}
+                            autoPlay={false}
+                            data={[...new Array(6).keys()]}
+                            scrollAnimationDuration={1000}
+                            onSnapToItem={(index) => console.log('current index:', index)}
+                            renderItem={({ index }) => (
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        // borderWidth: 1,
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}
+                                >
+                                    <Image
+                                        resizeMode='contain'
+                                        style={{
+                                            width: '50%',
+                                            height: '100%',
+                                            // position:'absolute'
+                                        }}
+                                        source={require('../../assets/slider2.jpg')}
+                                    />
+                                    <View style={{ width: '50%' }}>
+                                        <Text style={{ textAlign: 'center', color: '#808080' }}>
+                                            New Season
+                                        </Text>
+                                        <Text style={{ textAlign: 'center', fontSize: 30 }}>
+                                            Versace
+                                        </Text>
+                                        <Text style={{ textAlign: 'center', fontSize: 25 }}>
+                                            Medusa-plaque clutch bag
+                                        </Text>
+                                        <Text style={{ textAlign: 'center', fontSize: 25, paddingTop: 25 }}>
+                                            $1.175
+                                        </Text>
+                                    </View>
 
+                                </View>
+                            )}
+                        />
+
+                    </View>
+                    <Button mode="outlined" textColor='black'
+                        style={{ width: '100%', marginBottom: 20 }}
+                        contentStyle={{ textAlign: 'center' }}
+                        onPress={() => console.log('Pressed shop')}>
+                        Shop Now
+                    </Button>
+                </View>
+
+                <View style={styles.logo}>
+                    <Image
+                        style={{ width: windowWidth, height: windowHeight / 2, }}
+                        resizeMode='contain'
+                        source={require('../../assets/bigImage2.jpeg')}
+                    />
+                    <View style={styles.textView}>
+                        <Text style={styles.textUpper}>There Was One</Text>
+                        <Text style={styles.text}>We think you’ll love these</Text>
+                    </View>
+                    <View style={{ flex: 1, marginBottom: 25 }}>
+                        <Carousel
+                            loop
+                            width={windowWidth}
+                            height={windowHeight / 4}
+                            autoPlay={false}
+                            data={[...new Array(6).keys()]}
+                            scrollAnimationDuration={1000}
+                            onSnapToItem={(index) => console.log('current index:', index)}
+                            renderItem={({ index }) => (
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        // borderWidth: 1,
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}
+                                >
+                                    <Image
+                                        resizeMode='contain'
+                                        style={{
+                                            width: '50%',
+                                            height: '100%',
+                                            // position:'absolute'
+                                        }}
+                                        source={require('../../assets/slider1.jpg')}
+                                    />
+                                    <View style={{ width: '50%' }}>
+                                        <Text style={{ textAlign: 'center', color: '#808080' }}>
+                                            New Season
+                                        </Text>
+                                        <Text style={{ textAlign: 'center', fontSize: 30 }}>
+                                            Paris Georgia
+                                        </Text>
+                                        <Text style={{ textAlign: 'center', fontSize: 25 }}>
+                                            Off-shoulder corset top
+                                        </Text>
+                                        <Text style={{ textAlign: 'center', fontSize: 25, paddingTop: 25 }}>
+                                            $409
+                                        </Text>
+                                    </View>
+
+                                </View>
+                            )}
+                        />
+
+                    </View>
+                    <Button mode="outlined" textColor='black'
+                        style={{ width: '100%', marginBottom: 20 }}
+                        contentStyle={{ textAlign: 'center' }}
+                        onPress={() => console.log('Pressed shop')}>
+                        Shop Now
+                    </Button>
+                </View>
+
+                <View style={styles.logo}>
+                    <Image
+                        style={{ width: windowWidth, height: windowHeight / 2, }}
+                        resizeMode='contain'
+                        source={require('../../assets/bigImage3.jpeg')}
+                    />
+                    <View style={styles.textView}>
+                        <Text style={styles.title}>TRENDING NOW: CARGO PANTS</Text>
+                        <Text style={styles.subtitle}>The utilitarian favorite is back, and fall’s best styles come courtesy of Dion Lee, Marine Serre </Text>
+                    </View>
+                    <Button mode="outlined" textColor='black'
+                        style={{ width: '100%', marginBottom: 20 }}
+                        contentStyle={{ textAlign: 'center' }}
+                        onPress={() => console.log('Pressed shop')}>
+                        Shop Now
+                    </Button>
+                </View>
+                <View style={styles.logo}>
+                    <Image
+                        style={{ width: windowWidth, height: windowHeight / 3, }}
+                        resizeMode='contain'
+                        source={require('../../assets/bigImage4.jpeg')}
+                    />
+                    <View style={styles.textView}>
+                        <Text style={styles.title}>SAINT LAURENT</Text>
+                        <Text style={styles.subtitle}>Fresh takes on the label’s most-loved pieces </Text>
+                    </View>
+                    <View style={{ flex: 1, marginBottom: 25 }}>
+                        <Carousel
+                            loop
+                            width={windowWidth}
+                            height={windowHeight / 4}
+                            autoPlay={false}
+                            data={[...new Array(6).keys()]}
+                            scrollAnimationDuration={1000}
+                            onSnapToItem={(index) => console.log('current index:', index)}
+                            renderItem={({ index }) => (
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        // borderWidth: 1,
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}
+                                >
+                                    <Image
+                                        resizeMode='contain'
+                                        style={{
+                                            width: '50%',
+                                            height: '100%',
+                                            // position:'absolute'
+                                        }}
+                                        source={require('../../assets/slider4.jpg')}
+                                    />
+                                    <View style={{ width: '50%' }}>
+                                        <Text style={{ textAlign: 'center', color: '#808080' }}>
+                                            New Season
+                                        </Text>
+                                        <Text style={{ textAlign: 'center', fontSize: 30 }}>
+                                            Versace
+                                        </Text>
+                                        <Text style={{ textAlign: 'center', fontSize: 25 }}>
+                                            Medusa-plaque clutch bag
+                                        </Text>
+                                        <Text style={{ textAlign: 'center', fontSize: 25, paddingTop: 25 }}>
+                                            $1.175
+                                        </Text>
+                                    </View>
+
+                                </View>
+                            )}
+                        />
+
+                    </View>
+                    <Button mode="outlined" textColor='black'
+                        style={{ width: '100%', marginBottom: 20 }}
+                        contentStyle={{ textAlign: 'center' }}
+                        onPress={() => console.log('Pressed shop')}>
+                        Shop Now
+                    </Button>
+                    <View style={styles.textView}>
+                        <Text style={styles.textUpper}>Plces we think you’ll love</Text>
+                        <Text style={styles.text}>More style inspirtion, just for you</Text>
+                    </View>
+                    <View style={{ flex: 1, marginBottom: 25 }}>
+                        <Carousel
+                            loop
+                            width={windowWidth}
+                            height={windowHeight / 4}
+                            autoPlay={false}
+                            data={[...new Array(6).keys()]}
+                            scrollAnimationDuration={1000}
+                            onSnapToItem={(index) => console.log('current index:', index)}
+                            renderItem={({ index }) => (
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        // borderWidth: 1,
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}
+                                >
+                                    <Image
+                                        resizeMode='contain'
+                                        style={{
+                                            width: '50%',
+                                            height: '100%',
+                                            // position:'absolute'
+                                        }}
+                                        source={require('../../assets/slider5.jpg')}
+                                    />
+                                    <View style={{ width: '50%' }}>
+                                        <Text style={{ textAlign: 'center', color: '#808080' }}>
+                                            New Season
+                                        </Text>
+                                        <Text style={{ textAlign: 'center', fontSize: 30 }}>
+                                            Versace
+                                        </Text>
+                                        <Text style={{ textAlign: 'center', fontSize: 25 }}>
+                                            Medusa-plaque clutch bag
+                                        </Text>
+                                        <Text style={{ textAlign: 'center', fontSize: 25, paddingTop: 25 }}>
+                                            $1.175
+                                        </Text>
+                                    </View>
+
+                                </View>
+                            )}
+                        />
+
+                    </View>
+                    <Button mode="outlined" textColor='black'
+                        style={{ width: '100%', marginBottom: 20 }}
+                        contentStyle={{ textAlign: 'center' }}
+                        onPress={() => console.log('Pressed shop')}>
+                        Shop Now
+                    </Button>
+
+                </View>
+                <View style={styles.logo}>
+                    <Image
+                        style={{ width: windowWidth, height: windowHeight / 2, }}
+                        resizeMode='contain'
+                        source={require('../../assets/bigImage5.jpeg')}
+                    />
+                    <View style={styles.textView}>
+                        <Text style={styles.textUpper}>BURBERRY</Text>
+                        <Text style={styles.text}>Fall layers, the Riccardo Tisci way</Text>
+                    </View>
+                    <View style={styles.textView}>
+                        <Text style={styles.textUpper}>Clothing for you</Text>
+                        {/* <Text style={styles.text}>More style inspirtion, just for you</Text> */}
+                    </View>
+                    <View style={{ flex: 1, marginBottom: 25 }}>
+                        <Carousel
+                            loop
+                            width={windowWidth}
+                            height={windowHeight / 4}
+                            autoPlay={false}
+                            data={[...new Array(6).keys()]}
+                            scrollAnimationDuration={1000}
+                            onSnapToItem={(index) => console.log('current index:', index)}
+                            renderItem={({ index }) => (
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        // borderWidth: 1,
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}
+                                >
+                                    <Image
+                                        resizeMode='contain'
+                                        style={{
+                                            width: '50%',
+                                            height: '100%',
+                                            // position:'absolute'
+                                        }}
+                                        source={require('../../assets/slider6.jpg')}
+                                    />
+                                    <View style={{ width: '50%' }}>
+                                        <Text style={{ textAlign: 'center', color: '#808080' }}>
+                                            New Season
+                                        </Text>
+                                        <Text style={{ textAlign: 'center', fontSize: 30 }}>
+                                            Versace
+                                        </Text>
+                                        <Text style={{ textAlign: 'center', fontSize: 25 }}>
+                                            Medusa-plaque clutch bag
+                                        </Text>
+                                        <Text style={{ textAlign: 'center', fontSize: 25, paddingTop: 25 }}>
+                                            $1.175
+                                        </Text>
+                                    </View>
+
+                                </View>
+                            )}
+                        />
+
+                    </View>
+                    <Button mode="outlined" textColor='black'
+                        style={{ width: '100%', marginBottom: 20 }}
+                        contentStyle={{ textAlign: 'center' }}
+                        onPress={() => console.log('Pressed shop')}>
+                        Shop Now
+                    </Button>
+                </View>
             </View>
 
-        </View>
+        </ScrollView>
     )
 };
+
+console.log(windowWidth, 'ww')
+console.log(windowHeight, 'wh')
 
 const TagRoute = () => <Text>Brands</Text>;
 
@@ -92,10 +444,14 @@ export default ThesisHome;
 const styles = StyleSheet.create({
     body: {
         flex: 1,
-        // backgroundColor:'white'
+        // backgroundColor: "white"
+    },
+    bodyHome: {
+        marginLeft: 35,
+        marginRight: 35,
     },
     page: {
-        backgroundColor: 'black'
+        backgroundColor: 'red'
     },
     headerWrapper: {
         borderBottomWidth: 4,
@@ -118,16 +474,29 @@ const styles = StyleSheet.create({
     },
     logo: {
         // width: '100%',
-        alignItems: 'center'
+        alignItems: 'center',
+
     },
-    textUpper: {
+    image: {
+        width: windowWidth,
+        height: 100,
+        paddingTop: 50,
+        flex: 1,
+        resizeMode: "contain"
+        // height: '50%'
+        // position: 'relative'
+    },
+    title: {
         fontWeight: 'bold',
         textTransform: 'uppercase',
         fontSize: 21
     },
+    subtitle: {
+        paddingTop: 10
+    },
     textView: {
-        width: '80%',
-        marginTop: 15,
+        width: '100%',
+        marginTop: 25,
         marginBottom: 15,
     },
 
