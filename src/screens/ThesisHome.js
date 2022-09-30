@@ -1,14 +1,11 @@
 import { View, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native'
 import React from 'react'
-import { BottomNavigation, Button, IconButton, Text } from 'react-native-paper';
+import { BottomNavigation, Button, IconButton, List, Searchbar, Text, TextInput } from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
 
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
-
-const FavouriteRoute = () => <Text>Wishlist</Text>;
 
 const HomeRoute = () => {
 
@@ -52,6 +49,7 @@ const HomeRoute = () => {
                                     style={{
                                         flex: 1,
                                         // borderWidth: 1,
+                                        // backgroundColor:'red',
                                         display: 'flex',
                                         flexDirection: 'row',
                                         justifyContent: 'space-between',
@@ -381,14 +379,94 @@ const HomeRoute = () => {
     )
 };
 
-console.log(windowWidth, 'ww')
-console.log(windowHeight, 'wh')
+const SearchRoute = () => {
+    const [searchQuery, setSearchQuery] = React.useState('');
 
-const TagRoute = () => <Text>Brands</Text>;
+    const onChangeSearch = query => setSearchQuery(query);
+    const [expanded, setExpanded] = React.useState(true);
+
+    const handlePress = () => setExpanded(!expanded);
+
+    return (
+        <ScrollView contentContainerStyle={{ backgroundColor: "white", height: windowHeight }}>
+            <View style={{ alignItems: 'center' }}>
+                <Searchbar
+                    placeholder="Search"
+                    onChangeText={onChangeSearch}
+                    value={searchQuery}
+                />
+            </View>
+            <View style={styles.cathegories}>
+                <View style={styles.types}>
+                    <Text>WOMEN</Text>
+                </View>
+                <View style={styles.cathegoriesList}>
+                    <List.Section title="Accordions">
+                        <List.Accordion
+                            title="Clothing"
+                            // left={props => <List.Icon {...props} icon="folder" />}
+                            expanded={expanded}
+                            onPress={handlePress}
+                        >
+                            <List.Accordion title="A Accordion" >
+                                <List.Item title="First item" onPress={() => console.log('first item')} />
+                                <List.Item title="Second item" onPress={() => console.log('second item')} />
+                            </List.Accordion>
+                        </List.Accordion>
+                    </List.Section>
+                </View>
+            </View>
+        </ScrollView>
+    )
+};
+
+const BrandsRoute = () => {
+    return (
+        <ScrollView contentContainerStyle={{ backgroundColor: "white", height: windowHeight }}>
+            <View style={styles.types}>
+                <Text>WOMEN</Text>
+            </View>
+
+            <View>
+                <Text>YOUR GO-TO BRANDS</Text>
+                <View style={{ width: '90%', backgroundColor: 'rgba(217, 217, 217, 0.22)', height: '30%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
+
+                    <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
+                        <IconButton
+                            icon="cards-heart-outline"
+                            // iconColor={MD3Colors.error50}
+                            size={25}
+                            onPress={() => console.log('Pressed')}
+                        />
+                        <Text>
+                            THERE WAS ONE
+                        </Text>
+                    </View>
+                    <Image
+                        resizeMode='contain'
+                        style={{
+                            width: '50%',
+                            height: '90%',
+                            // position:'absolute'
+                        }}
+                        source={require('../../assets/slider2_1.png')}
+                    />
+                </View>
+            </View>
+        </ScrollView>
+    )
+};
+
+
+const FavouriteRoute = () => <Text>Wishlist</Text>;
 
 const AccountRoute = () => <Text>Account</Text>;
 
-const SearchRoute = () => <Text>Search</Text>;
+
+console.log(windowWidth, 'ww')
+console.log(windowHeight, 'wh')
+
+
 
 const ThesisHome = () => {
 
@@ -396,7 +474,7 @@ const ThesisHome = () => {
     const [routes] = React.useState([
         { key: 'home', title: 'Home', focusedIcon: 'home', unfocusedIcon: 'home-outline' },
         { key: 'find', title: 'Search', focusedIcon: 'tag-search', unfocusedIcon: 'tag-search-outline' },
-        { key: 'tag', title: 'Brands', focusedIcon: 'tag', unfocusedIcon: 'tag-outline' },
+        { key: 'brands', title: 'Brands', focusedIcon: 'tag', unfocusedIcon: 'tag-outline' },
         { key: 'favourite', title: 'Wishlist', focusedIcon: 'heart', unfocusedIcon: 'heart-outline' },
         { key: 'account', title: 'Me', focusedIcon: 'account', unfocusedIcon: 'account-outline' },
 
@@ -405,7 +483,7 @@ const ThesisHome = () => {
     const renderScene = BottomNavigation.SceneMap({
         favourite: FavouriteRoute,
         home: HomeRoute,
-        tag: TagRoute,
+        brands: BrandsRoute,
         account: AccountRoute,
         find: SearchRoute,
     });
@@ -444,14 +522,14 @@ export default ThesisHome;
 const styles = StyleSheet.create({
     body: {
         flex: 1,
-        // backgroundColor: "white"
+        backgroundColor: "white"
     },
     bodyHome: {
         marginLeft: 35,
         marginRight: 35,
     },
     page: {
-        backgroundColor: 'red'
+        // backgroundColor: 'red'
     },
     headerWrapper: {
         borderBottomWidth: 4,
