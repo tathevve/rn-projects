@@ -2,6 +2,9 @@ import { View, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView } fro
 import React from 'react'
 import { BottomNavigation, Button, IconButton, List, Searchbar, Text, TextInput } from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
+import ActionSheet from "react-native-actions-sheet";
+import { useRef } from 'react';
+
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -97,7 +100,7 @@ const HomeRoute = () => {
                     <Image
                         style={{ width: windowWidth, height: windowHeight / 2, }}
                         resizeMode='contain'
-                        source={require('../../assets/bigImage2.jpeg')}
+                        source={require('../../assets/bigImage1.png')}
                     />
                     <View style={styles.textView}>
                         <Text style={styles.textUpper}>There Was One</Text>
@@ -382,38 +385,40 @@ const HomeRoute = () => {
 const SearchRoute = () => {
     const [searchQuery, setSearchQuery] = React.useState('');
 
-    const onChangeSearch = query => setSearchQuery(query);
+    const onChangeSearch = query => {setSearchQuery(query); console.log(searchQuery,'search')};
     const [expanded, setExpanded] = React.useState(true);
 
     const handlePress = () => setExpanded(!expanded);
 
     return (
         <ScrollView contentContainerStyle={{ backgroundColor: "white", height: windowHeight }}>
-            <View style={{ alignItems: 'center' }}>
-                <Searchbar
-                    placeholder="Search"
-                    onChangeText={onChangeSearch}
-                    value={searchQuery}
-                />
-            </View>
-            <View style={styles.cathegories}>
-                <View style={styles.types}>
-                    <Text>WOMEN</Text>
+            <View>
+                <View style={{ alignItems: 'center' }}>
+                    <Searchbar
+                        placeholder="Search"
+                        onChangeText={onChangeSearch}
+                        value={searchQuery}
+                    />
                 </View>
-                <View style={styles.cathegoriesList}>
-                    <List.Section title="Accordions">
-                        <List.Accordion
-                            title="Clothing"
-                            // left={props => <List.Icon {...props} icon="folder" />}
-                            expanded={expanded}
-                            onPress={handlePress}
-                        >
-                            <List.Accordion title="A Accordion" >
-                                <List.Item title="First item" onPress={() => console.log('first item')} />
-                                <List.Item title="Second item" onPress={() => console.log('second item')} />
+                <View style={styles.cathegories}>
+                    <View style={styles.types}>
+                        <Text>WOMEN</Text>
+                    </View>
+                    <View style={styles.cathegoriesList}>
+                        <List.Section title="">
+                            <List.Accordion
+                                title="Clothing"
+                                // left={props => <List.Icon {...props} icon="folder" />}
+                                expanded={expanded}
+                                onPress={handlePress}
+                            >
+                                <List.Accordion title="A Accordion" >
+                                    <List.Item title="First item" onPress={() => console.log('first item')} />
+                                    <List.Item title="Second item" onPress={() => console.log('second item')} />
+                                </List.Accordion>
                             </List.Accordion>
-                        </List.Accordion>
-                    </List.Section>
+                        </List.Section>
+                    </View>
                 </View>
             </View>
         </ScrollView>
@@ -421,36 +426,39 @@ const SearchRoute = () => {
 };
 
 const BrandsRoute = () => {
+
     return (
         <ScrollView contentContainerStyle={{ backgroundColor: "white", height: windowHeight }}>
-            <View style={styles.types}>
-                <Text>WOMEN</Text>
-            </View>
-
             <View>
-                <Text>YOUR GO-TO BRANDS</Text>
-                <View style={{ width: '90%', backgroundColor: 'rgba(217, 217, 217, 0.22)', height: '30%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
+                <View style={styles.types}>
+                    <Text>WOMEN</Text>
+                </View>
 
-                    <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
-                        <IconButton
-                            icon="cards-heart-outline"
-                            // iconColor={MD3Colors.error50}
-                            size={25}
-                            onPress={() => console.log('Pressed')}
+                <Text>YOUR GO-TO BRANDS</Text>
+                <View style={{ alignItems: 'center', marginTop: 25 }}>
+                    <View style={{ width: '90%', backgroundColor: 'rgba(217, 217, 217, 0.22)', height: '45%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
+
+                        <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
+                            <IconButton
+                                icon="cards-heart-outline"
+                                // iconColor={MD3Colors.error50}
+                                size={25}
+                                onPress={() => console.log('heart')}
+                            />
+                            <Text>
+                                THERE WAS ONE
+                            </Text>
+                        </View>
+                        <Image
+                            resizeMode='contain'
+                            style={{
+                                width: '50%',
+                                height: '90%',
+                                // position:'absolute'
+                            }}
+                            source={require('../../assets/slider2_1.png')}
                         />
-                        <Text>
-                            THERE WAS ONE
-                        </Text>
                     </View>
-                    <Image
-                        resizeMode='contain'
-                        style={{
-                            width: '50%',
-                            height: '90%',
-                            // position:'absolute'
-                        }}
-                        source={require('../../assets/slider2_1.png')}
-                    />
                 </View>
             </View>
         </ScrollView>
@@ -458,9 +466,98 @@ const BrandsRoute = () => {
 };
 
 
-const FavouriteRoute = () => <Text>Wishlist</Text>;
+const FavouriteRoute = () => {
+    return (
+        <ScrollView contentContainerStyle={{ backgroundColor: "white", height: windowHeight }}>
+            <View>
+                <View style={styles.types}>
+                    <Text>WISHLIST</Text>
+                </View>
+                <View style={styles.itemsCount}>
+                    <Text>0 ITEMS</Text>
+                    <Text>YOUR WISHLIST IS EMPTY</Text>
+                </View>
 
-const AccountRoute = () => <Text>Account</Text>;
+                <View>
+                    <Text>Looking for items you previously saved? Sign in to pick up where you left off</Text>
+                </View>
+                <Button mode="outlined" textColor='black'
+                    style={{ width: '100%', }}
+                    contentStyle={{ textAlign: 'center' }}
+                    onPress={() => console.log('Pressed explore')}>
+                    Sign In
+                </Button>
+            </View>
+        </ScrollView>
+    )
+};
+
+const AccountRoute = () => {
+    return (
+        <View style={{ backgroundColor: "white"}}>
+            <View style={{ display: 'flex', justifyContent: 'space-between', }}>
+                <View style={{ height: '50%' }}>
+                    <View style={styles.acoount}>
+                        <Text>ME</Text>
+                    </View>
+                    <View>
+                        <Text>LET’S GET PERSONAL</Text>
+                    </View>
+                    <View>
+                        <Text>Access your Bag & Wishlist on any of your devices</Text>
+                    </View>
+                    <View style={styles.buttons}>
+                        <Button mode="outlined" textColor='black'
+                            style={{ width: '100%', marginBottom: 15 }}
+                            contentStyle={{ textAlign: 'center' }}
+                            onPress={() => console.log('Pressed explore')}>
+                            Register
+                        </Button>
+                        <Button mode="outlined" textColor='black'
+                            style={{ width: '100%', }}
+                            contentStyle={{ textAlign: 'center' }}
+                            onPress={() => console.log('Pressed explore')}>
+                            Sign In
+                        </Button>
+
+                    </View>
+                </View>
+                <View style={{display:'flex', justifyContent:'flex-end', alignItems:'center', height:'50%'}}>
+                    <Text>
+                        Contact us
+                    </Text>
+                    <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
+                        <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
+                            <IconButton
+                                icon="phone-outline"
+                                // iconColor={MD3Colors.error50}
+                                size={25}
+                                onPress={() => console.log('phone')}
+                            />
+                            <Text>
+                                phone
+                            </Text>
+                        </View>
+                        <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <IconButton
+                                icon="email-outline"
+                                // iconColor={MD3Colors.error50}
+                                size={25}
+                                onPress={() => console.log('email')}
+                            />
+                            <Text>
+                                email
+                            </Text>
+                        </View>
+                    </View>
+                    <Text>
+                        Available Monday to Friday 9am - 6pm GMT
+                    </Text>
+                </View>
+            </View>
+        </View>
+    )
+};
 
 
 console.log(windowWidth, 'ww')
@@ -471,6 +568,7 @@ console.log(windowHeight, 'wh')
 const ThesisHome = () => {
 
     const [index, setIndex] = React.useState(0);
+    const actionSheetRef = useRef(null);
     const [routes] = React.useState([
         { key: 'home', title: 'Home', focusedIcon: 'home', unfocusedIcon: 'home-outline' },
         { key: 'find', title: 'Search', focusedIcon: 'tag-search', unfocusedIcon: 'tag-search-outline' },
@@ -489,7 +587,13 @@ const ThesisHome = () => {
     });
 
     return (
+
         <View style={styles.body}>
+            <ActionSheet ref={actionSheetRef}>
+                <View style={{ width: '90%' }}>
+                    <Text>Hi, I am here.</Text>
+                </View>
+            </ActionSheet>
             <View style={styles.headerWrapper}>
                 <Text style={styles.header}> GUTAN </Text>
                 <View style={styles.shopping}>
@@ -497,7 +601,7 @@ const ThesisHome = () => {
                         icon="shopping-outline"
                         // iconColor={MD3Colors.error50}
                         size={25}
-                        onPress={() => console.log('Pressed')}
+                        onPress={() => actionSheetRef.current?.show()}
                     />
                 </View>
 
