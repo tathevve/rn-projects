@@ -1,7 +1,8 @@
 import { View, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native'
 import React from 'react'
 import { BottomNavigation, Button, IconButton, List, Searchbar, Text, TextInput } from 'react-native-paper';
-import { styles } from '../../shared/Styles';
+import { styles } from '../../../shared/Styles';
+import Categories from './Categories';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -34,19 +35,10 @@ const SearchRoute = () => {
                         <Text style={styles.typesText}>WOMEN</Text>
                     </View>
                     <View style={styles.cathegoriesList}>
-                        <List.Section title="">
-                            <List.Accordion
-                                title="Clothing"
-                                // left={props => <List.Icon {...props} icon="folder" />}
-                                expanded={expanded}
-                                onPress={handlePress}
-                            >
-                                <List.Accordion title="A Accordion" >
-                                    <List.Item title="First item" onPress={() => console.log('first item')} />
-                                    <List.Item title="Second item" onPress={() => console.log('second item')} />
-                                </List.Accordion>
-                            </List.Accordion>
-                        </List.Section>
+                        <Categories typeTitle='Clothing' />
+                        <Categories typeTitle='Shoes' />
+                        <Categories typeTitle='Bags' />
+                        <Categories typeTitle='Shop By' />
                     </View>
                 </View>
             </View>

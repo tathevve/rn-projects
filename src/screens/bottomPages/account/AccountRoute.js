@@ -1,7 +1,7 @@
 import { View, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native'
 import React from 'react'
 import { BottomNavigation, Button, IconButton, List, Searchbar, Text, TextInput } from 'react-native-paper';
-import { styles } from '../../shared/Styles';
+import { styles } from '../../../shared/Styles';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
