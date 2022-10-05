@@ -10,6 +10,7 @@ import BrandsRoute from './bottomPages/brands/BrandsRoute';
 import { styles } from '../shared/Styles';
 import FavouriteRoute from './bottomPages/wishlist/FavouriteRoute';
 import AccountRoute from './bottomPages/account/AccountRoute';
+import MyButton from '../shared/MyButton';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -45,7 +46,16 @@ const ThesisHome = () => {
         <View style={styles.body}>
             <ActionSheet ref={actionSheetRef}>
                 <View style={{ width: '90%' }}>
-                    <Text>Hi, I am here.</Text>
+                    <View style={styles.typesOfSections}>
+                        <Text style={styles.typesText}>SHOPPING BAG</Text>
+                    </View>
+                    <View style={styles.itemsCount}>
+                        <Text>YOUR BAG IS EMPTY</Text>
+                    </View>
+                    <View>
+                        <Text>Looking for items you previously added? Sign in to pick up where you left off</Text>
+                    </View>
+                    <MyButton title='Sign In'/>
                 </View>
             </ActionSheet>
             <View style={styles.headerWrapper}>

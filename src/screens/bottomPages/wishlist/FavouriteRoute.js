@@ -2,6 +2,7 @@ import { View, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView } fro
 import React from 'react'
 import { BottomNavigation, Button, IconButton, List, Searchbar, Text, TextInput } from 'react-native-paper';
 import { styles } from '../../../shared/Styles';
+import MyButton from '../../../shared/MyButton';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -25,12 +26,8 @@ const FavouriteRoute = ({addedItemCount}) => {
                 <View>
                     <Text>Looking for items you previously saved? Sign in to pick up where you left off</Text>
                 </View>
-                <Button mode="outlined" textColor='black'
-                    style={{ width: '100%', }}
-                    contentStyle={{ textAlign: 'center' }}
-                    onPress={() => console.log('Pressed explore')}>
-                    Sign In
-                </Button>
+                <MyButton title='Sign In'/>
+
             </View>
         </ScrollView>
     )

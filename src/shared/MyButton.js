@@ -8,7 +8,7 @@ const MyButton = ({title}) => {
             style={{ width: '100%', marginBottom: 20 }}
             contentStyle={{ textAlign: 'center' }}
             onPress={() => console.log('Pressed shop')}>
-            {title}
+            {title.length == 0 ? 'Shop Now' : title }
         </Button>
     )
 }
