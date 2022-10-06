@@ -24,7 +24,7 @@ export default function HomeRoute() {
                         <Text style={styles.subtitle}>Pregomesh sets the standard for bold and stylish silver jewelry. Offering immaculate craftsmanship and original designs rooted in rich heritage, our rings, bracelets, necklaces, and brooches make a statement when they’re paired with any outfit.</Text>
                     </View>
 
-                    <MyButton title='Explore More' />
+                    <MyButton title='Explore More' onPress={() => console.log('explore more in home page')} />
                 </View>
                 <View style={styles.logo}>
                     <View style={styles.textView}>
@@ -37,7 +37,7 @@ export default function HomeRoute() {
                         />
 
                     </View>
-                    <MyButton title='' />
+                    <MyButton title='' onPress={() => console.log(' from home page')} />
                 </View>
 
                 <View style={styles.logo}>
@@ -57,7 +57,7 @@ export default function HomeRoute() {
                         {/* carpet.jpg')*/}
 
                     </View>
-                    <MyButton title='' />
+                    <MyButton title='' onPress={() => console.log(' from home page')} />
 
                 </View>
 
@@ -71,7 +71,7 @@ export default function HomeRoute() {
                         <Text style={styles.title}>TRENDING NOW: CARGO PANTS</Text>
                         <Text style={styles.subtitle}>The utilitarian favorite is back, and fall’s best styles come courtesy of Dion Lee, Marine Serre </Text>
                     </View>
-                    <MyButton title='' />
+                    <MyButton title='' onPress={() => console.log(' from home page')} />
 
                 </View>
                 <View style={styles.logo}>
@@ -91,7 +91,7 @@ export default function HomeRoute() {
                         {/* slider4.jpg */}
 
                     </View>
-                    <MyButton title='' />
+                    <MyButton title='' onPress={() => console.log(' from home page')} />
 
                     <View style={styles.textView}>
                         <Text style={styles.textUpper}>Plces we think you’ll love</Text>
@@ -104,7 +104,7 @@ export default function HomeRoute() {
                         {/* sider5.jpg */}
 
                     </View>
-                    <MyButton title='' />
+                    <MyButton title='' onPress={() => console.log(' from home page')} />
 
 
                 </View>
@@ -129,7 +129,7 @@ export default function HomeRoute() {
                         {/* slider6.jpg */}
 
                     </View>
-                    <MyButton title='' />
+                    <MyButton title='' onPress={() => console.log(' from home page')} />
 
                 </View>
             </View>

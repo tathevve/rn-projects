@@ -19,6 +19,7 @@ import Map from './src/screens/Map';
 import Camera from './src/screens/Camera';
 import Task from './src/screens/Task';
 import ThesisHome from './src/screens/ThesisHome';
+import SignIn from './src/screens/signIn/SignIn';
 
 
 const Tab = createMaterialBottomTabNavigator()
@@ -88,6 +89,13 @@ function App() {
           <RootStack.Screen
             name="ThesisHome"
             component={ThesisHome}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <RootStack.Screen
+            name="SignIn"
+            component={SignIn}
             options={{
               headerShown: false,
             }}

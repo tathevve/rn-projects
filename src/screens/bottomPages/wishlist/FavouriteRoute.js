@@ -26,7 +26,7 @@ const FavouriteRoute = ({addedItemCount}) => {
                 <View>
                     <Text>Looking for items you previously saved? Sign in to pick up where you left off</Text>
                 </View>
-                <MyButton title='Sign In'/>
+                <MyButton title='Sign In' onPress={() => console.log('sign in from wishlist page')}/>
 
             </View>
         </ScrollView>

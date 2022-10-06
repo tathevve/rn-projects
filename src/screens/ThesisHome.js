@@ -20,7 +20,7 @@ console.log(windowWidth, 'ww')
 console.log(windowHeight, 'wh')
 
 
-const ThesisHome = () => {
+const ThesisHome = ({ navigation }) => {
 
     const [index, setIndex] = React.useState(0);
     const actionSheetRef = useRef(null);
@@ -55,7 +55,7 @@ const ThesisHome = () => {
                     <View>
                         <Text>Looking for items you previously added? Sign in to pick up where you left off</Text>
                     </View>
-                    <MyButton title='Sign In'/>
+                    <MyButton title='Sign In' onPress={() => {navigation.navigate('SignIn')}} />
                 </View>
             </ActionSheet>
             <View style={styles.headerWrapper}>
@@ -68,7 +68,6 @@ const ThesisHome = () => {
                         onPress={() => actionSheetRef.current?.show()}
                     />
                 </View>
-
             </View>
 
             <BottomNavigation

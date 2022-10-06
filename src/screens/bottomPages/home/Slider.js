@@ -22,7 +22,7 @@ const images = [
   },
 ]
 
-console.log([...new Array(8).keys()], 'aaa')
+// console.log([...new Array(8).keys()], 'aaa')
 
 
 const Slider = ({ height }) => {
@@ -48,7 +48,7 @@ const Slider = ({ height }) => {
             alignItems: 'center'
           }}
         >
-          {console.log(images, 'index')}
+          {/* {console.log(images, 'index')} */}
           <Image
             resizeMode='contain'
             style={{

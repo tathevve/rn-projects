@@ -24,8 +24,8 @@ const AccountRoute = () => {
                         <Text>Access your Bag & Wishlist on any of your devices</Text>
                     </View>
                     <View style={styles.buttons}>
-                        <MyButton title='Register' /> 
-                        <MyButton title='Sign In' />
+                        <MyButton title='Register' onPress={() => console.log('register in account page')}/> 
+                        <MyButton title='Sign In'  onPress={() => console.log('sign in in account page')}/>
                     </View>
                 </View>
                 <View style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', height: '50%' }}>
