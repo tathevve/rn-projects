@@ -3,22 +3,28 @@ import React from 'react'
 import { BottomNavigation, IconButton, Button, List, Searchbar, Text, TextInput } from 'react-native-paper';
 import { styles } from '../../../shared/Styles';
 import Carousel from 'react-native-reanimated-carousel';
+import Slider1 from '../../../../assets/slider1.jpg';
+import Slider2 from '../../../../assets/slider2.jpg';
+import Slider3 from '../../../../assets/slider3.jpg';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const images = [
   {
-    item: 'abo',
-    index: 4,
+    name: 'abo',
+    image: 4,
+    image: Slider1,
   },
   {
-    item: 'sf',
-    index: 43,
+    name: 'sf',
+    image: 43,
+    image: Slider2,
   },
   {
-    item: 'sdv',
-    index: 45,
+    name: 'sdv',
+    image: 45,
+    image: Slider3,
   },
 ]
 
@@ -30,13 +36,12 @@ const Slider = ({ height }) => {
     <Carousel
       loop
       width={windowWidth}
-      height={height}
+      height={300}
       autoPlay={false}
-      // style={{backgroundColor:'#EDEBE9'}}
-      data={[...new Array(8).keys()]}
+      data={images}
       scrollAnimationDuration={1000}
       onSnapToItem={(index) => console.log('current index:', index)}
-      renderItem={(images) => (
+      renderItem={({ item, index }) => (
         <View
           style={{
             flex: 1,
@@ -47,6 +52,7 @@ const Slider = ({ height }) => {
             justifyContent: 'space-between',
             alignItems: 'center'
           }}
+          key={index}
         >
           {/* {console.log(images, 'index')} */}
           <Image
@@ -56,11 +62,11 @@ const Slider = ({ height }) => {
               height: '100%',
               // position:'absolute'
             }}
-            source={require('../../../../assets/ring.webp')}
+            source={item.image}
           />
           <View style={{ width: '50%' }}>
             <Text style={{ textAlign: 'center', color: '#808080' }}>
-              New Season
+              {item.name}
             </Text>
             <Text style={{ textAlign: 'center', fontSize: 30 }}>
               Versace

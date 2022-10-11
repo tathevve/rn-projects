@@ -10,16 +10,13 @@ const Categories = ({ typeTitle }) => {
     return (
         <List.Section>
             <List.Accordion
-                titleStyle={({ focused }) => {
-                    color = focused ? 'red' : 'blue'
-                }}
+                titleStyle={{color: 'black' }}
                 title={typeTitle}
-                style={{}}
                 // left={props => <List.Icon {...props} icon="folder" />}
                 expanded={expanded}
                 onPress={handlePress}
             >
-                <List.Accordion title="A Accordion" >
+                <List.Accordion title="A Accordion" titleStyle={{color: 'black' }}>
                     <List.Item title="First item" onPress={() => console.log('first item')} />
                     <List.Item title="Second item" onPress={() => console.log('second item')} />
                 </List.Accordion>

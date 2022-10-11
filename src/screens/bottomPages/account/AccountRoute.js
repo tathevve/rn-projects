@@ -1,12 +1,35 @@
-import { View, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native'
+import { View, Dimensions } from 'react-native'
 import React from 'react'
-import { BottomNavigation, Button, IconButton, List, Searchbar, Text, TextInput } from 'react-native-paper';
+import {IconButton, Text } from 'react-native-paper';
 import { styles } from '../../../shared/Styles';
+import MyButton from '../../../shared/MyButton';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { selectUserData } from '../../../redux/slicers/loginSlice';
+import { useState , useCallback } from 'react';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const AccountRoute = () => {
+
+    const navigation = useNavigation();
+
+    const loggedUserData = useSelector(selectUserData)
+
+    const [data,setData] = useState(null);
+
+    console.log(loggedUserData,'loggedUserData')
+
+    useFocusEffect(
+        useCallback(() => {
+            setData(loggedUserData)    
+          return () => setData(null);
+        }, [loggedUserData])
+      );
+
+      console.log(data,'data')
+
     return (
         <View style={{ backgroundColor: "white" }}>
             <View style={{
@@ -15,7 +38,7 @@ const AccountRoute = () => {
             }}>
                 <View style={{ height: '50%' }}>
                     <View style={styles.acoount}>
-                        <Text>ME</Text>
+                        <Text>{data?.name ?? "Me"}</Text>
                     </View>
                     <View>
                         <Text>LET’S GET PERSONAL</Text>
@@ -24,8 +47,8 @@ const AccountRoute = () => {
                         <Text>Access your Bag & Wishlist on any of your devices</Text>
                     </View>
                     <View style={styles.buttons}>
-                        <MyButton title='Register' onPress={() => console.log('register in account page')}/> 
-                        <MyButton title='Sign In'  onPress={() => console.log('sign in in account page')}/>
+                        <MyButton title='Register' onPress={() => { navigation.navigate('Register') }} />
+                        <MyButton title='Sign In' onPress={() => { navigation.navigate('SignIn') }} />
                     </View>
                 </View>
                 <View style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', height: '50%' }}>

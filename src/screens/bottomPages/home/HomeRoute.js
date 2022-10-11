@@ -37,7 +37,7 @@ export default function HomeRoute() {
                         />
 
                     </View>
-                    <MyButton title='' onPress={() => console.log(' from home page')} />
+                    <MyButton onPress={() => console.log(' from home page')} />
                 </View>
 
                 <View style={styles.logo}>
@@ -57,7 +57,7 @@ export default function HomeRoute() {
                         {/* carpet.jpg')*/}
 
                     </View>
-                    <MyButton title='' onPress={() => console.log(' from home page')} />
+                    <MyButton onPress={() => console.log(' from home page')} />
 
                 </View>
 
@@ -71,7 +71,7 @@ export default function HomeRoute() {
                         <Text style={styles.title}>TRENDING NOW: CARGO PANTS</Text>
                         <Text style={styles.subtitle}>The utilitarian favorite is back, and fall’s best styles come courtesy of Dion Lee, Marine Serre </Text>
                     </View>
-                    <MyButton title='' onPress={() => console.log(' from home page')} />
+                    <MyButton onPress={() => console.log(' from home page')} />
 
                 </View>
                 <View style={styles.logo}>
@@ -91,7 +91,7 @@ export default function HomeRoute() {
                         {/* slider4.jpg */}
 
                     </View>
-                    <MyButton title='' onPress={() => console.log(' from home page')} />
+                    <MyButton onPress={() => console.log(' from home page')} />
 
                     <View style={styles.textView}>
                         <Text style={styles.textUpper}>Plces we think you’ll love</Text>
@@ -104,7 +104,7 @@ export default function HomeRoute() {
                         {/* sider5.jpg */}
 
                     </View>
-                    <MyButton title='' onPress={() => console.log(' from home page')} />
+                    <MyButton onPress={() => console.log(' from home page')} />
 
 
                 </View>
@@ -129,7 +129,7 @@ export default function HomeRoute() {
                         {/* slider6.jpg */}
 
                     </View>
-                    <MyButton title='' onPress={() => console.log(' from home page')} />
+                    <MyButton onPress={() => console.log(' from home page')} />
 
                 </View>
             </View>

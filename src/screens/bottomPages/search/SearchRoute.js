@@ -28,6 +28,7 @@ const SearchRoute = () => {
                         placeholder="Search"
                         onChangeText={onChangeSearch}
                         value={searchQuery}
+                        style={{backgroundColor:'white'}}
                     />
                 </View>
                 <View style={styles.cathegories}>
