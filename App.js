@@ -11,7 +11,7 @@ function App() {
   return (
     <StoreProvider store={store}>
       <NavigationContainer>
-        <MainLayout />
+          <MainLayout />
       </NavigationContainer>
     </StoreProvider>
   );

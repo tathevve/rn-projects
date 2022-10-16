@@ -21,7 +21,6 @@ const defaultValues = {
 
 
 const SignIn = () => {
-    const actionSheetRef = useRef(null);
     const navigation = useNavigation();
     const loginInfo = useSelector(selectUserData);
     const dispatch = useDispatch()
@@ -43,7 +42,6 @@ const SignIn = () => {
     const getData = async () => {
         try {
             let user = await AsyncStorage.getItem('user');
-            let parsed = JSON.parse(user);
             // alert(parsed.email);
         }
         catch (error) {

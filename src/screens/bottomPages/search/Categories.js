@@ -1,6 +1,5 @@
-import { View, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native'
 import React from 'react'
-import { BottomNavigation, Button, IconButton, List, Searchbar, Text, TextInput } from 'react-native-paper';
+import { List } from 'react-native-paper';
 import { color } from 'react-native-reanimated';
 
 const Categories = ({ typeTitle }) => {
@@ -10,13 +9,13 @@ const Categories = ({ typeTitle }) => {
     return (
         <List.Section>
             <List.Accordion
-                titleStyle={{color: 'black' }}
+                titleStyle={{ color: 'black' }}
                 title={typeTitle}
                 // left={props => <List.Icon {...props} icon="folder" />}
                 expanded={expanded}
                 onPress={handlePress}
             >
-                <List.Accordion title="A Accordion" titleStyle={{color: 'black' }}>
+                <List.Accordion title="A Accordion" titleStyle={{ color: 'black' }}>
                     <List.Item title="First item" onPress={() => console.log('first item')} />
                     <List.Item title="Second item" onPress={() => console.log('second item')} />
                 </List.Accordion>

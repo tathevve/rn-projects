@@ -4,13 +4,20 @@ import { BottomNavigation, Button, IconButton, List, Searchbar, Text, TextInput 
 import { styles } from '../../../shared/Styles';
 import MyButton from '../../../shared/MyButton';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { selectUserData } from '../../../redux/slicers/loginSlice';
 
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+
 const FavouriteRoute = ({ addedItemCount }) => {
     const navigation = useNavigation()
+    const loggedUserData = useSelector(selectUserData)
+
+    console.log(loggedUserData.name,'aaa')
+
     return (
         <ScrollView contentContainerStyle={{ backgroundColor: "white", height: windowHeight }}>
             <View style={{

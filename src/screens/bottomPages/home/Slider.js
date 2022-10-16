@@ -1,7 +1,6 @@
-import { View, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native'
+import { View, Image, Dimensions } from 'react-native'
 import React from 'react'
-import { BottomNavigation, IconButton, Button, List, Searchbar, Text, TextInput } from 'react-native-paper';
-import { styles } from '../../../shared/Styles';
+import { Text } from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
 import Slider1 from '../../../../assets/slider1.jpg';
 import Slider2 from '../../../../assets/slider2.jpg';
@@ -28,15 +27,12 @@ const images = [
   },
 ]
 
-// console.log([...new Array(8).keys()], 'aaa')
-
-
 const Slider = ({ height }) => {
   return (
     <Carousel
       loop
       width={windowWidth}
-      height={300}
+      height={height}
       autoPlay={false}
       data={images}
       scrollAnimationDuration={1000}

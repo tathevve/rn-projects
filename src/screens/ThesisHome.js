@@ -1,14 +1,9 @@
-import { View, Dimensions } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
 import { IconButton, Text } from 'react-native-paper';
 import ActionSheet from "react-native-actions-sheet";
 import { useRef } from 'react';
-import HomeRoute from './bottomPages/home/HomeRoute';
-import SearchRoute from './bottomPages/search/SearchRoute';
-import BrandsRoute from './bottomPages/brands/BrandsRoute';
 import { styles } from '../shared/Styles';
-import FavouriteRoute from './bottomPages/wishlist/FavouriteRoute';
-import AccountRoute from './bottomPages/account/AccountRoute';
 import MyButton from '../shared/MyButton';
 import { useNavigation } from '@react-navigation/native';
 

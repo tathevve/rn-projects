@@ -1,9 +1,11 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import loginReducer from "./slicers/loginSlice"
+import loginReducer from "./slicers/loginSlice";
+import appReducer from "./slicers/app"
 
 
 const combinedReducers = combineReducers({
   login: loginReducer,
+  app: appReducer
 });
 
 

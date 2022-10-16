@@ -43,7 +43,7 @@ const TextInputField = (props) => {
     return (
         <View>
             <TextInput
-
+                style={{ backgroundColor: 'white' }}
                 label={label}
                 type={type}
                 disabled={disabled}
