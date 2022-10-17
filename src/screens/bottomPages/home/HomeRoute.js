@@ -4,10 +4,56 @@ import { BottomNavigation, IconButton, Button, List, Searchbar, Text, TextInput 
 import { styles } from '../../../shared/Styles';
 import MyButton from '../../../shared/MyButton';
 import Slider from './Slider';
+import image1 from "../.././../../assets/firstSliderFirst.png"
+import image2 from "../.././../../assets/firstSliderSecond.png"
+import image3 from "../.././../../assets/firstSliderThird.png"
+import image4 from "../.././../../assets/firstSliderForth.png"
+import sliderTwoFirstImg from "../.././../../assets/secodSliderFirst.png"
+
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+const firstSlider = [
+    {
+        season: 'New Season',
+        brand: 'Heritage',
+        price: '$335.00',
+        description: 'Ring-Chain Bracelet "Vaspurakan"',
+        image: image1,
+    },
+    {
+        season: '',
+        brand: 'Pregomesh',
+        price: '$115.00',
+        description: 'Earrings' + '\n' + '"Hethum I"',
+        image: image2,
+    },
+    {
+        season: 'New Season',
+        brand: 'Heritage',
+        price: '$110.00',
+        description: 'Ring “Berd”',
+        image: image3,
+    },
+    {
+        season: 'New Season',
+        brand: 'Heritage',
+        price: '$290.00',
+        description: 'Stack Bracelet "Vaspurakan"',
+        image: image4,
+    },
+]
+
+const secondSlider = [
+    {
+        season: '',
+        brand: 'Artsakh Carpet',
+        price: '$2250.00',
+        description: 'Arevtsil',
+        image: sliderTwoFirstImg,
+    },
+]
 
 export default function HomeRoute() {
     return (
@@ -33,7 +79,8 @@ export default function HomeRoute() {
                     </View>
                     <View style={{ flex: 1, marginBottom: 25 }}>
                         <Slider
-                            height={windowHeight / 4}
+                            height={windowHeight / 3}
+                            sliderData={firstSlider}
                         />
 
                     </View>
@@ -53,6 +100,7 @@ export default function HomeRoute() {
                     <View style={{ flex: 1, marginBottom: 25 }}>
                         <Slider
                             height={windowHeight / 4}
+                            sliderData={secondSlider}
                         />
                         {/* carpet.jpg')*/}
 

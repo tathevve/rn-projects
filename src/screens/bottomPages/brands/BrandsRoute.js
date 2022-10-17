@@ -23,7 +23,7 @@ const BrandsRoute = () => {
                 <Text>YOUR GO-TO BRANDS</Text>
 
                 <View style={{ alignItems: 'center', marginTop: 25 }}>
-                    <BrandNames brandName='THERE WAS ONE' imagePath={require('../../../../assets/slider2_1.png')} />
+                    <BrandNames brandName='THERE WAS ONE' imagePath={require('../../../../assets/brands_2.png')} />
                     <BrandNames brandName='Dion Lee' imagePath={require('../../../../assets/brands_2.png')} />
                 </View>
             </View>

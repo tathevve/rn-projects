@@ -1,8 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native'
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
 
 export const styles = StyleSheet.create({
     body: {
@@ -64,16 +62,4 @@ export const styles = StyleSheet.create({
         marginTop: 25,
         marginBottom: 15,
     },
-
-    typesOfSections: {
-        marginTop: 25
-    },
-    typesText: {
-        fontWeight: '900',
-        fontSize: 18,
-        fontFamily: 'Mulish',
-        letterSpacing: 3,
-
-    },
-
 })

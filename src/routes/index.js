@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 
 
 const HomeTabs = () => (
-    <Tab.Navigator screenOptions={{ headerShown: false }} style={{ marginBottom: 50 }}>
+    <Tab.Navigator initialRouteName='home' screenOptions={{ headerShown: false }} style={{ marginBottom: 50 }}>
         <Tab.Screen name="home" component={() => <ThesisHome>{<HomeRoute />}</ThesisHome>}
             options={{
                 tabBarLabel: ({ focused, color, size }) => (

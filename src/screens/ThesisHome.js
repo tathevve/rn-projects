@@ -1,37 +1,31 @@
 import { View } from 'react-native'
 import React from 'react'
 import { IconButton, Text } from 'react-native-paper';
-import ActionSheet from "react-native-actions-sheet";
 import { useRef } from 'react';
-import { styles } from '../shared/Styles';
 import MyButton from '../shared/MyButton';
-import { useNavigation } from '@react-navigation/native';
+import ShoppingBag from './shoppingBag/ShoppingBag';
+import { styles } from '../shared/Styles';
+import { useEffect } from 'react';
 
 
 
 
 const ThesisHome = ({children}) => {
-    const navigation = useNavigation();
     const actionSheetRef = useRef(null);
+    console.log(actionSheetRef,'action')
+
+
+    // useEffect(() => {
+    //     return () => {
+    //         actionSheetRef.current = null;
+    //     }
+    // },[])
 
 
     return (
 
         <View style={styles.body}>
-            <ActionSheet ref={actionSheetRef}>
-                <View style={{ width: '90%' }}>
-                    <View style={styles.typesOfSections}>
-                        <Text style={styles.typesText}>SHOPPING BAG</Text>
-                    </View>
-                    <View style={styles.itemsCount}>
-                        <Text>YOUR BAG IS EMPTY</Text>
-                    </View>
-                    <View>
-                        <Text>Looking for items you previously added? Sign in to pick up where you left off</Text>
-                    </View>
-                    <MyButton title='Sign In' onPress={() => { navigation.navigate('SignIn') }} />
-                </View>
-            </ActionSheet>
+            <ShoppingBag actionSheetRef={actionSheetRef}/>
             <View style={styles.headerWrapper}>
                 <Text style={styles.header}> Տատիկ </Text>
                 <View style={styles.shopping}>

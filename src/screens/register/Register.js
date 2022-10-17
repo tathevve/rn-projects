@@ -1,19 +1,16 @@
-import { View, Text, Alert } from 'react-native'
+import { View, Text, Alert, StyleSheet, Dimensions } from 'react-native'
 import React from 'react'
-import ActionSheet from 'react-native-actions-sheet'
 import MyButton from '../../shared/MyButton'
 import { useRef } from 'react'
-import { styles } from '../../shared/Styles'
-import { TextInput } from 'react-native-paper';
-import { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useEffect } from 'react'
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import TextInputField from '../../shared/TextInput/TextInputField'
 import { emailValidation, inputMaxLengthLimit, inputMinLengthLimit, requiredField } from '../../shared/models/validations/Validation'
 import { useDispatch } from 'react-redux'
 import { setUserData } from '../../redux/slicers/loginSlice'
+import { IconButton } from 'react-native-paper'
 
+const windowWidth = Dimensions.get('window').width;
 
 const defaultValues = {
     email: "",
@@ -24,7 +21,6 @@ const defaultValues = {
 };
 
 const Register = ({ navigation }) => {
-    const actionSheetRef = useRef(null);
 
     const dispatch = useDispatch();
 
@@ -49,7 +45,7 @@ const Register = ({ navigation }) => {
         const userObj = {
             email: data.email,
             password: data.password,
-            name:data.name,
+            name: data.name,
         }
 
         console.log(data, ' data')
@@ -68,19 +64,28 @@ const Register = ({ navigation }) => {
 
 
     return (
-        <View>
+        <View style={{ backgroundColor: 'white', height: '100%',  }}>
             {/* <ActionSheet ref={actionSheetRef}> */}
             {/* <Text>alo</Text> */}
             {/* </ActionSheet> */}
 
-            <View>
-                <Text style={{ fontSize: 20 }}> Register </Text>
+            <View style={styles.headerWrapper}>
+               
+                <View style={styles.closeIcon}>
+                    <IconButton
+                        icon="close"
+                        // iconColor={MD3Colors.error50}
+                        size={25}
+                        onPress={() => navigation.goBack()}
+                    />
+                </View>
+                 <Text style={styles.header}> Create an account </Text>
             </View>
             <View style={styles.inputAreas}>
                 <FormProvider {...methods}>
 
                     <TextInputField
-                        label="name"
+                        label="First Name"
                         type="text"
                         name="name"
                         inputProps={{ maxLength: 50 }}
@@ -90,7 +95,7 @@ const Register = ({ navigation }) => {
                         }}
                     />
                     <TextInputField
-                        label="surname"
+                        label="Last Name"
                         type="text"
                         name="surname"
                         inputProps={{ maxLength: 50 }}
@@ -100,7 +105,7 @@ const Register = ({ navigation }) => {
                         }}
                     />
                     <TextInputField
-                        label="email"
+                        label="Email"
                         type="email"
                         name="email"
                         rules={{
@@ -110,7 +115,7 @@ const Register = ({ navigation }) => {
                         inputProps={{ maxLength: 100 }}
                     />
                     <TextInputField
-                        label="password"
+                        label="Password"
                         name="password"
                         type="password"
                         isPassword={true}
@@ -122,7 +127,7 @@ const Register = ({ navigation }) => {
                         }}
                     />
                     <TextInputField
-                        label="password_confirm"
+                        label="Password Confirmation"
                         secureTextEntry
                         type="text"
                         isPassword={true}
@@ -132,36 +137,50 @@ const Register = ({ navigation }) => {
                             validate: (e) => e === watchPassword || "password_is_not_match",
                         }}
                     />
-                    <MyButton title='Sign In' onPress={handleSubmit(userSignup)} />
+
+                    <Text style={{ marginVertical: 25, color: 'black' }}>
+                        By registering you agree with our Terms & Conditions and Privacy Policy
+                    </Text>
+
+                    <MyButton title='Register' onPress={handleSubmit(userSignup)} />
 
                 </FormProvider>
 
+
             </View>
+            <MyButton title='Already have an account?' onPress={() => navigation.navigate('SignIn')} />
 
         </View>
     )
 }
 
+const styles = StyleSheet.create({
+    inputAreas: {
+    },
+    text: {
+        marginBottom: 15
+    },
+    headerWrapper: {
+        // width: '100%',
+        borderBottomWidth: 4,
+        borderBottomColor: 'white',
+        paddingBottom: 5,
+        backgroundColor: 'white',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        // justifyContent: 'space-around',
+    },
+    header: {
+        fontSize: 25,
+        width: '70%',
+        color: 'black',
+        textAlign: 'center',
+        fontFamily: 'Times New Roman'
+    },
+    closeIcon: {
+        width: '20%'
+    },
+})
+
 export default Register;
-
-
-
-
-{/* <TextInput
-                    label="Last Name"
-                    value={email}
-                    onChangeText={(value) => setEmail(value)}
-                />
-
-                <TextInput
-                    label="Email address"
-                    value={email}
-                    onChangeText={(value) => setEmail(value)}
-                />
-                <TextInput
-                    label="Password"
-                    secureTextEntry
-                    value={password}
-                    right={<TextInput.Icon icon="eye" />}
-                    onChangeText={(value) => setPassword(value)}
-                /> */}

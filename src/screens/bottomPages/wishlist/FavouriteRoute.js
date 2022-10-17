@@ -1,22 +1,20 @@
-import { View, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native'
+import { View, StyleSheet, Dimensions, ScrollView } from 'react-native'
 import React from 'react'
-import { BottomNavigation, Button, IconButton, List, Searchbar, Text, TextInput } from 'react-native-paper';
-import { styles } from '../../../shared/Styles';
+import { Text } from 'react-native-paper';
 import MyButton from '../../../shared/MyButton';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { selectUserData } from '../../../redux/slicers/loginSlice';
 
 
-const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
-const FavouriteRoute = ({ addedItemCount }) => {
+const FavouriteRoute = ({ addedItemCount = 0 }) => {
     const navigation = useNavigation()
     const loggedUserData = useSelector(selectUserData)
 
-    console.log(loggedUserData.name,'aaa')
+    console.log(loggedUserData?.name, 'aaa')
 
     return (
         <ScrollView contentContainerStyle={{ backgroundColor: "white", height: windowHeight }}>
@@ -28,18 +26,48 @@ const FavouriteRoute = ({ addedItemCount }) => {
                     <Text style={styles.typesText}>WISHLIST</Text>
                 </View>
                 <View style={styles.itemsCount}>
-                    <Text>0 ITEMS</Text>
-                    <Text>YOUR WISHLIST IS EMPTY</Text>
-                </View>
+                    <Text>{addedItemCount} ITEMS</Text>
 
-                <View>
-                    <Text>Looking for items you previously saved? Sign in to pick up where you left off</Text>
                 </View>
-                <MyButton title='Sign In' onPress={() => {navigation.navigate('SignIn')}} />
+                {addedItemCount === 0 ?
+                    <View>
+                        <Text style={styles.text}>YOUR WISHLIST IS EMPTY</Text>
+                        {loggedUserData?.name ?
+                            <Text style={styles.text}>When you favorite items you love, you’ll find them here</Text> :
+                            <Text style={styles.text}>Looking for items you previously saved? Sign in to pick up where you left off</Text>
+                        }
+                    </View>
+                    : null}
+
+                {loggedUserData?.name ?
+                    <MyButton title='Get Inspired' onPress={() => { navigation.navigate('SignIn') }} /> :
+                    <MyButton title='Sign In' onPress={() => { navigation.navigate('SignIn') }} />
+                }
 
             </View>
         </ScrollView>
     )
 }
+
+const styles = StyleSheet.create({
+    typesOfSections: {
+        marginTop: 25,
+        marginBottom:13
+    },
+    typesText: {
+        fontWeight: '900',
+        fontSize: 18,
+        fontFamily: 'Mulish',
+        letterSpacing: 3,
+        textTransform:'uppercase'
+    },
+    itemsCount: {
+        marginBottom:25
+    },
+    text: {
+        marginBottom:15
+    }
+})
+
 
 export default FavouriteRoute

@@ -1,11 +1,11 @@
-import { View, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native'
+import { View, Image } from 'react-native'
 import React from 'react'
-import { BottomNavigation, Button, IconButton, List, Searchbar, Text, TextInput } from 'react-native-paper';
+import { IconButton, Text } from 'react-native-paper';
 
 
-const BrandNames = ({brandName, imagePath}) => {
+const BrandNames = ({ brandName, imagePath }) => {
     return (
-        
+
         <View style={{ width: '100%', marginBottom: 5, backgroundColor: 'rgba(217, 217, 217, 0.22)', height: '30%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
 
             <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
