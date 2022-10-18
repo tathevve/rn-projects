@@ -1,20 +1,18 @@
-import { View, Image, Dimensions } from 'react-native'
-import React from 'react'
-import { Text } from 'react-native-paper';
+/* eslint-disable react-native/no-inline-styles */
+import {View, Image, Dimensions} from 'react-native';
+import React from 'react';
+import {Text} from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
-
+import {ISlider} from '../../../shared/models/interfaces/slider.interface';
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
+interface ISliderProps {
+  height: number;
+  sliderData: Array<ISlider>;
+}
 
-
-
-
-
-
-const Slider = ({ height, sliderData }) => {
-
+const Slider = ({height, sliderData}: ISliderProps): JSX.Element => {
   return (
     <Carousel
       loop
@@ -23,8 +21,8 @@ const Slider = ({ height, sliderData }) => {
       autoPlay={false}
       data={sliderData}
       scrollAnimationDuration={1000}
-      onSnapToItem={(index) => console.log('current index:', index)}
-      renderItem={({ item, index }) => (
+      onSnapToItem={index => console.log('current index:', index)}
+      renderItem={({item, index}) => (
         <View
           style={{
             flex: 1,
@@ -33,13 +31,12 @@ const Slider = ({ height, sliderData }) => {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
-            alignItems: 'center'
+            alignItems: 'center',
           }}
-          key={index}
-        >
+          key={index}>
           {/* {console.log(images, 'index')} */}
           <Image
-            resizeMode='contain'
+            resizeMode="contain"
             style={{
               width: '50%',
               height: '100%',
@@ -47,25 +44,24 @@ const Slider = ({ height, sliderData }) => {
             }}
             source={item.image}
           />
-          <View style={{ width: '50%' }}>
-            <Text style={{ textAlign: 'center', color: '#808080' }}>
+          <View style={{width: '50%'}}>
+            <Text style={{textAlign: 'center', color: '#808080'}}>
               {item?.season}
             </Text>
-            <Text style={{ textAlign: 'center', fontSize: 30 }}>
+            <Text style={{textAlign: 'center', fontSize: 30}}>
               {item.brand}
             </Text>
-            <Text style={{ textAlign: 'center', fontSize: 25 }}>
+            <Text style={{textAlign: 'center', fontSize: 25}}>
               {item.description}
             </Text>
-            <Text style={{ textAlign: 'center', fontSize: 25, paddingTop: 25 }}>
+            <Text style={{textAlign: 'center', fontSize: 25, paddingTop: 25}}>
               {item.price}
             </Text>
           </View>
-
         </View>
       )}
     />
-  )
-}
+  );
+};
 
-export default Slider
+export default Slider;
