@@ -32,7 +32,7 @@ const appSlicer = createSlice({
 });
 
 export const selectIsLoading = (state: any) => state.app.isLoading;
-export const selectPostmanLocation = (state: any) => state.app.location;
+export const selectLocation = (state: any) => state.app.location;
 
 export const { loadingStateOff, loadingStateOn, setGeolocation } = appSlicer.actions;
 

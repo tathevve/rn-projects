@@ -47,7 +47,6 @@ const TextInputField = ({
   keyboardType = 'default',
   errors,
   editable = true,
-  labelIsVisible = true,
   selectTextOnFocus = false,
 }: ITextInputField) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
@@ -58,7 +57,7 @@ const TextInputField = ({
 
   return (
     <>
-      {labelIsVisible ? <Text>{placeholder}</Text> : null}
+      {/* {labelIsVisible ? <Text>{placeholder}</Text> : null} */}
       <Controller
         name={name}
         rules={rules}
@@ -109,6 +108,6 @@ const styles = StyleSheet.create({
   passwordIcon: {
     position: 'absolute',
     right: 20,
-    top: 40,
+    top: 100,
   },
 });

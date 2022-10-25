@@ -1,5 +1,4 @@
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
 import React, {useCallback} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import SignIn from '../screens/signIn/SignIn';
@@ -7,27 +6,25 @@ import Register from '../screens/register/Register';
 import HomeRoute from '../screens/bottomPages/home/HomeRoute';
 import SearchRoute from '../screens/bottomPages/search/SearchRoute';
 import BrandsRoute from '../screens/bottomPages/brands/BrandsRoute';
-import FavouriteRoute from '../screens/bottomPages/wishlist/FavouriteRoute.tsx';
+import FavouriteRoute from '../screens/bottomPages/wishlist/FavouriteRoute';
 import AccountRoute from '../screens/bottomPages/account/AccountRoute';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import ThesisHome from '../screens/ThesisHome';
 import {IconButton, Text} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {selectIsLoading} from '../redux/slicers/app';
 import ScreenLayout from '../layout/ScreenLayout';
 import CircularLoader from '../shared/Loader/CircularLoader';
+import AllItems from '../screens/shopNow';
+import ItemDetails from '../screens/itemDetails/ItemDetails';
 
 const RootStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = (): JSX.Element => (
-  <Tab.Navigator
-    initialRouteName="home"
-    screenOptions={{headerShown: false}}
-    >
+  <Tab.Navigator initialRouteName="home" screenOptions={{headerShown: false}}>
     <Tab.Screen
       name="home"
-      component={() => <ThesisHome>{<HomeRoute />}</ThesisHome>}
+      component={HomeRoute}
       options={{
         tabBarLabel: ({focused}) => (
           <Text style={{color: focused ? 'black' : 'gray', fontSize: 13}}>
@@ -53,7 +50,7 @@ const TabNavigator = (): JSX.Element => (
     />
     <Tab.Screen
       name="find"
-      component={() => <ThesisHome>{<SearchRoute />}</ThesisHome>}
+      component={SearchRoute}
       options={{
         tabBarLabel: ({focused}) => (
           <Text style={{color: focused ? 'black' : 'gray', fontSize: 13}}>
@@ -79,7 +76,7 @@ const TabNavigator = (): JSX.Element => (
     />
     <Tab.Screen
       name="brands"
-      component={() => <ThesisHome>{<BrandsRoute />}</ThesisHome>}
+      component={BrandsRoute}
       options={{
         tabBarLabel: ({focused}) => (
           <Text style={{color: focused ? 'black' : 'gray', fontSize: 13}}>
@@ -105,7 +102,7 @@ const TabNavigator = (): JSX.Element => (
     />
     <Tab.Screen
       name="favourite"
-      component={() => <ThesisHome>{<FavouriteRoute />}</ThesisHome>}
+      component={FavouriteRoute}
       options={{
         tabBarLabel: ({focused}) => (
           <Text style={{color: focused ? 'black' : 'gray', fontSize: 13}}>
@@ -131,7 +128,7 @@ const TabNavigator = (): JSX.Element => (
     />
     <Tab.Screen
       name="account"
-      component={() => <ThesisHome>{<AccountRoute />}</ThesisHome>}
+      component={AccountRoute}
       options={{
         tabBarLabel: ({focused}) => (
           <Text style={{color: focused ? 'black' : 'gray', fontSize: 13}}>
@@ -190,6 +187,20 @@ const RootNavigator = (): JSX.Element => {
       <RootStack.Screen
         name="Register"
         component={Register}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStack.Screen
+        name="AllItems"
+        component={AllItems}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStack.Screen
+        name="ItemDetails"
+        component={ItemDetails}
         options={{
           headerShown: false,
         }}

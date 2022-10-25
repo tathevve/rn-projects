@@ -2,7 +2,6 @@
 import {View, Dimensions, ScrollView} from 'react-native';
 import React from 'react';
 import {Searchbar, Text} from 'react-native-paper';
-
 import Categories from './Categories';
 
 const windowHeight = Dimensions.get('window').height;
@@ -12,8 +11,13 @@ const SearchRoute = (): JSX.Element => {
 
   const onChangeSearch = (query: string): void => {
     setSearchQuery(query);
-    console.log(searchQuery, 'search');
   };
+  // console.log(searchQuery, 'query');
+  // const filtered = firstSlider.map(item => {
+  //   item.filter
+  // });
+
+  // console.log(filtered, 'filtered');
 
   return (
     <ScrollView

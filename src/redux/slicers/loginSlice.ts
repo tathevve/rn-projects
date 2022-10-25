@@ -5,19 +5,6 @@ const name = 'APP';
 
 const initialState = {
   userData: null,
-  //   LoginInfo:
-  //     [
-  //       {
-  //         id: Math.random(),
-  //         name: "",
-  //         major: "",
-  //         grade:"",
-  //         startDate: null,
-  //         endDate: null,
-  //         description: "",
-
-  //       }
-  //     ]
 };
 
 const loginSlice = createSlice({

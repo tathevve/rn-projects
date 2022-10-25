@@ -12,7 +12,7 @@ const windowHeight = Dimensions.get('window').height;
 const FavouriteRoute = ({
   addedItemCount = 0,
 }: {
-  addedItemCount: number;
+  addedItemCount?: number;
 }): JSX.Element => {
   const navigation = useNavigation();
   const loggedUserData = useSelector(selectUserData);
@@ -55,6 +55,7 @@ const FavouriteRoute = ({
             onPress={() => {
               navigation.navigate('SignIn' as never);
             }}
+            buttonStyle={styles.button}
           />
         ) : (
           <RNButton
@@ -62,6 +63,7 @@ const FavouriteRoute = ({
             onPress={() => {
               navigation.navigate('SignIn' as never);
             }}
+            buttonStyle={styles.button}
           />
         )}
       </View>
@@ -85,6 +87,20 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   text: {
+    marginBottom: 15,
+  },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 5,
+    width: '100%',
+    height: 35,
+    marginTop: 35,
+    borderStyle: 'solid',
+    color: 'black',
     marginBottom: 15,
   },
 });

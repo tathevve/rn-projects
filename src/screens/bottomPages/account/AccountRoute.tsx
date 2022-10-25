@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Dimensions, Image, StyleSheet} from 'react-native';
+import {View, Image, StyleSheet} from 'react-native';
 import React from 'react';
 import {IconButton, Text} from 'react-native-paper';
 import RNButton from '../../../shared/Button';
@@ -10,16 +10,17 @@ import {useState, useCallback} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import {List} from 'react-native-paper';
 import {IUser} from '../../../shared/models/interfaces/user.interface';
-
-const windowHeight = Dimensions.get('window').height;
+import {selectLocation} from '../../../redux/slicers/app';
 
 const AccountRoute = (): JSX.Element => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const loggedUserData = useSelector(selectUserData);
   const [data, setData] = useState<IUser | null>(null);
+  const locationData = useSelector(selectLocation);
 
   console.log(loggedUserData, 'loggedUserData');
+  console.log(locationData, 'location');
 
   useFocusEffect(
     useCallback(() => {
@@ -40,10 +41,6 @@ const AccountRoute = (): JSX.Element => {
       <View
         style={{
           display: 'flex',
-          height: windowHeight,
-          // justifyContent: 'space-between',
-          // alignItems:'center',
-          // width:windowWidth
           marginLeft: 17,
           marginRight: 17,
         }}>
@@ -68,12 +65,14 @@ const AccountRoute = (): JSX.Element => {
                     onPress={() => {
                       navigation.navigate('Register' as never);
                     }}
+                    buttonStyle={styles.button}
                   />
                   <RNButton
                     title="Sign In"
                     onPress={() => {
                       navigation.navigate('SignIn' as never);
                     }}
+                    buttonStyle={styles.button}
                   />
                 </View>
               </View>
@@ -116,8 +115,6 @@ const AccountRoute = (): JSX.Element => {
                   style={{height: 60}}
                   left={() => (
                     <Image
-                      // style={{ width: windowWidth, height: windowHeight / 2, }}
-                      // resizeMode='contain'
                       style={{marginTop: 18}}
                       source={require('../../../../assets/Armenia.png')}
                     />
@@ -126,8 +123,6 @@ const AccountRoute = (): JSX.Element => {
                   onPress={() => console.log('aaa')}
                 />
               </List.Section>
-
-              {/* <Text>Armenia (USD)</Text> */}
             </View>
             <View>
               <Text style={styles.text}>
@@ -213,7 +208,11 @@ const AccountRoute = (): JSX.Element => {
           {data?.name ? (
             <View>
               <Text style={styles.textStyle}>Not {data?.name}?</Text>
-              <RNButton title="Sign Out" onPress={signOut} />
+              <RNButton
+                title="Sign Out"
+                onPress={signOut}
+                buttonStyle={styles.button}
+              />
             </View>
           ) : null}
         </View>
@@ -244,6 +243,20 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     textAlign: 'center',
     fontSize: 17,
+  },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 5,
+    width: '100%',
+    height: 35,
+    marginTop: 35,
+    borderStyle: 'solid',
+    color: 'black',
+    marginBottom: 15,
   },
 });
 

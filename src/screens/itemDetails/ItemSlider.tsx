@@ -1,18 +1,20 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, Image, Dimensions} from 'react-native';
 import React from 'react';
-import {Text} from 'react-native-paper';
+// import {Text} from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
-import {IItem} from '../../../shared/models/interfaces/item.interface';
+// import {IItem} from '../../shared/models/interfaces/item.interface';
 
 const windowWidth = Dimensions.get('window').width;
 
 interface ISliderProps {
-  height: number;
-  sliderData: Array<IItem>;
+  height?: number;
+  sliderData: Array<any | string>;
 }
 
-const Slider = ({height, sliderData}: ISliderProps): JSX.Element => {
+const ItemSlider = ({height, sliderData}: ISliderProps): JSX.Element => {
+  console.log(sliderData, 'slider');
+
   return (
     <Carousel
       loop
@@ -38,30 +40,16 @@ const Slider = ({height, sliderData}: ISliderProps): JSX.Element => {
           <Image
             resizeMode="contain"
             style={{
-              width: '50%',
+              width: '100%',
               height: '100%',
               // position:'absolute'
             }}
             source={item.image}
           />
-          <View style={{width: '50%'}}>
-            <Text style={{textAlign: 'center', color: '#808080'}}>
-              {item?.season}
-            </Text>
-            <Text style={{textAlign: 'center', fontSize: 30}}>
-              {item.brand}
-            </Text>
-            <Text style={{textAlign: 'center', fontSize: 25}}>
-              {item.description}
-            </Text>
-            <Text style={{textAlign: 'center', fontSize: 25, paddingTop: 25}}>
-              {item.price}
-            </Text>
-          </View>
         </View>
       )}
     />
   );
 };
 
-export default Slider;
+export default ItemSlider;

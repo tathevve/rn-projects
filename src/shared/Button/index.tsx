@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, Pressable, StyleProp, TextStyle} from 'react-native';
+import {Text, StyleProp, TextStyle, TouchableOpacity} from 'react-native';
 import CircularLoader from '../Loader/CircularLoader';
 
 interface IButton {
@@ -15,7 +15,7 @@ interface IButton {
 }
 
 const RNButton = ({
-  buttonStyle = {width: '100%', marginBottom: 20},
+  buttonStyle,
   textStyle,
   onPress,
   onBlur,
@@ -26,7 +26,7 @@ const RNButton = ({
   disabledStyles,
 }: IButton): JSX.Element => {
   return (
-    <Pressable
+    <TouchableOpacity
       style={[buttonStyle, disabled === true && disabledStyles]}
       onPress={onPress}
       onBlur={onBlur}
@@ -39,7 +39,7 @@ const RNButton = ({
           <Text style={textStyle}>{title}</Text>
         </>
       )}
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 

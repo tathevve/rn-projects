@@ -152,12 +152,17 @@ const Register = (): JSX.Element => {
             Policy
           </Text>
 
-          <RNButton title="Register" onPress={handleSubmit(userSignup)} />
+          <RNButton
+            title="Register"
+            onPress={handleSubmit(userSignup)}
+            buttonStyle={styles.button}
+          />
         </FormProvider>
       </View>
       <RNButton
         title="Already have an account?"
         onPress={() => navigation.navigate('SignIn' as never)}
+        buttonStyle={styles.button}
       />
     </View>
   );
@@ -188,6 +193,20 @@ const styles = StyleSheet.create({
   },
   closeIcon: {
     width: '20%',
+  },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 5,
+    width: '100%',
+    height: 35,
+    marginTop: 35,
+    borderStyle: 'solid',
+    color: 'black',
+    marginBottom: 15,
   },
 });
 

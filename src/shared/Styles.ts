@@ -7,6 +7,20 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 5,
+    width: '100%',
+    height: 35,
+    marginTop: 35,
+    borderStyle: 'solid',
+    color: 'black',
+    marginBottom: 15,
+  },
   bodyHome: {
     marginLeft: 35,
     marginRight: 35,
@@ -14,27 +28,7 @@ export const styles = StyleSheet.create({
   page: {
     backgroundColor: 'red',
   },
-  headerWrapper: {
-    width: '100%',
-    borderBottomWidth: 4,
-    borderBottomColor: 'white',
-    paddingBottom: 5,
-    backgroundColor: 'white',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  header: {
-    fontSize: 35,
-    width: '70%',
-    color: 'black',
-    textAlign: 'center',
-    fontFamily: 'Times New Roman',
-  },
-  shopping: {
-    width: '15%',
-  },
+
   logo: {
     // width: '100%',
     alignItems: 'center',

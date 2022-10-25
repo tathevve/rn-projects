@@ -1,11 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import {useFocusEffect} from '@react-navigation/native';
+import React, {useCallback, useState} from 'react';
 import {List} from 'react-native-paper';
 
 const Categories = ({typeTitle}: {typeTitle: string}): JSX.Element => {
-  const [expanded, setExpanded] = React.useState(true);
+  const [expanded, setExpanded] = useState<boolean>(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => setExpanded(false);
+    }, []),
+  );
 
   const handlePress = () => setExpanded(!expanded);
+
   return (
     <List.Section>
       <List.Accordion
