@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Image, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import React from 'react';
 import {IconButton, Text} from 'react-native-paper';
 import RNButton from '../../../shared/Button';
@@ -105,7 +105,7 @@ const AccountRoute = (): JSX.Element => {
             )}
           </View>
           <View>
-            <View>
+            {/* <View>
               <List.Section>
                 <List.Subheader style={styles.sectionHeader}>
                   My Location
@@ -123,7 +123,7 @@ const AccountRoute = (): JSX.Element => {
                   onPress={() => console.log('aaa')}
                 />
               </List.Section>
-            </View>
+            </View> */}
             <View>
               <Text style={styles.text}>
                 This location defines your language and currency

@@ -16,7 +16,7 @@ const AllItems = (): JSX.Element => {
           backgroundColor: 'white',
         }}>
         <IconButton
-          icon="arrow-left"
+          icon="arrow-left-thin"
           // iconColor={MD3Colors.error50}
           size={32}
           onPress={() => navigation.goBack()}
@@ -29,33 +29,6 @@ const AllItems = (): JSX.Element => {
             flexDirection: 'row',
             flexWrap: 'wrap',
           }}>
-          {firstSlider.map(item => {
-            return (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate(
-                    'ItemDetails' as never,
-                    {
-                      item,
-                    } as never,
-                  )
-                }
-                key={item.id}
-                style={{
-                  width: '50%',
-                  // flexWrap: 'wrap',
-                }}>
-                <OneItem
-                  id={item.id}
-                  season={item.season}
-                  image={item.image}
-                  brand={item.brand}
-                  description={item.description}
-                  price={item.price}
-                />
-              </TouchableOpacity>
-            );
-          })}
           {firstSlider.map(item => {
             return (
               <TouchableOpacity

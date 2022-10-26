@@ -4,7 +4,7 @@ import {createSlice} from '@reduxjs/toolkit';
 const name = 'APP';
 
 const initialState = {
-  itemData: null,
+  itemData: [],
 };
 
 const wishlistSlice = createSlice({

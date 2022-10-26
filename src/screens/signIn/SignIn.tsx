@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, Alert, StyleSheet} from 'react-native';
+import {View, Alert, StyleSheet} from 'react-native';
 import React from 'react';
 import RNButton from '../../shared/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,6 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {setUserData} from '../../redux/slicers/loginSlice';
 import {IRegisterUser} from '../../shared/models/interfaces/user.interface';
+import {IconButton} from 'react-native-paper';
 
 interface IUserForm {
   email: string;
@@ -71,13 +72,26 @@ const SignIn = (): JSX.Element => {
   };
 
   return (
-    <View>
+    <View style={{backgroundColor: 'white'}}>
       {/* <ActionSheet ref={actionSheetRef}> */}
       {/* <Text>alo</Text> */}
       {/* </ActionSheet> */}
 
-      <View>
-        <Text style={{fontSize: 20}}> Sign In </Text>
+      <View style={{marginBottom: 35}}>
+        <IconButton
+          icon="arrow-left-thin"
+          // iconColor={MD3Colors.error50}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 5,
+            height: 30,
+            width: 30,
+            zIndex: 2,
+          }}
+          onPress={() => navigation.goBack()}
+        />
+        {/* <Text style={{fontSize: 20}}> Sign In </Text> */}
       </View>
       <View>
         <FormProvider {...methods}>

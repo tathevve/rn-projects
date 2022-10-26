@@ -4,6 +4,7 @@ import React from 'react';
 import {IconButton} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import ItemSlider from './ItemSlider';
+import RNPickerSelect from 'react-native-picker-select';
 
 const ItemDetails = ({route}: any) => {
   const itemParams = route.params;
@@ -14,7 +15,7 @@ const ItemDetails = ({route}: any) => {
   return (
     <ScrollView style={{backgroundColor: 'white', position: 'relative'}}>
       <IconButton
-        icon="alpha-x"
+        icon="arrow-left-thin"
         // iconColor={MD3Colors.error50}
         style={{
           position: 'absolute',
@@ -35,6 +36,18 @@ const ItemDetails = ({route}: any) => {
         <Text>{itemParams.item.description}</Text>
         <Text>{itemParams.item.price}</Text>
       </View>
+      <RNPickerSelect
+        placeholder={{
+          label: 'Select your size',
+        }}
+        // style={{backgoru}}
+        onValueChange={value => console.log(value, 'value')}
+        items={[
+          {label: 'Football', value: 'football'},
+          {label: 'Baseball', value: 'baseball'},
+          {label: 'Hockey', value: 'hockey'},
+        ]}
+      />
     </ScrollView>
   );
 };

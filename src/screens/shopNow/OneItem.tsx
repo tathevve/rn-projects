@@ -17,17 +17,15 @@ const OneItem = ({
 }: IItem): JSX.Element => {
   const [hearted, setHearted] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
-  const itemInfo = useSelector(selectItemData);
-
-  console.log(itemInfo, 'iteminfo');
+  const wishListItemsData = useSelector(selectItemData);
 
   const item = {
-    id: id,
-    season: season,
-    brand: brand,
-    price: price,
-    description: description,
-    image: image,
+    id,
+    season,
+    brand,
+    price,
+    description,
+    image,
   };
 
   return (
@@ -43,19 +41,18 @@ const OneItem = ({
         icon={hearted ? 'heart' : 'heart-outline'}
         style={{
           position: 'absolute',
-          top: 0,
-          right: 0,
+          top: 7,
+          right: 13,
           height: 22,
           width: 22,
           zIndex: 2,
         }}
         onPress={() => {
           setHearted(!hearted);
-          dispatch(setItemData(item));
+          dispatch(setItemData([...wishListItemsData, item]));
           console.log('Pressed', id);
         }}
       />
-
       <Image
         resizeMode="cover"
         style={{

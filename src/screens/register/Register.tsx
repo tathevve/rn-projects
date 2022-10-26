@@ -73,11 +73,18 @@ const Register = (): JSX.Element => {
       {/* </ActionSheet> */}
 
       <View style={styles.headerWrapper}>
-        <View style={styles.closeIcon}>
+        <View style={{marginBottom: 35}}>
           <IconButton
-            icon="close"
+            icon="arrow-left-thin"
             // iconColor={MD3Colors.error50}
-            size={25}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 5,
+              height: 30,
+              width: 30,
+              zIndex: 2,
+            }}
             onPress={() => navigation.goBack()}
           />
         </View>
@@ -190,9 +197,6 @@ const styles = StyleSheet.create({
     color: 'black',
     textAlign: 'center',
     fontFamily: 'Times New Roman',
-  },
-  closeIcon: {
-    width: '20%',
   },
   button: {
     justifyContent: 'center',
