@@ -31,7 +31,7 @@ const ItemDetails = ({route}: any) => {
           icon="arrow-left-thin"
           // iconColor={MD3Colors.error50}
           style={{
-            position: 'fixed',
+            position: 'absolute',
             top: 0,
             left: 0,
             height: 30,
