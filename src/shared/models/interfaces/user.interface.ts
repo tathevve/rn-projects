@@ -7,7 +7,6 @@ export interface IUser {
 export interface IRegisterUser {
   email: string;
   password: string;
-  passwordConfirm: string;
   name: string;
   surname: string;
 }

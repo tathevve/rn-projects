@@ -6,4 +6,5 @@ export interface IItem {
   description?: string;
   image?: any | string;
   imagesArray?: Array<any | string>;
+  isHearted?: boolean;
 }

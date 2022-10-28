@@ -1,23 +1,30 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, StyleSheet, Dimensions, ScrollView} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import {Text} from 'react-native-paper';
 import RNButton from '../../../shared/Button';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {selectUserData} from '../../../redux/slicers/loginSlice';
+import {selectItemData} from '../../../redux/slicers/wishlistSlice';
+import OneItem from '../../shopNow/OneItem';
+import {IItem} from '../../../shared/models/interfaces/item.interface';
 
 const windowHeight = Dimensions.get('window').height;
 
-const FavouriteRoute = ({
-  addedItemCount = 0,
-}: {
-  addedItemCount?: number;
-}): JSX.Element => {
+const FavouriteRoute = (): JSX.Element => {
   const navigation = useNavigation();
   const loggedUserData = useSelector(selectUserData);
+  const wishListItemsData = useSelector(selectItemData);
 
   console.log(loggedUserData?.name, 'aaa');
+  console.log(wishListItemsData, 'aloalo');
 
   return (
     <ScrollView
@@ -31,9 +38,9 @@ const FavouriteRoute = ({
           <Text style={styles.typesText}>WISHLIST</Text>
         </View>
         <View style={styles.itemsCount}>
-          <Text>{addedItemCount} ITEMS</Text>
+          <Text>{wishListItemsData?.length} ITEMS</Text>
         </View>
-        {addedItemCount === 0 ? (
+        {wishListItemsData?.length === 0 ? (
           <View>
             <Text style={styles.text}>YOUR WISHLIST IS EMPTY</Text>
             {loggedUserData?.name ? (
@@ -47,17 +54,47 @@ const FavouriteRoute = ({
               </Text>
             )}
           </View>
-        ) : null}
-
-        {loggedUserData?.name ? (
-          <RNButton
-            title="Get Inspired"
-            onPress={() => {
-              navigation.navigate('SignIn' as never);
-            }}
-            buttonStyle={styles.button}
-          />
         ) : (
+          <View
+            style={{
+              width: '100%',
+              paddingBottom: 100,
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+            }}>
+            {wishListItemsData.map((item: IItem, index: number) => {
+              return (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate(
+                      'ItemDetails' as never,
+                      {
+                        item,
+                      } as never,
+                    )
+                  }
+                  key={index}
+                  style={{
+                    width: '50%',
+                    // flexWrap: 'wrap',
+                  }}>
+                  <OneItem
+                    id={item.id}
+                    season={item.season}
+                    image={item.image}
+                    brand={item.brand}
+                    description={item.description}
+                    price={item.price}
+                    isHearted={item.isHearted}
+                  />
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        )}
+
+        {loggedUserData?.name ? null : (
           <RNButton
             title="Sign In"
             onPress={() => {

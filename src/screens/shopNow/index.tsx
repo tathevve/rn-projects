@@ -2,12 +2,15 @@
 import {View, ScrollView, TouchableOpacity} from 'react-native';
 import React from 'react';
 import OneItem from './OneItem';
-import {firstSlider} from '../bottomPages/home/HomeRoute';
 import {useNavigation} from '@react-navigation/native';
 import {IconButton} from 'react-native-paper';
+import {useSelector} from 'react-redux';
+import {selectItems} from '../../redux/slicers/allItemsSlice';
+import {IItem} from '../../shared/models/interfaces/item.interface';
 
 const AllItems = (): JSX.Element => {
   const navigation = useNavigation();
+  const items = useSelector(selectItems);
 
   return (
     <View style={{flex: 1}}>
@@ -29,7 +32,7 @@ const AllItems = (): JSX.Element => {
             flexDirection: 'row',
             flexWrap: 'wrap',
           }}>
-          {firstSlider.map(item => {
+          {items.map((item: IItem, index: number) => {
             return (
               <TouchableOpacity
                 onPress={() =>
@@ -40,7 +43,7 @@ const AllItems = (): JSX.Element => {
                     } as never,
                   )
                 }
-                key={item.id}
+                key={index}
                 style={{
                   width: '50%',
                   // flexWrap: 'wrap',
@@ -52,28 +55,11 @@ const AllItems = (): JSX.Element => {
                   brand={item.brand}
                   description={item.description}
                   price={item.price}
+                  isHearted={item.isHearted}
                 />
               </TouchableOpacity>
             );
           })}
-          {/* <View style={{width: '50%'}}>
-            <OneItem
-              season="aldfvdso"
-              image={image2}
-              brand="2"
-              description="asdsa"
-              price="$315"
-            />
-          </View>
-          <View style={{width: '50%'}}>
-            <OneItem
-              season="dfgdfg"
-              image={image1}
-              brand="3"
-              description="asdsa"
-              price="$315"
-            />
-          </View> */}
         </View>
       </ScrollView>
     </View>

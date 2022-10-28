@@ -17,6 +17,7 @@ interface ITextInputField {
   rules?: any;
   placeholder?: string;
   customInputStyles?: StyleProp<TextStyle>;
+  customPasswordStyles?: StyleProp<TextStyle>;
   customValue?: string;
   changeHandler?: (value: any) => void | any;
   keyboardType?: string;
@@ -37,6 +38,7 @@ const TextInputField = ({
   control,
   placeholder,
   customInputStyles,
+  customPasswordStyles,
   errorMessage = '',
   errorMessageStyles,
   props,
@@ -87,7 +89,7 @@ const TextInputField = ({
       {isPassword && (
         <Ionicon
           name={!isPasswordVisible ? 'md-eye-off' : 'md-eye'}
-          style={styles.passwordIcon}
+          style={customPasswordStyles}
           size={20}
           onPress={handlePasswordToggle}
         />
@@ -108,6 +110,6 @@ const styles = StyleSheet.create({
   passwordIcon: {
     position: 'absolute',
     right: 20,
-    top: 100,
+    top: 255,
   },
 });

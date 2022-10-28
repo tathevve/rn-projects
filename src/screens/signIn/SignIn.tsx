@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Alert, StyleSheet} from 'react-native';
+import {View, Alert, StyleSheet, Text} from 'react-native';
 import React from 'react';
 import RNButton from '../../shared/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -72,62 +72,74 @@ const SignIn = (): JSX.Element => {
   };
 
   return (
-    <View style={{backgroundColor: 'white'}}>
+    <View style={{backgroundColor: 'white', height: '100%'}}>
       {/* <ActionSheet ref={actionSheetRef}> */}
       {/* <Text>alo</Text> */}
       {/* </ActionSheet> */}
+      <View style={{marginHorizontal: 17}}>
+        <View style={{height: '82%'}}>
+          <View style={{marginBottom: 35}}>
+            <IconButton
+              icon="arrow-left-thin"
+              // iconColor={MD3Colors.error50}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                height: 30,
+                width: 30,
+                zIndex: 2,
+              }}
+              onPress={() => navigation.goBack()}
+            />
+          </View>
+          <View>
+            <FormProvider {...methods}>
+              <TextInputField
+                placeholder="Email"
+                name="email"
+                labelIsVisible
+                secureTextEntry
+                control={control}
+                rules={{
+                  required: requiredField(),
+                  pattern: emailValidation(),
+                }}
+                props={{maxLength: 100}}
+                customInputStyles={styles.input}
+              />
+              <TextInputField
+                placeholder="Password"
+                name="password"
+                labelIsVisible
+                secureTextEntry
+                control={control}
+                isPassword
+                rules={{
+                  required: requiredField(),
+                  minLength: inputMinLengthLimit(8),
+                  maxLength: inputMaxLengthLimit(13),
+                }}
+                customInputStyles={styles.input}
+                customPasswordStyles={styles.passwordIcon}
+              />
+              <RNButton
+                title="Sign In"
+                onPress={handleSubmit(signIn)}
+                buttonStyle={styles.button}
+              />
+            </FormProvider>
+          </View>
 
-      <View style={{marginBottom: 35}}>
-        <IconButton
-          icon="arrow-left-thin"
-          // iconColor={MD3Colors.error50}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 5,
-            height: 30,
-            width: 30,
-            zIndex: 2,
-          }}
-          onPress={() => navigation.goBack()}
-        />
-        {/* <Text style={{fontSize: 20}}> Sign In </Text> */}
-      </View>
-      <View>
-        <FormProvider {...methods}>
-          <TextInputField
-            placeholder="Email"
-            name="email"
-            labelIsVisible
-            secureTextEntry
-            control={control}
-            rules={{
-              required: requiredField(),
-              pattern: emailValidation(),
-            }}
-            props={{maxLength: 100}}
-            customInputStyles={styles.input}
-          />
-          <TextInputField
-            placeholder="Password"
-            name="password"
-            labelIsVisible
-            secureTextEntry
-            control={control}
-            isPassword
-            rules={{
-              required: requiredField(),
-              minLength: inputMinLengthLimit(8),
-              maxLength: inputMaxLengthLimit(13),
-            }}
-            customInputStyles={styles.input}
-          />
+          <Text>Forgot password</Text>
+        </View>
+        <View style={{height: '18%'}}>
           <RNButton
-            title="Sign In"
-            onPress={handleSubmit(signIn)}
+            title="Create an account"
+            onPress={() => navigation.navigate('Register' as never)}
             buttonStyle={styles.button}
           />
-        </FormProvider>
+        </View>
       </View>
     </View>
   );
@@ -155,6 +167,11 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderRadius: 5,
     paddingLeft: 15,
+  },
+  passwordIcon: {
+    position: 'absolute',
+    right: 20,
+    top: 100,
   },
 });
 
