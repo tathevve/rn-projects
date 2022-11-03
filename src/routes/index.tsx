@@ -16,14 +16,19 @@ import ScreenLayout from '../layout/ScreenLayout';
 import CircularLoader from '../shared/Loader/CircularLoader';
 import AllItems from '../screens/shopNow';
 import ItemDetails from '../screens/itemDetails/ItemDetails';
+import ShoppingBag from '../screens/shoppingBag/ShoppingBag';
+import ForgotPassword from '../screens/forgotPassword';
+import {EPath} from '../shared/models/enums/path.enum';
 
 const RootStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = (): JSX.Element => (
-  <Tab.Navigator initialRouteName="home" screenOptions={{headerShown: false}}>
+  <Tab.Navigator
+    initialRouteName={EPath.HOME}
+    screenOptions={{headerShown: false}}>
     <Tab.Screen
-      name="home"
+      name={EPath.HOME}
       component={HomeRoute}
       options={{
         tabBarLabel: ({focused}) => (
@@ -49,7 +54,7 @@ const TabNavigator = (): JSX.Element => (
       }}
     />
     <Tab.Screen
-      name="find"
+      name={EPath.SEARCH}
       component={SearchRoute}
       options={{
         tabBarLabel: ({focused}) => (
@@ -75,7 +80,7 @@ const TabNavigator = (): JSX.Element => (
       }}
     />
     <Tab.Screen
-      name="brands"
+      name={EPath.BRANDS}
       component={BrandsRoute}
       options={{
         tabBarLabel: ({focused}) => (
@@ -101,7 +106,7 @@ const TabNavigator = (): JSX.Element => (
       }}
     />
     <Tab.Screen
-      name="favourite"
+      name={EPath.FAVORITE}
       component={FavouriteRoute}
       options={{
         tabBarLabel: ({focused}) => (
@@ -127,7 +132,7 @@ const TabNavigator = (): JSX.Element => (
       }}
     />
     <Tab.Screen
-      name="account"
+      name={EPath.ACCOUNT}
       component={AccountRoute}
       options={{
         tabBarLabel: ({focused}) => (
@@ -158,7 +163,7 @@ const TabNavigator = (): JSX.Element => (
 const RootNavigator = (): JSX.Element => {
   return (
     <RootStack.Navigator
-      initialRouteName="ThesisHome"
+      initialRouteName={EPath.PARENTHOME}
       screenOptions={{
         headerTitleAlign: 'center',
         headerStyle: {
@@ -171,36 +176,51 @@ const RootNavigator = (): JSX.Element => {
         },
       }}>
       <RootStack.Screen
-        name="ThesisHome"
+        name={EPath.PARENTHOME}
         component={TabNavigator}
         options={{
           headerShown: false,
         }}
       />
+
       <RootStack.Screen
-        name="SignIn"
+        name={EPath.SIGNIN}
         component={SignIn}
         options={{
           headerShown: false,
         }}
       />
       <RootStack.Screen
-        name="Register"
+        name={EPath.REGISTER}
         component={Register}
         options={{
           headerShown: false,
         }}
       />
       <RootStack.Screen
-        name="AllItems"
+        name={EPath.ALLITEMS}
         component={AllItems}
         options={{
           headerShown: false,
         }}
       />
       <RootStack.Screen
-        name="ItemDetails"
+        name={EPath.ITEMDETAILS}
         component={ItemDetails}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStack.Screen
+        name={EPath.SHOPPINGBAG}
+        component={ShoppingBag}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStack.Screen
+        name={EPath.FORGOTPASSWORD}
+        component={ForgotPassword}
         options={{
           headerShown: false,
         }}
@@ -226,9 +246,3 @@ const Routes = (): JSX.Element => {
 };
 
 export default Routes;
-
-// const styles = StyleSheet.create({
-//   tabNavigatorContainer: {
-//     marginBottom: 50,
-//   },
-// });

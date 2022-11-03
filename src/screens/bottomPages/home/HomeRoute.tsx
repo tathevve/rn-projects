@@ -8,6 +8,7 @@ import Slider from './Slider';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {selectItems} from '../../../redux/slicers/allItemsSlice';
+import {EPath} from '../../../shared/models/enums/path.enum';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -49,7 +50,7 @@ export default function HomeRoute(): JSX.Element {
 
           <RNButton
             title="Explore More"
-            onPress={() => navigation.navigate('AllItems' as never)}
+            onPress={() => navigation.navigate(EPath.ALLITEMS as never)}
             buttonStyle={styles.button}
           />
         </View>
@@ -64,7 +65,7 @@ export default function HomeRoute(): JSX.Element {
             <Slider height={windowHeight / 3} sliderData={items} />
           </View>
           <RNButton
-            onPress={() => navigation.navigate('AllItems' as never)}
+            onPress={() => navigation.navigate(EPath.ALLITEMS as never)}
             buttonStyle={styles.button}
           />
         </View>
@@ -84,7 +85,7 @@ export default function HomeRoute(): JSX.Element {
             {/* carpet.jpg')*/}
           </View>
           <RNButton
-            onPress={() => navigation.navigate('AllItems' as never)}
+            onPress={() => navigation.navigate(EPath.ALLITEMS as never)}
             buttonStyle={styles.button}
           />
         </View>
@@ -103,7 +104,7 @@ export default function HomeRoute(): JSX.Element {
             </Text>
           </View>
           <RNButton
-            onPress={() => navigation.navigate('AllItems' as never)}
+            onPress={() => navigation.navigate(EPath.ALLITEMS as never)}
             buttonStyle={styles.button}
           />
         </View>
@@ -124,7 +125,7 @@ export default function HomeRoute(): JSX.Element {
             {/* slider4.jpg */}
           </View>
           <RNButton
-            onPress={() => navigation.navigate('AllItems' as never)}
+            onPress={() => navigation.navigate(EPath.ALLITEMS as never)}
             buttonStyle={styles.button}
           />
 
@@ -137,7 +138,7 @@ export default function HomeRoute(): JSX.Element {
             {/* sider5.jpg */}
           </View>
           <RNButton
-            onPress={() => navigation.navigate('AllItems' as never)}
+            onPress={() => navigation.navigate(EPath.ALLITEMS as never)}
             buttonStyle={styles.button}
           />
         </View>
@@ -160,7 +161,7 @@ export default function HomeRoute(): JSX.Element {
             {/* slider6.jpg */}
           </View>
           <RNButton
-            onPress={() => navigation.navigate('AllItems' as never)}
+            onPress={() => navigation.navigate(EPath.ALLITEMS as never)}
             buttonStyle={styles.button}
           />
         </View>

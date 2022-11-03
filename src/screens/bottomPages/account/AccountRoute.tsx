@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, StyleSheet} from 'react-native';
 import React from 'react';
-import {IconButton, Text} from 'react-native-paper';
+import {Text} from 'react-native-paper';
 import RNButton from '../../../shared/Button';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -10,17 +10,14 @@ import {useState, useCallback} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import {List} from 'react-native-paper';
 import {IUser} from '../../../shared/models/interfaces/user.interface';
-import {selectLocation} from '../../../redux/slicers/app';
+import {EPath} from '../../../shared/models/enums/path.enum';
+import ContactUs from '../../../shared/ContactUs';
 
 const AccountRoute = (): JSX.Element => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const loggedUserData = useSelector(selectUserData);
   const [data, setData] = useState<IUser | null>(null);
-  const locationData = useSelector(selectLocation);
-
-  console.log(loggedUserData, 'loggedUserData');
-  console.log(locationData, 'location');
 
   useFocusEffect(
     useCallback(() => {
@@ -28,8 +25,6 @@ const AccountRoute = (): JSX.Element => {
       return () => setData(null);
     }, [loggedUserData]),
   );
-
-  console.log(data, 'data');
 
   const signOut = (): void => {
     setData(null);
@@ -63,14 +58,14 @@ const AccountRoute = (): JSX.Element => {
                   <RNButton
                     title="Register"
                     onPress={() => {
-                      navigation.navigate('Register' as never);
+                      navigation.navigate(EPath.REGISTER as never);
                     }}
                     buttonStyle={styles.button}
                   />
                   <RNButton
                     title="Sign In"
                     onPress={() => {
-                      navigation.navigate('SignIn' as never);
+                      navigation.navigate(EPath.SIGNIN as never);
                     }}
                     buttonStyle={styles.button}
                   />
@@ -154,57 +149,7 @@ const AccountRoute = (): JSX.Element => {
               </List.Section>
             </View>
           ) : null}
-          <View
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-            }}>
-            <Text style={styles.sectionHeader}>Contact us</Text>
-            <View
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-around',
-                flexDirection: 'row',
-                marginTop: 7,
-                marginBottom: 13,
-              }}>
-              <View
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-around',
-                  width: '50%',
-                }}>
-                <IconButton
-                  icon="phone-outline"
-                  // iconColor={MD3Colors.error50}
-                  size={25}
-                  onPress={() => console.log('phone')}
-                />
-                <Text>phone</Text>
-              </View>
-              <View
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '50%',
-                }}>
-                <IconButton
-                  icon="email-outline"
-                  // iconColor={MD3Colors.error50}
-                  size={25}
-                  onPress={() => console.log('email')}
-                />
-                <Text>email</Text>
-              </View>
-            </View>
-            <Text style={styles.text}>
-              Available Monday to Friday 9am - 6pm GMT
-            </Text>
-          </View>
+          <ContactUs />
           {data?.name ? (
             <View>
               <Text style={styles.textStyle}>Not {data?.name}?</Text>
@@ -229,7 +174,6 @@ const styles = StyleSheet.create({
     letterSpacing: 3,
     textTransform: 'uppercase',
   },
-
   text: {
     marginBottom: 15,
   },

@@ -16,6 +16,7 @@ import {setUserData} from '../../redux/slicers/loginSlice';
 import {IconButton} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {IRegisterUser} from '../../shared/models/interfaces/user.interface';
+import {EPath} from '../../shared/models/enums/path.enum';
 
 const defaultValues: IRegisterUser = {
   email: '',
@@ -51,14 +52,13 @@ const Register = (): JSX.Element => {
       name: data.name,
     };
 
-    console.log(data, ' data');
     if (!(data.email && data.password)) {
       Alert.alert('warning!', 'ERROR');
     } else {
       try {
         await AsyncStorage.setItem('user', JSON.stringify(userObj));
         await dispatch(setUserData(userObj));
-        navigation.navigate('ThesisHome' as never);
+        navigation.navigate(EPath.PARENTHOME as never);
       } catch (error) {
         console.log(error);
       }
@@ -67,9 +67,6 @@ const Register = (): JSX.Element => {
 
   return (
     <View style={{backgroundColor: 'white', height: '100%'}}>
-      {/* <ActionSheet ref={actionSheetRef}> */}
-      {/* <Text>alo</Text> */}
-      {/* </ActionSheet> */}
       <View style={{marginHorizontal: 17}}>
         <View style={styles.headerWrapper}>
           <View style={{marginBottom: 35}}>
@@ -173,7 +170,7 @@ const Register = (): JSX.Element => {
         </View>
         <RNButton
           title="Already have an account?"
-          onPress={() => navigation.navigate('SignIn' as never)}
+          onPress={() => navigation.navigate(EPath.SIGNIN as never)}
           buttonStyle={styles.button}
         />
       </View>

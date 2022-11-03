@@ -12,12 +12,6 @@ const SearchRoute = (): JSX.Element => {
   const onChangeSearch = (query: string): void => {
     setSearchQuery(query);
   };
-  // console.log(searchQuery, 'query');
-  // const filtered = firstSlider.map(item => {
-  //   item.filter
-  // });
-
-  // console.log(filtered, 'filtered');
 
   return (
     <ScrollView

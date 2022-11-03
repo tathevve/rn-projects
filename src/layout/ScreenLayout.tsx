@@ -11,6 +11,7 @@ import RNButton from '../shared/Button';
 import {StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Header from '../shared/Header';
+import {EPath} from '../shared/models/enums/path.enum';
 
 interface IScreenLayout {
   children: React.ReactNode;
@@ -35,7 +36,7 @@ const ScreenLayout = ({children}: IScreenLayout): JSX.Element => {
 
   const checkUserLoggedIn = useCallback(async () => {
     const userData = await AsyncStorage.getItem('user');
-    console.log(userData, 'firstCheck');
+    // console.log(userData, 'firstCheck');
     if (userData) {
       dispatch(setUserData(JSON.parse(userData)));
     }
@@ -50,7 +51,11 @@ const ScreenLayout = ({children}: IScreenLayout): JSX.Element => {
   }, [fetchLocation]);
 
   const handleOpenModal = () => {
-    setIsOpen(true);
+    if (!loggedUserData?.name) {
+      setIsOpen(true);
+    } else {
+      navigation.navigate(EPath.SHOPPINGBAG as never);
+    }
   };
 
   const handleCloseModal = () => {
@@ -59,9 +64,9 @@ const ScreenLayout = ({children}: IScreenLayout): JSX.Element => {
 
   return (
     <>
-      <Header handleOpen={handleOpenModal} title={'a'} />
+      <Header handleOpen={handleOpenModal} title={'Khanut'} />
       <>{children}</>
-      {loggedUserData?.name ? (
+      {!loggedUserData?.name && (
         <RNModal
           visible={isOpen}
           hideModal={handleCloseModal}
@@ -70,13 +75,16 @@ const ScreenLayout = ({children}: IScreenLayout): JSX.Element => {
             <View>
               <RNButton
                 title="Sign In"
-                onPress={() => navigation.navigate('SignIn' as never)}
+                onPress={() => {
+                  navigation.navigate(EPath.SIGNIN as never);
+                  handleCloseModal();
+                }}
                 buttonStyle={styles.button}
               />
             </View>
           </View>
         </RNModal>
-      ) : null}
+      )}
     </>
   );
 };

@@ -8,18 +8,15 @@ import RNPickerSelect from 'react-native-picker-select';
 import {useSelector} from 'react-redux';
 import {selectItems} from '../../redux/slicers/allItemsSlice';
 import {IItem} from '../../shared/models/interfaces/item.interface';
+import ContactUs from '../../shared/ContactUs';
 
 const ItemDetails = ({route}: any) => {
   const itemParams = route.params;
   const navigation = useNavigation();
   const items = useSelector(selectItems);
 
-  console.log(itemParams, 'itemParams');
-
   const findItemDetail = items.find((i: IItem) => i.id === itemParams.item.id);
 
-  console.log(findItemDetail, 'findfind');
-  // console.log(items, 'fbjjmindfind');
   return (
     <ScrollView
       style={{
@@ -103,6 +100,7 @@ const ItemDetails = ({route}: any) => {
             <Text style={{textAlign: 'center'}}>Size missing?</Text>
           </TouchableOpacity>
         </View>
+        <ContactUs />
       </View>
     </ScrollView>
   );

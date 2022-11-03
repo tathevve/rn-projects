@@ -34,7 +34,6 @@ const Slider = ({height, sliderData}: ISliderProps): JSX.Element => {
             alignItems: 'center',
           }}
           key={index}>
-          {/* {console.log(images, 'index')} */}
           <Image
             resizeMode="contain"
             style={{

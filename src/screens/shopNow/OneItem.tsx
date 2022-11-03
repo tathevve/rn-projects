@@ -16,11 +16,11 @@ const OneItem = ({
   image,
   id,
   isHearted,
+  showHeartIcon = true,
 }: IItem): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const wishListItemsData = useSelector(selectItemData);
   const allItemsData = useSelector(selectItems);
-  // console.log(hearted, 'ws');
 
   const item = {
     id,
@@ -30,6 +30,7 @@ const OneItem = ({
     description,
     image,
     isHearted,
+    showHeartIcon,
   };
 
   const heartedItemsHandler = () => {
@@ -68,9 +69,6 @@ const OneItem = ({
     }
   };
 
-  // console.log(wishListItemsData, 'tatev');
-
-  // console.log(wishListItemsData, 'aloo');
   return (
     <View
       style={{
@@ -78,20 +76,24 @@ const OneItem = ({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'relative',
+        height: 250,
       }}>
       <Text>{brand}</Text>
-      <IconButton
-        icon={isHearted ? 'heart' : 'heart-outline'}
-        style={{
-          position: 'absolute',
-          top: 7,
-          right: 13,
-          height: 22,
-          width: 22,
-          zIndex: 2,
-        }}
-        onPress={heartedItemsHandler}
-      />
+      {showHeartIcon ? (
+        <IconButton
+          icon={isHearted ? 'heart' : 'heart-outline'}
+          style={{
+            position: 'absolute',
+            top: 7,
+            right: 13,
+            height: 22,
+            width: 22,
+            zIndex: 2,
+          }}
+          onPress={heartedItemsHandler}
+        />
+      ) : null}
+
       <Image
         resizeMode="contain"
         style={{

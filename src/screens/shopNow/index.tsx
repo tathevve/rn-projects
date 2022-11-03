@@ -7,6 +7,8 @@ import {IconButton} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {selectItems} from '../../redux/slicers/allItemsSlice';
 import {IItem} from '../../shared/models/interfaces/item.interface';
+import {EPath} from '../../shared/models/enums/path.enum';
+import LeftMenu from '../../shared/LeftMenu';
 
 const AllItems = (): JSX.Element => {
   const navigation = useNavigation();
@@ -18,12 +20,28 @@ const AllItems = (): JSX.Element => {
         style={{
           backgroundColor: 'white',
         }}>
-        <IconButton
-          icon="arrow-left-thin"
-          // iconColor={MD3Colors.error50}
-          size={32}
-          onPress={() => navigation.goBack()}
-        />
+        <View
+          style={{
+            position: 'relative',
+            height: 77,
+            zIndex: 2,
+          }}>
+          <IconButton
+            icon="arrow-left-thin"
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 20,
+              // right: 0,
+              height: 30,
+              width: 30,
+              zIndex: 2,
+            }}
+            size={32}
+            onPress={() => navigation.goBack()}
+          />
+          <LeftMenu />
+        </View>
         <View
           style={{
             width: '100%',
@@ -37,7 +55,7 @@ const AllItems = (): JSX.Element => {
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate(
-                    'ItemDetails' as never,
+                    EPath.ITEMDETAILS as never,
                     {
                       item,
                     } as never,

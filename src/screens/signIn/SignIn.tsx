@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Alert, StyleSheet, Text} from 'react-native';
+import {View, Alert, StyleSheet} from 'react-native';
 import React from 'react';
 import RNButton from '../../shared/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -16,6 +16,7 @@ import {useDispatch} from 'react-redux';
 import {setUserData} from '../../redux/slicers/loginSlice';
 import {IRegisterUser} from '../../shared/models/interfaces/user.interface';
 import {IconButton} from 'react-native-paper';
+import {EPath} from '../../shared/models/enums/path.enum';
 
 interface IUserForm {
   email: string;
@@ -41,12 +42,10 @@ const SignIn = (): JSX.Element => {
   const signIn = async (formData: IUserForm) => {
     try {
       const data = {...formData};
-      console.log(data, 'data sign in');
 
       let user: string | null = await AsyncStorage.getItem('user');
       if (user) {
         let parsed: IRegisterUser = JSON.parse(user);
-        console.log(parsed, 'parsed');
         if (data.email === parsed.email) {
           console.log(
             data.email,
@@ -56,7 +55,7 @@ const SignIn = (): JSX.Element => {
           );
           dispatch(setUserData(parsed));
           Alert.alert('Success!', 'Logged in successfully');
-          navigation.navigate('ThesisHome' as never);
+          navigation.navigate(EPath.PARENTHOME as never);
         } else {
           console.log(
             data.email,
@@ -131,12 +130,15 @@ const SignIn = (): JSX.Element => {
             </FormProvider>
           </View>
 
-          <Text>Forgot password</Text>
+          <RNButton
+            title="Forgot Password?"
+            onPress={() => navigation.navigate(EPath.FORGOTPASSWORD as never)}
+          />
         </View>
         <View style={{height: '18%'}}>
           <RNButton
             title="Create an account"
-            onPress={() => navigation.navigate('Register' as never)}
+            onPress={() => navigation.navigate(EPath.REGISTER as never)}
             buttonStyle={styles.button}
           />
         </View>
@@ -145,7 +147,7 @@ const SignIn = (): JSX.Element => {
   );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',

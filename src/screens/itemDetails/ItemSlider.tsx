@@ -13,8 +13,6 @@ interface ISliderProps {
 }
 
 const ItemSlider = ({height, sliderData}: ISliderProps): JSX.Element => {
-  console.log(sliderData, 'slider');
-
   return (
     <Carousel
       loop
@@ -36,13 +34,11 @@ const ItemSlider = ({height, sliderData}: ISliderProps): JSX.Element => {
             alignItems: 'center',
           }}
           key={index}>
-          {/* {console.log(images, 'index')} */}
           <Image
             resizeMode="contain"
             style={{
               width: '100%',
               height: '100%',
-              // position:'absolute'
             }}
             source={item.image}
           />
