@@ -16,6 +16,7 @@ const OneItem = ({
   image,
   id,
   isHearted,
+  count,
   showHeartIcon = true,
 }: IItem): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
@@ -31,6 +32,7 @@ const OneItem = ({
     image,
     isHearted,
     showHeartIcon,
+    count,
   };
 
   const heartedItemsHandler = () => {
@@ -77,6 +79,7 @@ const OneItem = ({
         alignItems: 'center',
         position: 'relative',
         height: 250,
+        marginTop: 45,
       }}>
       <Text>{brand}</Text>
       {showHeartIcon ? (
@@ -105,6 +108,19 @@ const OneItem = ({
         source={image}
       />
       <Text> {season}</Text>
+      {count ? (
+        <View
+          style={{
+            position: 'absolute',
+            bottom: -30,
+            right: -180,
+            height: 22,
+            width: 22,
+            zIndex: 2,
+          }}>
+          <Text style={{fontSize: 20, fontWeight: 'bold'}}> {count}</Text>
+        </View>
+      ) : null}
       <Text>{brand} </Text>
       <Text>{description}</Text>
       <Text>{price}</Text>

@@ -4,6 +4,7 @@ export interface IItem {
   brand?: string;
   price?: string | number;
   description?: string;
+  count?: number;
   image?: any | string;
   imagesArray?: Array<any | string>;
   isHearted?: boolean;

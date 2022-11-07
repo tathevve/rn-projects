@@ -10,7 +10,11 @@ import {selectItemData} from '../../../redux/slicers/wishlistSlice';
 import OneItem from '../../shopNow/OneItem';
 import {IItem} from '../../../shared/models/interfaces/item.interface';
 import {AppDispatch} from '../../../redux';
-import {selectBagItemsData} from '../../../redux/slicers/shoppingBagSlice';
+import {
+  selectBagItemsData,
+  selectTotalPrice,
+  setItemsTotalPrice,
+} from '../../../redux/slicers/shoppingBagSlice';
 import {setBagItemsData} from '../../../redux/slicers/shoppingBagSlice';
 import {EPath} from '../../../shared/models/enums/path.enum';
 
@@ -20,9 +24,23 @@ const FavouriteRoute = (): JSX.Element => {
   const wishListItemsData = useSelector(selectItemData);
   const dispatch = useDispatch<AppDispatch>();
   const bagItems = useSelector(selectBagItemsData);
+  const totalPrice = useSelector(selectTotalPrice);
 
   const addedToBagItemsHandler = (item: IItem) => {
-    dispatch(setBagItemsData([...bagItems, item]));
+    let totalOf = totalPrice + item.price;
+    const findedData = bagItems.find((i: IItem) => i.id === item.id);
+    if (findedData) {
+      const updatedList = bagItems.map((i: IItem) => {
+        return {
+          ...i,
+          count: findedData.id === i.id ? findedData.count + 1 : i.count,
+        };
+      });
+      dispatch(setBagItemsData(updatedList));
+    } else {
+      dispatch(setBagItemsData([...bagItems, {...item, count: 1}]));
+    }
+    dispatch(setItemsTotalPrice(totalOf));
   };
 
   return (
