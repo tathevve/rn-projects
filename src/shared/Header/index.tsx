@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native';
-import React from 'react';
+import React, {memo} from 'react';
 import {IconButton, Text} from 'react-native-paper';
 // import ShoppingBag from './shoppingBag/ShoppingBag';
 
@@ -26,7 +26,7 @@ const Header = ({title = 'Նռնան', handleOpen}: IHeaderProps): JSX.Element =
   );
 };
 
-export default Header;
+export default memo(Header);
 
 const styles = StyleSheet.create({
   headerWrapper: {

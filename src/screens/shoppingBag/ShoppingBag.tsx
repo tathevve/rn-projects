@@ -21,6 +21,12 @@ import {EPath} from '../../shared/models/enums/path.enum';
 import {IconButton} from 'react-native-paper';
 import ContactUs from '../../shared/ContactUs';
 import {AppDispatch} from '../../redux';
+import TextInputField from '../../shared/TextInput/TextInputField';
+import {FormProvider, useForm} from 'react-hook-form';
+
+interface ICount {
+  count: string | number;
+}
 
 const ShoppingBag = (): JSX.Element => {
   const navigation = useNavigation();
@@ -29,6 +35,11 @@ const ShoppingBag = (): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const totalPrice = useSelector(selectTotalPrice);
   // const [cardItems, setCardItems] = useState<number>(0);
+  const methods = useForm<ICount>({
+    mode: 'all',
+  });
+
+  const {control} = methods;
 
   const removeItemFromBag = (item: IItem) => {
     const totalOf = totalPrice - Number(item.price);
@@ -47,10 +58,12 @@ const ShoppingBag = (): JSX.Element => {
       dispatch(setBagItemsData(filteredItemsData));
     }
     dispatch(setItemsTotalPrice(totalOf));
-    console.log('asmakdam', bagItemsData);
   };
 
-  console.log(bagItemsData, 'bagItemsData');
+  // const handleRefClick = (id: number) => {
+  //   const findedData = bagItemsData?.find((item) => item.id === id)
+  //    inputRef?.current?.focus();
+  // };
 
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
@@ -95,27 +108,6 @@ const ShoppingBag = (): JSX.Element => {
           </View>
         ) : (
           <View>
-            {/* {bagItemsData?.map((item: IItem) => {
-              return <Text>{parseInt(item?.price + 1)}</Text>;
-            })} */}
-            {/* <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <Text> Subtotal </Text>
-              <Text> {totalPrice} </Text>
-            </View>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <Text> Shipping </Text>
-              <Text> 0 </Text>
-            </View> */}
             <View
               style={{
                 display: 'flex',
@@ -135,54 +127,105 @@ const ShoppingBag = (): JSX.Element => {
             display: 'flex',
             flexDirection: 'row',
             flexWrap: 'wrap',
-            marginTop: 25,
-            position: 'relative',
           }}>
-          {bagItemsData.map((item: IItem, index: number) => {
-            return (
-              <View style={{display: 'flex', width: '100%'}} key={index}>
-                <IconButton
-                  icon="close"
+          <FormProvider {...methods}>
+            {bagItemsData.map((item: IItem, index: number) => {
+              return (
+                <View
                   style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    height: 30,
-                    width: 30,
-                    zIndex: 2,
+                    display: 'flex',
+                    width: '100%',
+                    flexDirection: 'row-reverse',
+                    marginBottom: 35,
                   }}
-                  size={25}
-                  onPress={() => removeItemFromBag(item)}
-                />
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate(
-                      EPath.ITEMDETAILS as never,
-                      {
-                        item,
-                      } as never,
-                    )
-                  }
-                  key={index}
-                  style={{
-                    width: '50%',
-                    // flexWrap: 'wrap',
-                  }}>
-                  <OneItem
-                    id={item.id}
-                    season={item.season}
-                    image={item.image}
-                    brand={item.brand}
-                    description={item.description}
-                    price={item.price}
-                    isHearted={item.isHearted}
-                    showHeartIcon={false}
-                    count={item.count}
+                  key={index}>
+                  <IconButton
+                    icon="close"
+                    style={{
+                      width: '10%',
+                      // backgroundColor: 'grey',
+                      // position: 'absolute',
+                      // top: 35,
+                      // right: 0,
+                      // height: 30,
+                      // width: 30,
+                      // zIndex: 2,
+                    }}
+                    size={25}
+                    onPress={() => removeItemFromBag(item)}
                   />
-                </TouchableOpacity>
-              </View>
-            );
-          })}
+                  <View
+                    style={{
+                      width: '90%',
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'flex-end',
+                      // backgroundColor: 'red',
+                    }}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate(
+                          EPath.ITEMDETAILS as never,
+                          {
+                            item,
+                          } as never,
+                        )
+                      }
+                      key={index}
+                      style={{
+                        width: '50%',
+                        // flexWrap: 'wrap',
+                      }}>
+                      <OneItem
+                        id={item.id}
+                        season={item.season}
+                        image={item.image}
+                        brand={item.brand}
+                        description={item.description}
+                        price={item.price}
+                        isHearted={item.isHearted}
+                        showHeartIcon={false}
+                        count={item.count}
+                        customItemStyles={styles.item}
+                      />
+                    </TouchableOpacity>
+                    <View
+                      style={{
+                        backgroundColor: 'white',
+                        marginTop: 15,
+                        width: '50%',
+                        position: 'relative',
+                      }}>
+                      <Text
+                        style={{
+                          position: 'absolute',
+                          top: 13,
+                          left: 10,
+                          height: 30,
+                          width: 28,
+                          zIndex: 2,
+                          fontSize: 12,
+                        }}>
+                        Qty:
+                      </Text>
+
+                      <TextInputField
+                        // placeholder="Count"
+                        name="quantity"
+                        // inputRef={inputRef}
+                        customValue={item.count}
+                        labelIsVisible
+                        secureTextEntry
+                        control={control}
+                        props={{maxLength: 3}}
+                        customInputStyles={styles.input}
+                      />
+                    </View>
+                  </View>
+                </View>
+              );
+            })}
+          </FormProvider>
         </View>
         <ContactUs />
       </View>
@@ -208,6 +251,19 @@ const styles = StyleSheet.create({
     fontFamily: 'Mulish',
     letterSpacing: 3,
     textTransform: 'uppercase',
+  },
+  input: {
+    marginBottom: 30,
+    width: '55%',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 7,
+    paddingLeft: 45,
+  },
+  item: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
   },
 });
 

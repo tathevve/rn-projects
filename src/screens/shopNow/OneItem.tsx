@@ -18,6 +18,7 @@ const OneItem = ({
   isHearted,
   count,
   showHeartIcon = true,
+  customItemStyles,
 }: IItem): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const wishListItemsData = useSelector(selectItemData);
@@ -81,7 +82,7 @@ const OneItem = ({
         height: 250,
         marginTop: 45,
       }}>
-      <Text>{brand}</Text>
+      {/* <Text>{brand}</Text> */}
       {showHeartIcon ? (
         <IconButton
           icon={isHearted ? 'heart' : 'heart-outline'}
@@ -96,34 +97,24 @@ const OneItem = ({
           onPress={heartedItemsHandler}
         />
       ) : null}
-
-      <Image
-        resizeMode="contain"
-        style={{
-          width: '100%',
-          height: 150,
-          // position:'absolute'
-          // backgroundColor: 'gray',
-        }}
-        source={image}
-      />
-      <Text> {season}</Text>
-      {count ? (
-        <View
+      <View style={customItemStyles}>
+        <Image
+          resizeMode="contain"
           style={{
-            position: 'absolute',
-            bottom: -30,
-            right: -180,
-            height: 22,
-            width: 22,
-            zIndex: 2,
-          }}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}> {count}</Text>
+            width: '100%',
+            height: 150,
+            // position:'absolute'
+            // backgroundColor: 'gray',
+          }}
+          source={image}
+        />
+        <View>
+          <Text> {season}</Text>
+          <Text>{brand} </Text>
+          <Text>{description}</Text>
+          <Text>{price}</Text>
         </View>
-      ) : null}
-      <Text>{brand} </Text>
-      <Text>{description}</Text>
-      <Text>{price}</Text>
+      </View>
     </View>
   );
 };

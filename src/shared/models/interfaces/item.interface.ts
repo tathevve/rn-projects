@@ -1,3 +1,5 @@
+import {StyleProp, TextStyle} from 'react-native';
+
 export interface IItem {
   id?: number;
   season?: string;
@@ -9,4 +11,5 @@ export interface IItem {
   imagesArray?: Array<any | string>;
   isHearted?: boolean;
   showHeartIcon?: boolean;
+  customItemStyles?: StyleProp<TextStyle>;
 }

@@ -43,6 +43,8 @@ const FavouriteRoute = (): JSX.Element => {
     dispatch(setItemsTotalPrice(totalOf));
   };
 
+  console.log(bagItems, 'bagItems');
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -65,78 +67,85 @@ const FavouriteRoute = (): JSX.Element => {
             )}
           </Text>
         </View>
-        {wishListItemsData?.length === 0 ? (
-          <View>
-            <View style={styles.itemsCount}>
-              <Text>{wishListItemsData?.length} ITEMS</Text>
-            </View>
-
+        {loggedUserData?.name ? (
+          wishListItemsData?.length === 0 ? (
             <View>
-              <Text style={styles.text}>YOUR WISHLIST IS EMPTY</Text>
-              {loggedUserData?.name ? (
-                <Text style={styles.text}>
-                  When you favorite items you love, you’ll find them here
-                </Text>
-              ) : (
-                <Text style={styles.text}>
-                  Looking for items you previously saved? Sign in to pick up
-                  where you left off
-                </Text>
-              )}
-            </View>
-          </View>
-        ) : (
-          <View
-            style={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-            }}>
-            {wishListItemsData.map((item: IItem, index: number) => {
-              return (
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate(
-                      EPath.ITEMDETAILS as never,
-                      {
-                        item,
-                      } as never,
-                    )
-                  }
-                  key={index}
-                  style={{
-                    width: '50%',
-                  }}>
-                  <OneItem
-                    id={item.id}
-                    season={item.season}
-                    image={item.image}
-                    brand={item.brand}
-                    description={item.description}
-                    price={item.price}
-                    isHearted={item.isHearted}
-                  />
-                  <RNButton
-                    title="Add to bag"
-                    onPress={() => addedToBagItemsHandler(item)}
-                    buttonStyle={styles.button}
-                  />
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        )}
+              <View style={styles.itemsCount}>
+                <Text>{wishListItemsData?.length} ITEMS</Text>
+              </View>
 
-        {loggedUserData?.name ? null : (
-          <RNButton
-            title="Sign In"
-            onPress={() => {
-              navigation.navigate(EPath.SIGNIN as never);
-            }}
-            buttonStyle={styles.button}
-          />
+              <View>
+                <Text style={styles.text}>YOUR WISHLIST IS EMPTY</Text>
+              </View>
+              <Text style={styles.text}>
+                When you favorite items you love, you’ll find them here
+              </Text>
+            </View>
+          ) : (
+            <View
+              style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+              }}>
+              {wishListItemsData.map((item: IItem, index: number) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate(
+                        EPath.ITEMDETAILS as never,
+                        {
+                          item,
+                        } as never,
+                      )
+                    }
+                    key={index}
+                    style={{
+                      width: '50%',
+                    }}>
+                    <OneItem
+                      id={item.id}
+                      season={item.season}
+                      image={item.image}
+                      brand={item.brand}
+                      description={item.description}
+                      price={item.price}
+                      isHearted={item.isHearted}
+                      customItemStyles={styles.item}
+                    />
+                    <RNButton
+                      title="Add to bag"
+                      onPress={() => addedToBagItemsHandler(item)}
+                      buttonStyle={styles.button}
+                    />
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          )
+        ) : (
+          <Text style={styles.text}>
+            Looking for items you previously saved? Sign in to pick up where you
+            left off
+          </Text>
         )}
+        <View
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          {loggedUserData?.name ? null : (
+            <RNButton
+              title="Sign In"
+              onPress={() => {
+                navigation.navigate(EPath.SIGNIN as never);
+              }}
+              buttonStyle={styles.button}
+            />
+          )}
+        </View>
       </View>
     </ScrollView>
   );
@@ -173,6 +182,9 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     color: 'black',
     marginBottom: 15,
+  },
+  item: {
+    display: 'flex',
   },
 });
 

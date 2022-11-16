@@ -18,7 +18,7 @@ interface ITextInputField {
   placeholder?: string;
   customInputStyles?: StyleProp<TextStyle>;
   customPasswordStyles?: StyleProp<TextStyle>;
-  customValue?: string;
+  customValue?: string | number;
   changeHandler?: (value: any) => void | any;
   keyboardType?: string;
   isPassword?: boolean;
@@ -30,6 +30,7 @@ interface ITextInputField {
   labelIsVisible?: boolean;
   selectTextOnFocus?: boolean;
   props?: any;
+  inputRef?: any;
 }
 
 const TextInputField = ({
@@ -50,6 +51,7 @@ const TextInputField = ({
   errors,
   editable = true,
   selectTextOnFocus = false,
+  inputRef,
 }: ITextInputField) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
@@ -59,18 +61,18 @@ const TextInputField = ({
 
   return (
     <>
-      {/* {labelIsVisible ? <Text>{placeholder}</Text> : null} */}
       <Controller
         name={name}
         rules={rules}
         control={control}
-        render={({field: {onChange, onBlur, value}}) => (
+        render={({field: {onChange, onBlur, value, ref}}) => (
           <TextInput
             style={customInputStyles}
             onBlur={onBlur}
             onChangeText={changeHandler || onChange}
-            value={customValue || value}
+            value={customValue?.toString() || value}
             placeholder={placeholder}
+            ref={inputRef || ref}
             editable={editable}
             secureTextEntry={
               secureTextEntry && isPassword && !isPasswordVisible

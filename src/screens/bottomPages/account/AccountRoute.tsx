@@ -30,7 +30,7 @@ const AccountRoute = (): JSX.Element => {
     setData(null);
     dispatch(setUserData(null));
   };
-
+  console.log(loggedUserData, 'ajaj');
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
       <View
