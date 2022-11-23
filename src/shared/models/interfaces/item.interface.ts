@@ -11,5 +11,7 @@ export interface IItem {
   imagesArray?: Array<any | string>;
   isHearted?: boolean;
   showHeartIcon?: boolean;
-  customItemStyles?: StyleProp<TextStyle>;
+  customItemStyles?: StyleProp<TextStyle> | any;
+  type: string;
+  size?: string;
 }

@@ -69,6 +69,7 @@ const AllItems = (): JSX.Element => {
                 <OneItem
                   id={item.id}
                   season={item.season}
+                  type={item.type}
                   image={item.image}
                   brand={item.brand}
                   description={item.description}

@@ -19,6 +19,7 @@ import ItemDetails from '../screens/itemDetails/ItemDetails';
 import ShoppingBag from '../screens/shoppingBag/ShoppingBag';
 import ForgotPassword from '../screens/forgotPassword';
 import {EPath} from '../shared/models/enums/path.enum';
+import SizeGuide from '../screens/itemDetails/SizeGuide';
 
 const RootStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -221,6 +222,13 @@ const RootNavigator = (): JSX.Element => {
       <RootStack.Screen
         name={EPath.FORGOTPASSWORD}
         component={ForgotPassword}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStack.Screen
+        name={EPath.SIZEGUIDE}
+        component={SizeGuide}
         options={{
           headerShown: false,
         }}

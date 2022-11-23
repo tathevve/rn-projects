@@ -19,6 +19,7 @@ const OneItem = ({
   count,
   showHeartIcon = true,
   customItemStyles,
+  type,
 }: IItem): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const wishListItemsData = useSelector(selectItemData);
@@ -34,6 +35,7 @@ const OneItem = ({
     isHearted,
     showHeartIcon,
     count,
+    type,
   };
 
   const heartedItemsHandler = () => {
@@ -97,7 +99,7 @@ const OneItem = ({
           onPress={heartedItemsHandler}
         />
       ) : null}
-      <View style={customItemStyles}>
+      <View style={[{width: '100%', ...customItemStyles}]}>
         <Image
           resizeMode="contain"
           style={{
@@ -108,8 +110,9 @@ const OneItem = ({
           }}
           source={image}
         />
-        <View>
+        <View style={{paddingLeft: 13}}>
           <Text> {season}</Text>
+          <Text> {type}</Text>
           <Text>{brand} </Text>
           <Text>{description}</Text>
           <Text>{price}</Text>

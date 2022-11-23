@@ -178,6 +178,7 @@ const ShoppingBag = (): JSX.Element => {
                       }}>
                       <OneItem
                         id={item.id}
+                        type={item.type}
                         season={item.season}
                         image={item.image}
                         brand={item.brand}
@@ -193,14 +194,15 @@ const ShoppingBag = (): JSX.Element => {
                       style={{
                         backgroundColor: 'white',
                         marginTop: 15,
+                        marginLeft: 13,
                         width: '50%',
                         position: 'relative',
                       }}>
                       <Text
                         style={{
                           position: 'absolute',
-                          top: 13,
-                          left: 10,
+                          top: 15,
+                          left: 9,
                           height: 30,
                           width: 28,
                           zIndex: 2,
@@ -261,9 +263,7 @@ const styles = StyleSheet.create({
     paddingLeft: 45,
   },
   item: {
-    display: 'flex',
     flexDirection: 'row',
-    width: '100%',
   },
 });
 

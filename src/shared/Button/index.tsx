@@ -44,10 +44,3 @@ const RNButton = ({
 };
 
 export default RNButton;
-
-// <Button mode="outlined" textColor='black'
-//             style={{ }}
-//             contentStyle={{ textAlign: 'center' }}
-//             onPress={onPress}>
-//             {title}
-//         </Button>
