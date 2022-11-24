@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, Text, Image} from 'react-native';
 import React from 'react';
-import {IItem} from '../../shared/models/interfaces/item.interface';
+import {IItem, IItemProps} from '../../shared/models/interfaces/item.interface';
 import {IconButton} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch} from '../../redux';
@@ -9,39 +9,20 @@ import {selectItemData, setItemData} from '../../redux/slicers/wishlistSlice';
 import {selectItems, setItems} from '../../redux/slicers/allItemsSlice';
 
 const OneItem = ({
-  season,
-  brand,
-  price,
-  description,
-  image,
-  id,
-  isHearted,
-  count,
-  showHeartIcon = true,
-  customItemStyles,
-  type,
-}: IItem): JSX.Element => {
+  item,
+  customStyles,
+  showHeartIcon = false,
+}: IItemProps): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const wishListItemsData = useSelector(selectItemData);
   const allItemsData = useSelector(selectItems);
 
-  const item = {
-    id,
-    season,
-    brand,
-    price,
-    description,
-    image,
-    isHearted,
-    showHeartIcon,
-    count,
-    type,
-  };
-
   const heartedItemsHandler = () => {
-    const findedHeartedData = wishListItemsData.find((i: IItem) => i.id === id);
+    const findedHeartedData = wishListItemsData.find(
+      (i: IItem) => i.id === item.id,
+    );
     const findedHeartedDataInAllItems = allItemsData.find(
-      (i: IItem) => i.id === id,
+      (i: IItem) => i.id === item.id,
     );
 
     if (findedHeartedData) {
@@ -74,6 +55,8 @@ const OneItem = ({
     }
   };
 
+  console.log(showHeartIcon, 'show');
+
   return (
     <View
       style={{
@@ -87,7 +70,7 @@ const OneItem = ({
       {/* <Text>{brand}</Text> */}
       {showHeartIcon ? (
         <IconButton
-          icon={isHearted ? 'heart' : 'heart-outline'}
+          icon={item.isHearted ? 'heart' : 'heart-outline'}
           style={{
             position: 'absolute',
             top: 7,
@@ -99,7 +82,7 @@ const OneItem = ({
           onPress={heartedItemsHandler}
         />
       ) : null}
-      <View style={[{width: '100%', ...customItemStyles}]}>
+      <View style={[{width: '100%', ...customStyles}]}>
         <Image
           resizeMode="contain"
           style={{
@@ -108,14 +91,14 @@ const OneItem = ({
             // position:'absolute'
             // backgroundColor: 'gray',
           }}
-          source={image}
+          source={item.image}
         />
         <View style={{paddingLeft: 13}}>
-          <Text> {season}</Text>
-          <Text> {type}</Text>
-          <Text>{brand} </Text>
-          <Text>{description}</Text>
-          <Text>{price}</Text>
+          <Text> {item.season}</Text>
+          <Text> {item.type}</Text>
+          <Text>{item.brand} </Text>
+          <Text>{item.description}</Text>
+          <Text>{item.price}</Text>
         </View>
       </View>
     </View>

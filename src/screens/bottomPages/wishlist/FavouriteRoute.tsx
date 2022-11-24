@@ -18,6 +18,7 @@ import {
   selectBagItemsData,
   setBagItemsData,
 } from '../../../redux/slicers/shoppingBagSlice';
+import {EItemType} from '../../../shared/models/enums/itemType.enum';
 
 const FavouriteRoute = (): JSX.Element => {
   const navigation = useNavigation();
@@ -49,7 +50,7 @@ const FavouriteRoute = (): JSX.Element => {
     setSelectedItem(item);
     addedToBagItemsHandler(
       item,
-      item.type !== 'One size' ? handleSheetOpen : undefined,
+      item.type !== EItemType.ONE_SIZE ? handleSheetOpen : undefined,
     );
   };
 
@@ -123,15 +124,9 @@ const FavouriteRoute = (): JSX.Element => {
                         paddingLeft: 1,
                       }}>
                       <OneItem
-                        id={item.id}
-                        season={item.season}
-                        image={item.image}
-                        type={item.type}
-                        brand={item.brand}
-                        description={item.description}
-                        price={item.price}
-                        isHearted={item.isHearted}
-                        customItemStyles={styles.item}
+                        item={item}
+                        customStyles={styles.item}
+                        showHeartIcon={true}
                       />
                       <RNButton
                         title="Add to bag"

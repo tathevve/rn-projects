@@ -6,7 +6,7 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {IItem} from '../../shared/models/interfaces/item.interface';
 import {useNavigation} from '@react-navigation/native';
@@ -23,6 +23,8 @@ import ContactUs from '../../shared/ContactUs';
 import {AppDispatch} from '../../redux';
 import TextInputField from '../../shared/TextInput/TextInputField';
 import {FormProvider, useForm} from 'react-hook-form';
+import {EItemType} from '../../shared/models/enums/itemType.enum';
+import RNPicker from '../../shared/Picker';
 
 interface ICount {
   count: string | number;
@@ -34,7 +36,7 @@ const ShoppingBag = (): JSX.Element => {
   const bagItemsData = useSelector(selectBagItemsData);
   const dispatch = useDispatch<AppDispatch>();
   const totalPrice = useSelector(selectTotalPrice);
-  // const [cardItems, setCardItems] = useState<number>(0);
+  const [pickerValue, setPickerValue] = useState<string>('');
   const methods = useForm<ICount>({
     mode: 'all',
   });
@@ -58,6 +60,21 @@ const ShoppingBag = (): JSX.Element => {
       dispatch(setBagItemsData(filteredItemsData));
     }
     dispatch(setItemsTotalPrice(totalOf));
+  };
+
+  const handlePickerChange = (value: any, item: IItem) => {
+    setPickerValue(value);
+    const updatedData = bagItemsData.map((i: IItem) => {
+      if (i.id === item?.id) {
+        return {
+          ...i,
+          size: value,
+        };
+      } else {
+        return i;
+      }
+    });
+    dispatch(setBagItemsData(updatedData));
   };
 
   // const handleRefClick = (id: number) => {
@@ -157,10 +174,6 @@ const ShoppingBag = (): JSX.Element => {
                   <View
                     style={{
                       width: '90%',
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'flex-end',
-                      // backgroundColor: 'red',
                     }}>
                     <TouchableOpacity
                       onPress={() =>
@@ -176,52 +189,92 @@ const ShoppingBag = (): JSX.Element => {
                         width: '50%',
                         // flexWrap: 'wrap',
                       }}>
-                      <OneItem
-                        id={item.id}
-                        type={item.type}
-                        season={item.season}
-                        image={item.image}
-                        brand={item.brand}
-                        description={item.description}
-                        price={item.price}
-                        isHearted={item.isHearted}
-                        showHeartIcon={false}
-                        count={item.count}
-                        customItemStyles={styles.item}
-                      />
+                      <OneItem item={item} customStyles={styles.item} />
                     </TouchableOpacity>
                     <View
                       style={{
-                        backgroundColor: 'white',
-                        marginTop: 15,
-                        marginLeft: 13,
-                        width: '50%',
-                        position: 'relative',
+                        flexDirection: 'row',
+                        width: '70%',
+                        borderWidth: 1,
+                        borderColor: 'black',
+                        borderRadius: 7,
+                        marginTop: -25,
+                        marginLeft: 120,
+                        justifyContent: 'flex-start',
+                        // alignItems: 'flex-start',
                       }}>
-                      <Text
+                      <View
                         style={{
-                          position: 'absolute',
-                          top: 15,
-                          left: 9,
-                          height: 30,
-                          width: 28,
-                          zIndex: 2,
-                          fontSize: 12,
+                          backgroundColor: 'white',
+                          // marginTop: 15,
+                          // marginLeft: -13,
+                          width: '80%',
+                          position: 'relative',
                         }}>
-                        Qty:
-                      </Text>
+                        <Text
+                          style={{
+                            position: 'absolute',
+                            top: 15,
+                            left: 9,
+                            height: 30,
+                            width: 28,
+                            zIndex: 2,
+                            fontSize: 12,
+                          }}>
+                          Qty:
+                        </Text>
 
-                      <TextInputField
-                        // placeholder="Count"
-                        name="quantity"
-                        // inputRef={inputRef}
-                        customValue={item.count}
-                        labelIsVisible
-                        secureTextEntry
-                        control={control}
-                        props={{maxLength: 3}}
-                        customInputStyles={styles.input}
-                      />
+                        <TextInputField
+                          // placeholder="Count"
+                          name="quantity"
+                          // inputRef={inputRef}
+                          customValue={item.count}
+                          labelIsVisible
+                          secureTextEntry
+                          control={control}
+                          props={{maxLength: 3}}
+                          customInputStyles={styles.input}
+                        />
+                      </View>
+                      <View
+                        style={{
+                          backgroundColor: 'white',
+                          // marginTop: 15,
+                          marginLeft: -80,
+                          width: '100%',
+                          position: 'relative',
+                        }}>
+                        <Text
+                          style={{
+                            position: 'absolute',
+                            top: 15,
+                            left: 9,
+                            height: 30,
+                            width: 28,
+                            zIndex: 2,
+                            fontSize: 12,
+                          }}>
+                          Size:
+                        </Text>
+
+                        <RNPicker
+                          disabled={item?.type === EItemType.ONE_SIZE}
+                          onChangeCB={value => handlePickerChange(value, item)}
+                          pickerValue={pickerValue}
+                        />
+
+                        {/* <TextInputField
+                          // placeholder="Count"
+                          name="quantity"
+                          // inputRef={inputRef}
+                          customValue={item.size}
+                          labelIsVisible
+                          secureTextEntry
+                          control={control}
+                          props={{maxLength: 3}}
+                          customInputStyles={styles.input}
+                        /> */}
+                      </View>
                     </View>
                   </View>
                 </View>
@@ -256,7 +309,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 30,
-    width: '55%',
+    width: '45%',
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 7,

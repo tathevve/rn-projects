@@ -4,9 +4,15 @@ import {listSizesData} from '../models/constants/listSizesData';
 
 interface IRNPickerProps {
   onChangeCB?: (value: any) => void;
+  pickerValue?: string;
+  disabled?: boolean;
 }
 
-const RNPicker = ({onChangeCB}: IRNPickerProps) => {
+const RNPicker = ({
+  onChangeCB,
+  pickerValue,
+  disabled = false,
+}: IRNPickerProps) => {
   const handleChange = (value: any) => {
     onChangeCB?.(value);
     console.log(value, 'changeValue');
@@ -18,10 +24,10 @@ const RNPicker = ({onChangeCB}: IRNPickerProps) => {
         placeholder={{
           label: 'Select your size',
         }}
-        style={{}}
         // disabled={findItemDetail.type === 'One Size' ? true : false}
-        // disabled={disableHandler()}
+        disabled={disabled}
         onValueChange={value => handleChange(value)}
+        value={pickerValue}
         items={listSizesData}
       />
     </>

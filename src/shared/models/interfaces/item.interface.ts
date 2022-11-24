@@ -10,8 +10,12 @@ export interface IItem {
   image?: any | string;
   imagesArray?: Array<any | string>;
   isHearted?: boolean;
-  showHeartIcon?: boolean;
-  customItemStyles?: StyleProp<TextStyle> | any;
   type: string;
   size?: string;
+}
+
+export interface IItemProps {
+  item: IItem;
+  customStyles?: StyleProp<TextStyle> | any;
+  showHeartIcon?: boolean;
 }

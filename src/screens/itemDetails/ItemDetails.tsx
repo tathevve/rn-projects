@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {IconButton} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import ItemSlider from './ItemSlider';
@@ -20,31 +20,54 @@ import RNAccordion from '../../shared/Accordion';
 import RNButton from '../../shared/Button';
 import useAddedToBagHook from '../../shared/hooks/useAddedToBagHook';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { AppDispatch } from '../../redux';
+import {AppDispatch} from '../../redux';
+import {
+  selectBagItemsData,
+  setBagItemsData,
+} from '../../redux/slicers/shoppingBagSlice';
+import {EItemType} from '../../shared/models/enums/itemType.enum';
 
 const ItemDetails = ({route}: any): JSX.Element => {
   const itemParams = route.params;
   const navigation = useNavigation();
   const items = useSelector(selectItems);
+  const bagItemsData = useSelector(selectBagItemsData);
   const refRBSheet = useRef<any>();
   const dispatch = useDispatch<AppDispatch>();
-
+  const [selectedItem, setSelectedItem] = useState<null | IItem>(null);
+  const [pickerValue, setPickerValue] = useState<string>('');
   const addedToBagItemsHandler = useAddedToBagHook();
 
   const addToBag = (item: IItem) => {
-    addedToBagItemsHandler(item, handleSheetOpen);
+    setSelectedItem(item);
+    addedToBagItemsHandler(
+      item,
+      item.type !== EItemType.ONE_SIZE ? handleSheetOpen : undefined,
+    );
   };
-
   const findItemDetail = items.find((i: IItem) => i.id === itemParams.item.id);
 
   const handleSheetOpen = () => {
     refRBSheet.current?.open();
   };
+  const handlePickerChange = (value: any) => {
+    setPickerValue(value);
+    const updatedData = bagItemsData.map((item: IItem) => {
+      if (item.id === selectedItem?.id) {
+        return {
+          ...item,
+          size: value,
+        };
+      } else {
+        return item;
+      }
+    });
+    dispatch(setBagItemsData(updatedData));
+  };
 
-
-  const handleChangePicker = (value:any) => {
-
-  }
+  const handleSheetClose = () => {
+    setSelectedItem(null);
+  };
 
   return (
     <>
@@ -82,7 +105,11 @@ const ItemDetails = ({route}: any): JSX.Element => {
             <Text>{findItemDetail.price}</Text>
           </View>
 
-          <RNPicker />
+          <RNPicker
+            pickerValue={pickerValue}
+            disabled={findItemDetail?.type === EItemType.ONE_SIZE}
+            onChangeCB={handlePickerChange}
+          />
           <View
             style={{
               display: 'flex',
@@ -152,6 +179,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
         ref={refRBSheet}
         closeOnDragDown
         closeOnPressMask
+        onClose={handleSheetClose}
         animationType="slide"
         openDuration={450}
         customStyles={{
@@ -165,7 +193,11 @@ const ItemDetails = ({route}: any): JSX.Element => {
         }}>
         <>
           <Text>Select size</Text>
-          <RNPicker onChangeCB={handleChangePicker}/>
+          <RNPicker
+            disabled={findItemDetail?.type === EItemType.ONE_SIZE}
+            onChangeCB={handlePickerChange}
+            pickerValue={pickerValue}
+          />
         </>
       </RBSheet>
     </>
