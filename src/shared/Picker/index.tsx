@@ -1,4 +1,5 @@
 import React from 'react';
+import {StyleProp, TextStyle, View} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import {listSizesData} from '../models/constants/listSizesData';
 
@@ -6,23 +7,29 @@ interface IRNPickerProps {
   onChangeCB?: (value: any) => void;
   pickerValue?: string;
   disabled?: boolean;
+  customStyles?: StyleProp<TextStyle>;
+  placeholder?: string;
 }
 
 const RNPicker = ({
   onChangeCB,
   pickerValue,
   disabled = false,
+  customStyles,
+  placeholder = 'Select your size',
 }: IRNPickerProps) => {
   const handleChange = (value: any) => {
     onChangeCB?.(value);
     console.log(value, 'changeValue');
   };
 
+  console.log(pickerValue, 'pickerValue');
+
   return (
-    <>
+    <View style={customStyles}>
       <RNPickerSelect
         placeholder={{
-          label: 'Select your size',
+          label: placeholder,
         }}
         // disabled={findItemDetail.type === 'One Size' ? true : false}
         disabled={disabled}
@@ -30,7 +37,7 @@ const RNPicker = ({
         value={pickerValue}
         items={listSizesData}
       />
-    </>
+    </View>
   );
 };
 

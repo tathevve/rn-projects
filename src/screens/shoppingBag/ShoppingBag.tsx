@@ -6,7 +6,7 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {IItem} from '../../shared/models/interfaces/item.interface';
 import {useNavigation} from '@react-navigation/native';
@@ -36,13 +36,12 @@ const ShoppingBag = (): JSX.Element => {
   const bagItemsData = useSelector(selectBagItemsData);
   const dispatch = useDispatch<AppDispatch>();
   const totalPrice = useSelector(selectTotalPrice);
-  const [pickerValue, setPickerValue] = useState<string>('');
   const methods = useForm<ICount>({
     mode: 'all',
   });
 
   const {control} = methods;
-
+  console.log(bagItemsData, 'asjdk');
   const removeItemFromBag = (item: IItem) => {
     const totalOf = totalPrice - Number(item.price);
     if (item.count && item.count > 1) {
@@ -63,7 +62,6 @@ const ShoppingBag = (): JSX.Element => {
   };
 
   const handlePickerChange = (value: any, item: IItem) => {
-    setPickerValue(value);
     const updatedData = bagItemsData.map((i: IItem) => {
       if (i.id === item?.id) {
         return {
@@ -152,6 +150,7 @@ const ShoppingBag = (): JSX.Element => {
                   style={{
                     display: 'flex',
                     width: '100%',
+                    // height: "40%",
                     flexDirection: 'row-reverse',
                     marginBottom: 35,
                   }}
@@ -195,11 +194,9 @@ const ShoppingBag = (): JSX.Element => {
                       style={{
                         flexDirection: 'row',
                         width: '70%',
-                        borderWidth: 1,
-                        borderColor: 'black',
-                        borderRadius: 7,
                         marginTop: -25,
                         marginLeft: 120,
+                        // height: 300,
                         justifyContent: 'flex-start',
                         // alignItems: 'flex-start',
                       }}>
@@ -214,7 +211,7 @@ const ShoppingBag = (): JSX.Element => {
                         <Text
                           style={{
                             position: 'absolute',
-                            top: 15,
+                            top: 18,
                             left: 9,
                             height: 30,
                             width: 28,
@@ -247,7 +244,7 @@ const ShoppingBag = (): JSX.Element => {
                         <Text
                           style={{
                             position: 'absolute',
-                            top: 15,
+                            top: 20,
                             left: 9,
                             height: 30,
                             width: 28,
@@ -260,20 +257,14 @@ const ShoppingBag = (): JSX.Element => {
                         <RNPicker
                           disabled={item?.type === EItemType.ONE_SIZE}
                           onChangeCB={value => handlePickerChange(value, item)}
-                          pickerValue={pickerValue}
+                          pickerValue={item.size}
+                          placeholder={
+                            item.size === EItemType.ONE_SIZE
+                              ? 'ONE_SIZE'
+                              : undefined
+                          }
+                          customStyles={styles.picker}
                         />
-
-                        {/* <TextInputField
-                          // placeholder="Count"
-                          name="quantity"
-                          // inputRef={inputRef}
-                          customValue={item.size}
-                          labelIsVisible
-                          secureTextEntry
-                          control={control}
-                          props={{maxLength: 3}}
-                          customInputStyles={styles.input}
-                        /> */}
                       </View>
                     </View>
                   </View>
@@ -317,6 +308,14 @@ const styles = StyleSheet.create({
   },
   item: {
     flexDirection: 'row',
+  },
+  picker: {
+    // height: '33%',
+    width: '65%',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 7,
+    paddingLeft: 25,
   },
 });
 

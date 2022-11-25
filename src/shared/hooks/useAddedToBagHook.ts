@@ -13,8 +13,8 @@ const useAddedToBagHook = () => {
   const totalPrice = useSelector(selectTotalPrice);
   const bagItems = useSelector(selectBagItemsData);
 
-  const addedToBagItemsHandler = (item: IItem, openHandler?: () => void) => {
-    openHandler?.();
+  const addedToBagItemsHandler = (item: IItem, bagItemsCB?: () => void) => {
+    bagItemsCB?.();
     let totalOf = totalPrice + item.price;
     const findedData = bagItems.find((i: IItem) => i.id === item.id);
     if (findedData) {
