@@ -20,10 +20,8 @@ const RNPicker = ({
 }: IRNPickerProps) => {
   const handleChange = (value: any) => {
     onChangeCB?.(value);
-    console.log(value, 'changeValue');
+    // console.log(value, 'changeValue');
   };
-
-  console.log(pickerValue, 'pickerValue');
 
   return (
     <View style={customStyles}>

@@ -30,7 +30,7 @@ const ScreenLayout = ({children}: IScreenLayout): JSX.Element => {
       timeout: 15000,
     });
 
-    console.log(data, 'dataGeo');
+    // console.log(data, 'dataGeo');
     dispatch(setGeolocation(data));
   }, [dispatch]);
 

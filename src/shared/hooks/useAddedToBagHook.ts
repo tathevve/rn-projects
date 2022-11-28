@@ -13,20 +13,33 @@ const useAddedToBagHook = () => {
   const totalPrice = useSelector(selectTotalPrice);
   const bagItems = useSelector(selectBagItemsData);
 
-  const addedToBagItemsHandler = (item: IItem, bagItemsCB?: () => void) => {
+  const addedToBagItemsHandler = (
+    item: IItem,
+    sizeValue: string,
+    bagItemsCB?: () => void,
+  ) => {
     bagItemsCB?.();
     let totalOf = totalPrice + item.price;
     const findedData = bagItems.find((i: IItem) => i.id === item.id);
     if (findedData) {
       const updatedList = bagItems.map((i: IItem) => {
-        return {
-          ...i,
-          count: findedData.id === i.id ? findedData.count + 1 : i.count,
-        };
+        if (findedData.id === i.id && findedData.size === sizeValue) {
+          return {
+            ...i,
+            count: findedData.count + 1,
+            size: sizeValue,
+          };
+        } else {
+          return {
+            ...i,
+          };
+        }
       });
       dispatch(setBagItemsData(updatedList));
     } else {
-      dispatch(setBagItemsData([...bagItems, {...item, count: 1}]));
+      dispatch(
+        setBagItemsData([...bagItems, {...item, count: 1, size: sizeValue}]),
+      );
     }
     dispatch(setItemsTotalPrice(totalOf));
   };

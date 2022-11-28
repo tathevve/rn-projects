@@ -66,7 +66,7 @@ const AllItems = (): JSX.Element => {
                   width: '50%',
                   // flexWrap: 'wrap',
                 }}>
-                <OneItem item={item} showHeartIcon={true} />
+                <OneItem item={item} showHeartIcon />
               </TouchableOpacity>
             );
           })}

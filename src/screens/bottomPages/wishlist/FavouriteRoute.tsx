@@ -44,7 +44,7 @@ const FavouriteRoute = (): JSX.Element => {
     dispatch(setBagItemsData(updatedData));
   };
 
-  console.log(bagItemsData, 'bagItemsData');
+  // console.log(bagItemsData, 'bagItemsData');
 
   const addToBag = (item: IItem) => {
     setSelectedItem(item);

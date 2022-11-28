@@ -55,7 +55,6 @@ const OneItem = ({
     }
   };
 
-  console.log(showHeartIcon, 'show');
 
   return (
     <View

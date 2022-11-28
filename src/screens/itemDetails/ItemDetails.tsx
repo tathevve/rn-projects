@@ -7,9 +7,9 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {IconButton} from 'react-native-paper';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import ItemSlider from './ItemSlider';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectItems} from '../../redux/slicers/allItemsSlice';
@@ -36,11 +36,11 @@ const ItemDetails = ({route}: any): JSX.Element => {
   const [pickerValue, setPickerValue] = useState<string>('');
   const addedToBagItemsHandler = useAddedToBagHook();
 
-  useFocusEffect(
-    useCallback(() => {
-      setPickerValue('');
-    }, []),
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     setPickerValue('');
+  //   }, []),
+  // );
 
   const findItemDetail = useMemo(() => {
     return items.find((i: IItem) => i.id === itemParams?.item?.id);
@@ -50,31 +50,16 @@ const ItemDetails = ({route}: any): JSX.Element => {
     if (item.type !== EItemType.ONE_SIZE && !pickerValue) {
       Alert.alert('', 'Please, select your size.');
     } else {
-      addedToBagItemsHandler(item);
+      addedToBagItemsHandler(item, pickerValue);
     }
   };
 
-  console.log(findItemDetail, 'findItemDetail');
+  // console.log(findItemDetail, 'findItemDetail');
 
   console.log(bagItemsData, 'bagItemsData');
 
   const handlePickerChange = (value: any) => {
     setPickerValue(value);
-    if (bagItemsData.length > 0) {
-      const updatedData = bagItemsData.map((item: IItem) => {
-        if (item.id === findItemDetail?.id) {
-          return {
-            ...item,
-            size: value,
-          };
-        } else {
-          return item;
-        }
-      });
-      dispatch(setBagItemsData(updatedData));
-    } else {
-      dispatch(setBagItemsData([{...findItemDetail, size: value}]));
-    }
   };
 
   return (

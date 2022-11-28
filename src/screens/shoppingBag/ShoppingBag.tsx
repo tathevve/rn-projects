@@ -41,7 +41,6 @@ const ShoppingBag = (): JSX.Element => {
   });
 
   const {control} = methods;
-  console.log(bagItemsData, 'asjdk');
   const removeItemFromBag = (item: IItem) => {
     const totalOf = totalPrice - Number(item.price);
     if (item.count && item.count > 1) {
@@ -225,7 +224,7 @@ const ShoppingBag = (): JSX.Element => {
                           // placeholder="Count"
                           name="quantity"
                           // inputRef={inputRef}
-                          customValue={item.count}
+                          customValue={item?.count}
                           labelIsVisible
                           secureTextEntry
                           control={control}
@@ -257,9 +256,9 @@ const ShoppingBag = (): JSX.Element => {
                         <RNPicker
                           disabled={item?.type === EItemType.ONE_SIZE}
                           onChangeCB={value => handlePickerChange(value, item)}
-                          pickerValue={item.size}
+                          pickerValue={item?.size}
                           placeholder={
-                            item.size === EItemType.ONE_SIZE
+                            item?.size === EItemType.ONE_SIZE
                               ? 'ONE_SIZE'
                               : undefined
                           }
