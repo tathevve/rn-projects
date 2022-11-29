@@ -9,6 +9,7 @@ interface IRNPickerProps {
   disabled?: boolean;
   customStyles?: StyleProp<TextStyle>;
   placeholder?: string;
+  placeholderColor?: string;
 }
 
 const RNPicker = ({
@@ -17,6 +18,7 @@ const RNPicker = ({
   disabled = false,
   customStyles,
   placeholder = 'Select your size',
+  placeholderColor = 'black',
 }: IRNPickerProps) => {
   const handleChange = (value: any) => {
     onChangeCB?.(value);
@@ -28,6 +30,7 @@ const RNPicker = ({
       <RNPickerSelect
         placeholder={{
           label: placeholder,
+          color: placeholderColor,
         }}
         // disabled={findItemDetail.type === 'One Size' ? true : false}
         disabled={disabled}

@@ -55,7 +55,6 @@ const OneItem = ({
     }
   };
 
-
   return (
     <View
       style={{

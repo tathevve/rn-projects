@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {Text} from 'react-native-paper';
 import RNButton from '../../../shared/Button';
-import {useNavigation} from '@react-navigation/native';
-import {useDispatch, useSelector} from 'react-redux';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 import {selectUserData} from '../../../redux/slicers/loginSlice';
 import {selectItemData} from '../../../redux/slicers/wishlistSlice';
 import OneItem from '../../shopNow/OneItem';
@@ -13,54 +14,52 @@ import {EPath} from '../../../shared/models/enums/path.enum';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import RNPicker from '../../../shared/Picker';
 import useAddedToBagHook from '../../../shared/hooks/useAddedToBagHook';
-import {AppDispatch} from '../../../redux';
-import {
-  selectBagItemsData,
-  setBagItemsData,
-} from '../../../redux/slicers/shoppingBagSlice';
 import {EItemType} from '../../../shared/models/enums/itemType.enum';
 
 const FavouriteRoute = (): JSX.Element => {
   const navigation = useNavigation();
   const loggedUserData = useSelector(selectUserData);
   const wishListItemsData = useSelector(selectItemData);
-  const bagItemsData = useSelector(selectBagItemsData);
+  // const bagItemsData = useSelector(selectBagItemsData);
   const refRBSheet = useRef<any>();
   const addedToBagItemsHandler = useAddedToBagHook();
-  const dispatch = useDispatch<AppDispatch>();
+  // const [selectedItem, setSelectedItem] = useState<null | IItem>(null);
   const [selectedItem, setSelectedItem] = useState<null | IItem>(null);
 
+  useFocusEffect(
+    useCallback(() => {
+      // setPickerValue('');
+      setSelectedItem(null);
+    }, []),
+  );
+
   const handlePickerChange = (value: any) => {
-    const updatedData = bagItemsData.map((item: IItem) => {
-      if (item.id === selectedItem?.id) {
-        return {
-          ...item,
-          size: value,
-        };
-      } else {
-        return item;
-      }
-    });
-    dispatch(setBagItemsData(updatedData));
+    // setPickerValue(value);
+    if (selectedItem) {
+      addedToBagItemsHandler(selectedItem, value);
+    }
   };
 
   // console.log(bagItemsData, 'bagItemsData');
-
-  const addToBag = (item: IItem) => {
-    setSelectedItem(item);
-    addedToBagItemsHandler(
-      item,
-      item.type !== EItemType.ONE_SIZE ? handleSheetOpen : undefined,
-    );
-  };
 
   const handleSheetOpen = () => {
     refRBSheet.current?.open();
   };
 
+  const handleAddToBag = (item: IItem) => {
+    setSelectedItem(item);
+    if (item.type !== EItemType.ONE_SIZE) {
+      handleSheetOpen();
+    } else {
+      addedToBagItemsHandler(item, EItemType.ONE_SIZE);
+    }
+  };
+
   const handleSheetClose = () => {
     setSelectedItem(null);
   };
+
+  console.log(selectedItem, 'selectedItem');
 
   return (
     <>
@@ -130,7 +129,7 @@ const FavouriteRoute = (): JSX.Element => {
                       />
                       <RNButton
                         title="Add to bag"
-                        onPress={() => addToBag(item)}
+                        onPress={() => handleAddToBag(item)}
                         buttonStyle={styles.button}
                       />
                     </TouchableOpacity>

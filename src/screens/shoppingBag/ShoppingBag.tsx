@@ -79,6 +79,16 @@ const ShoppingBag = (): JSX.Element => {
   //    inputRef?.current?.focus();
   // };
 
+  const handleRedirect = (item: IItem) => {
+    console.log(item.id, 'redirectedItem');
+    navigation.navigate(
+      EPath.ITEMDETAILS as never,
+      {
+        item,
+      } as never,
+    );
+  };
+
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
       <View
@@ -174,14 +184,7 @@ const ShoppingBag = (): JSX.Element => {
                       width: '90%',
                     }}>
                     <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate(
-                          EPath.ITEMDETAILS as never,
-                          {
-                            item,
-                          } as never,
-                        )
-                      }
+                      onPress={() => handleRedirect(item)}
                       key={index}
                       style={{
                         width: '50%',
@@ -258,7 +261,7 @@ const ShoppingBag = (): JSX.Element => {
                           onChangeCB={value => handlePickerChange(value, item)}
                           pickerValue={item?.size}
                           placeholder={
-                            item?.size === EItemType.ONE_SIZE
+                            item?.type === EItemType.ONE_SIZE
                               ? 'ONE_SIZE'
                               : undefined
                           }

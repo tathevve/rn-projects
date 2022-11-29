@@ -20,20 +20,21 @@ const useAddedToBagHook = () => {
   ) => {
     bagItemsCB?.();
     let totalOf = totalPrice + item.price;
-    const findedData = bagItems.find((i: IItem) => i.id === item.id);
+    const findedData = bagItems.find(
+      (i: IItem) => i.id === item.id && i.size === sizeValue,
+    );
     if (findedData) {
       const updatedList = bagItems.map((i: IItem) => {
-        if (findedData.id === i.id && findedData.size === sizeValue) {
-          return {
-            ...i,
-            count: findedData.count + 1,
-            size: sizeValue,
-          };
-        } else {
-          return {
-            ...i,
-          };
-        }
+        const findItemWithSameCount = bagItems.find(
+          (it: IItem) =>
+            it.id === i.id && it.count === i.count && i.size === sizeValue,
+        );
+        return {
+          ...i,
+          count: findItemWithSameCount
+            ? findItemWithSameCount.count + 1
+            : i.count,
+        };
       });
       dispatch(setBagItemsData(updatedList));
     } else {

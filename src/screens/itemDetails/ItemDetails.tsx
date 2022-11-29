@@ -7,11 +7,11 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import React, {useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {IconButton} from 'react-native-paper';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import ItemSlider from './ItemSlider';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {selectItems} from '../../redux/slicers/allItemsSlice';
 import {IItem} from '../../shared/models/interfaces/item.interface';
 import ContactUs from '../../shared/ContactUs';
@@ -20,11 +20,7 @@ import RNPicker from '../../shared/Picker';
 import RNAccordion from '../../shared/Accordion';
 import RNButton from '../../shared/Button';
 import useAddedToBagHook from '../../shared/hooks/useAddedToBagHook';
-import {AppDispatch} from '../../redux';
-import {
-  selectBagItemsData,
-  setBagItemsData,
-} from '../../redux/slicers/shoppingBagSlice';
+import {selectBagItemsData} from '../../redux/slicers/shoppingBagSlice';
 import {EItemType} from '../../shared/models/enums/itemType.enum';
 
 const ItemDetails = ({route}: any): JSX.Element => {
@@ -32,19 +28,18 @@ const ItemDetails = ({route}: any): JSX.Element => {
   const navigation = useNavigation();
   const items = useSelector(selectItems);
   const bagItemsData = useSelector(selectBagItemsData);
-  const dispatch = useDispatch<AppDispatch>();
   const [pickerValue, setPickerValue] = useState<string>('');
   const addedToBagItemsHandler = useAddedToBagHook();
 
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     setPickerValue('');
-  //   }, []),
-  // );
+  useFocusEffect(
+    useCallback(() => {
+      setPickerValue('');
+    }, []),
+  );
 
   const findItemDetail = useMemo(() => {
     return items.find((i: IItem) => i.id === itemParams?.item?.id);
-  }, [itemParams?.item?.id, items]);
+  }, [itemParams?.item, items]);
 
   const addToBag = (item: IItem) => {
     if (item.type !== EItemType.ONE_SIZE && !pickerValue) {
