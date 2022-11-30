@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import {
   View,
@@ -6,7 +7,7 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {IItem} from '../../shared/models/interfaces/item.interface';
 import {useNavigation} from '@react-navigation/native';
@@ -25,6 +26,7 @@ import TextInputField from '../../shared/TextInput/TextInputField';
 import {FormProvider, useForm} from 'react-hook-form';
 import {EItemType} from '../../shared/models/enums/itemType.enum';
 import RNPicker from '../../shared/Picker';
+import RNButton from '../../shared/Button';
 
 interface ICount {
   count: string | number;
@@ -41,6 +43,29 @@ const ShoppingBag = (): JSX.Element => {
   });
 
   const {control} = methods;
+
+  const valueOfInput = useCallback(
+    (value: any, item: IItem) => {
+      let totalOf = 0;
+      const updatedData = bagItemsData.map((i: IItem) => {
+        if (i.id === item.id) {
+          return {
+            ...i,
+            count: value,
+          };
+        } else {
+          return i;
+        }
+      });
+      dispatch(setBagItemsData(updatedData));
+      updatedData.forEach(
+        (i: IItem) => (totalOf = totalOf + i.count * Number(i.price)),
+      );
+      dispatch(setItemsTotalPrice(totalOf));
+    },
+    [bagItemsData, dispatch, totalPrice],
+  );
+
   const removeItemFromBag = (item: IItem) => {
     const totalOf = totalPrice - Number(item.price);
     if (item.count && item.count > 1) {
@@ -88,7 +113,6 @@ const ShoppingBag = (): JSX.Element => {
       } as never,
     );
   };
-
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
       <View
@@ -162,6 +186,9 @@ const ShoppingBag = (): JSX.Element => {
                     // height: "40%",
                     flexDirection: 'row-reverse',
                     marginBottom: 35,
+                    borderBottomWidth: 1,
+                    // borderTopWidth: 1,
+                    borderBottomColor: 'grey',
                   }}
                   key={index}>
                   <IconButton
@@ -230,6 +257,7 @@ const ShoppingBag = (): JSX.Element => {
                           customValue={item?.count}
                           labelIsVisible
                           secureTextEntry
+                          changeHandler={text => valueOfInput(text, item)}
                           control={control}
                           props={{maxLength: 3}}
                           customInputStyles={styles.input}
@@ -262,7 +290,7 @@ const ShoppingBag = (): JSX.Element => {
                           pickerValue={item?.size}
                           placeholder={
                             item?.type === EItemType.ONE_SIZE
-                              ? 'ONE_SIZE'
+                              ? 'One Size'
                               : undefined
                           }
                           customStyles={styles.picker}
@@ -276,6 +304,11 @@ const ShoppingBag = (): JSX.Element => {
           </FormProvider>
         </View>
         <ContactUs />
+        <RNButton
+          title="Proceed To Checkout"
+          onPress={() => navigation.navigate(EPath.CHECKOUT as never)}
+          buttonStyle={styles.button}
+        />
       </View>
     </ScrollView>
   );
@@ -302,7 +335,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 30,
-    width: '45%',
+    width: '50%',
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 7,
@@ -318,6 +351,21 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderRadius: 7,
     paddingLeft: 25,
+    color: 'black',
+  },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 5,
+    width: '100%',
+    height: 35,
+    marginTop: 25,
+    borderStyle: 'solid',
+    color: 'black',
+    marginBottom: 15,
   },
 });
 

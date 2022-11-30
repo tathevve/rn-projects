@@ -93,7 +93,7 @@ const OneItem = ({
         />
         <View style={{paddingLeft: 13}}>
           <Text> {item.season}</Text>
-          <Text> {item.type}</Text>
+          {/* <Text> {item.type}</Text> */}
           <Text>{item.brand} </Text>
           <Text>{item.description}</Text>
           <Text>{item.price}</Text>

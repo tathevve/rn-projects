@@ -2,8 +2,8 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch} from '../redux';
-import GetLocation from 'react-native-get-location';
-import {setGeolocation} from '../redux/slicers/app';
+// import GetLocation from 'react-native-get-location';
+// import {setGeolocation} from '../redux/slicers/app';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {selectUserData, setUserData} from '../redux/slicers/loginSlice';
 import RNModal from '../shared/Modal';
@@ -24,15 +24,15 @@ const ScreenLayout = ({children}: IScreenLayout): JSX.Element => {
 
   const loggedUserData = useSelector(selectUserData);
 
-  const fetchLocation = useCallback(async () => {
-    const data = await GetLocation.getCurrentPosition({
-      enableHighAccuracy: true,
-      timeout: 15000,
-    });
+  // const fetchLocation = useCallback(async () => {
+  //   const data = await GetLocation.getCurrentPosition({
+  //     enableHighAccuracy: true,
+  //     timeout: 15000,
+  //   });
 
-    // console.log(data, 'dataGeo');
-    dispatch(setGeolocation(data));
-  }, [dispatch]);
+  //   // console.log(data, 'dataGeo');
+  //   dispatch(setGeolocation(data));
+  // }, [dispatch]);
 
   const checkUserLoggedIn = useCallback(async () => {
     const userData = await AsyncStorage.getItem('user');
@@ -46,9 +46,9 @@ const ScreenLayout = ({children}: IScreenLayout): JSX.Element => {
     checkUserLoggedIn();
   }, [checkUserLoggedIn]);
 
-  useEffect(() => {
-    fetchLocation();
-  }, [fetchLocation]);
+  // useEffect(() => {
+  //   fetchLocation();
+  // }, [fetchLocation]);
 
   const handleOpenModal = () => {
     if (!loggedUserData?.name) {

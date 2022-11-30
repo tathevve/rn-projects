@@ -25,15 +25,17 @@ const appSlicer = createSlice({
     loadingStateOff(state) {
       state.isLoading = false;
     },
-    setGeolocation(state, {payload}) {
-      state.location = payload;
-    },
+    // setGeolocation(state, {payload}) {
+    //   state.location = payload;
+    // },
   },
 });
 
 export const selectIsLoading = (state: any) => state.app.isLoading;
 export const selectLocation = (state: any) => state.app.location;
 
-export const { loadingStateOff, loadingStateOn, setGeolocation } = appSlicer.actions;
+export const { loadingStateOff, loadingStateOn, 
+  //setGeolocation 
+} = appSlicer.actions;
 
 export default appSlicer.reducer;

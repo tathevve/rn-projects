@@ -46,6 +46,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
       Alert.alert('', 'Please, select your size.');
     } else {
       addedToBagItemsHandler(item, pickerValue);
+      Alert.alert('', 'Item added successfully');
     }
   };
 
@@ -117,7 +118,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
                 navigation.navigate(
                   EPath.SIZEGUIDE as never,
                   {
-                    findItemDetail,
+                    item: findItemDetail,
                   } as never,
                 )
               }>

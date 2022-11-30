@@ -12,4 +12,8 @@ export enum EPath {
   SHOPPINGBAG = 'ShoppingBag',
   FORGOTPASSWORD = 'ForgotPassword',
   SIZEGUIDE = 'SizeGuide',
+  CHECKOUT = 'Checkout',
+  DELIVERY_ADDRESS = 'DeliveryAddress',
+  DELIVERY_METHOD = 'DeliveryMethod',
+  PAYMENT = 'Payment',
 }

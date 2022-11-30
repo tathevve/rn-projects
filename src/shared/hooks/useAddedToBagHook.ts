@@ -25,15 +25,9 @@ const useAddedToBagHook = () => {
     );
     if (findedData) {
       const updatedList = bagItems.map((i: IItem) => {
-        const findItemWithSameCount = bagItems.find(
-          (it: IItem) =>
-            it.id === i.id && it.count === i.count && i.size === sizeValue,
-        );
         return {
           ...i,
-          count: findItemWithSameCount
-            ? findItemWithSameCount.count + 1
-            : i.count,
+          count: findedData.id === i.id ? (i.count ? i.count + 1 : 1) : i.count,
         };
       });
       dispatch(setBagItemsData(updatedList));

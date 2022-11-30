@@ -1,6 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import React, {useCallback, useRef, useState} from 'react';
 import {Text} from 'react-native-paper';
 import RNButton from '../../../shared/Button';
@@ -37,6 +43,7 @@ const FavouriteRoute = (): JSX.Element => {
     // setPickerValue(value);
     if (selectedItem) {
       addedToBagItemsHandler(selectedItem, value);
+      Alert.alert('', 'Item added successfully');
     }
   };
 
@@ -52,6 +59,7 @@ const FavouriteRoute = (): JSX.Element => {
       handleSheetOpen();
     } else {
       addedToBagItemsHandler(item, EItemType.ONE_SIZE);
+      Alert.alert('', 'Item added successfully');
     }
   };
 

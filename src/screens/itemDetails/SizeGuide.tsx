@@ -1,13 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text} from 'react-native';
 import React from 'react';
 import OneItem from '../shopNow/OneItem';
 import {IItem} from '../../shared/models/interfaces/item.interface';
 
 const SizeGuide = ({route}: any): JSX.Element => {
-  const itemParams = route.params;
+  const itemParams = route.params?.item as IItem;
 
-  // console.log(itemParams, 'itemParams');
+  console.log(itemParams, 'itemParams');
 
   return (
     <View style={{backgroundColor: 'white', height: '100%'}}>
@@ -21,19 +21,13 @@ const SizeGuide = ({route}: any): JSX.Element => {
             flexDirection: 'row',
             flexWrap: 'wrap',
           }}>
-          {itemParams.map((item: Omit<IItem, 'count'>, index: number) => {
-            return (
-              <TouchableOpacity
-                onPress={() => {}}
-                key={index}
-                style={{
-                  width: '50%',
-                  // flexWrap: 'wrap',
-                }}>
-                <OneItem item={item} />
-              </TouchableOpacity>
-            );
-          })}
+          <View
+            style={{
+              width: '50%',
+              // flexWrap: 'wrap',
+            }}>
+            <OneItem item={itemParams} />
+          </View>
         </View>
       </View>
     </View>
