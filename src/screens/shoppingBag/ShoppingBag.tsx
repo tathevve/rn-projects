@@ -306,7 +306,14 @@ const ShoppingBag = (): JSX.Element => {
         <ContactUs />
         <RNButton
           title="Proceed To Checkout"
-          onPress={() => navigation.navigate(EPath.CHECKOUT as never)}
+          onPress={() =>
+            navigation.navigate(
+              EPath.CHECKOUT as never,
+              {
+                totalPrice,
+              } as never,
+            )
+          }
           buttonStyle={styles.button}
         />
       </View>
