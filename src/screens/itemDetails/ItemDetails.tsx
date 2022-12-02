@@ -22,6 +22,8 @@ import RNButton from '../../shared/Button';
 import useAddedToBagHook from '../../shared/hooks/useAddedToBagHook';
 import {selectBagItemsData} from '../../redux/slicers/shoppingBagSlice';
 import {EItemType} from '../../shared/models/enums/itemType.enum';
+import RNModal from '../../shared/Modal';
+import OneItem from '../shopNow/OneItem';
 
 const ItemDetails = ({route}: any): JSX.Element => {
   const itemParams = route.params;
@@ -29,6 +31,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
   const items = useSelector(selectItems);
   const bagItemsData = useSelector(selectBagItemsData);
   const [pickerValue, setPickerValue] = useState<string>('');
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const addedToBagItemsHandler = useAddedToBagHook();
 
   useFocusEffect(
@@ -46,7 +49,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
       Alert.alert('', 'Please, select your size.');
     } else {
       addedToBagItemsHandler(item, pickerValue);
-      Alert.alert('', 'Item added successfully');
+      setIsOpen(true);
     }
   };
 
@@ -56,6 +59,15 @@ const ItemDetails = ({route}: any): JSX.Element => {
 
   const handlePickerChange = (value: any) => {
     setPickerValue(value);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
+
+  const handleContinueBtnPress = () => {
+    navigation.navigate(EPath.SHOPPINGBAG as never);
+    handleCloseModal();
   };
 
   return (
@@ -164,6 +176,25 @@ const ItemDetails = ({route}: any): JSX.Element => {
           <ContactUs />
         </View>
       </ScrollView>
+      {isOpen && (
+        <RNModal
+          visible={isOpen}
+          hideModal={handleCloseModal}
+          modalTitle="Added to Bag">
+          <View>
+            <View style={{width: '50%'}}>
+              <OneItem item={findItemDetail} customStyles={styles.item} />
+            </View>
+            <View>
+              <RNButton
+                title="Go to bag"
+                onPress={handleContinueBtnPress}
+                buttonStyle={styles.button}
+              />
+            </View>
+          </View>
+        </RNModal>
+      )}
     </>
   );
 };
@@ -182,6 +213,9 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     color: 'black',
     marginBottom: 15,
+  },
+  item: {
+    flexDirection: 'row',
   },
 });
 

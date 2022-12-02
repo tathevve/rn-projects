@@ -1,12 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import React, {useCallback, useRef, useState} from 'react';
 import {Text} from 'react-native-paper';
 import RNButton from '../../../shared/Button';
@@ -21,15 +15,15 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import RNPicker from '../../../shared/Picker';
 import useAddedToBagHook from '../../../shared/hooks/useAddedToBagHook';
 import {EItemType} from '../../../shared/models/enums/itemType.enum';
+import RNModal from '../../../shared/Modal';
 
 const FavouriteRoute = (): JSX.Element => {
   const navigation = useNavigation();
   const loggedUserData = useSelector(selectUserData);
   const wishListItemsData = useSelector(selectItemData);
-  // const bagItemsData = useSelector(selectBagItemsData);
   const refRBSheet = useRef<any>();
   const addedToBagItemsHandler = useAddedToBagHook();
-  // const [selectedItem, setSelectedItem] = useState<null | IItem>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<null | IItem>(null);
 
   useFocusEffect(
@@ -43,7 +37,8 @@ const FavouriteRoute = (): JSX.Element => {
     // setPickerValue(value);
     if (selectedItem) {
       addedToBagItemsHandler(selectedItem, value);
-      Alert.alert('', 'Item added successfully');
+      // Alert.alert('', 'Item added successfully');
+      setIsOpen(true);
     }
   };
 
@@ -59,7 +54,8 @@ const FavouriteRoute = (): JSX.Element => {
       handleSheetOpen();
     } else {
       addedToBagItemsHandler(item, EItemType.ONE_SIZE);
-      Alert.alert('', 'Item added successfully');
+      // Alert.alert('', 'Item added successfully');
+      setIsOpen(true);
     }
   };
 
@@ -68,6 +64,14 @@ const FavouriteRoute = (): JSX.Element => {
   };
 
   console.log(selectedItem, 'selectedItem');
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
+
+  const handleContinueBtnPress = () => {
+    navigation.navigate(EPath.SHOPPINGBAG as never);
+    handleCloseModal();
+  };
 
   return (
     <>
@@ -130,11 +134,7 @@ const FavouriteRoute = (): JSX.Element => {
                         width: '50%',
                         paddingLeft: 1,
                       }}>
-                      <OneItem
-                        item={item}
-                        customStyles={styles.item}
-                        showHeartIcon={true}
-                      />
+                      <OneItem item={item} showHeartIcon={true} />
                       <RNButton
                         title="Add to bag"
                         onPress={() => handleAddToBag(item)}
@@ -190,6 +190,25 @@ const FavouriteRoute = (): JSX.Element => {
           <RNPicker onChangeCB={handlePickerChange} />
         </>
       </RBSheet>
+      {isOpen && (
+        <RNModal
+          visible={isOpen}
+          hideModal={handleCloseModal}
+          modalTitle="Added to Bag">
+          <View>
+            <View style={{width: '50%'}}>
+              <OneItem item={selectedItem} customStyles={styles.modalItem} />
+            </View>
+            <View>
+              <RNButton
+                title="Go to bag"
+                onPress={handleContinueBtnPress}
+                buttonStyle={styles.button}
+              />
+            </View>
+          </View>
+        </RNModal>
+      )}
     </>
   );
 };
@@ -212,6 +231,9 @@ const styles = StyleSheet.create({
   text: {
     marginBottom: 15,
   },
+  modalItem: {
+    flexDirection: 'row',
+  },
   button: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -225,9 +247,6 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     color: 'black',
     marginBottom: 15,
-  },
-  item: {
-    display: 'flex',
   },
 });
 

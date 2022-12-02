@@ -1,4 +1,4 @@
-import {Dimensions, Text, View} from 'react-native';
+import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {IconButton, List} from 'react-native-paper';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -13,17 +13,20 @@ const Checkout = () => {
   const params = route.params as IRouteParams;
 
   return (
-    <View style={{backgroundColor: 'white'}}>
+    <View style={styles.root}>
       <View
-        style={{marginHorizontal: 17, height: Dimensions.get('screen').height}}>
-        <View style={{height: Dimensions.get('screen').height}}>
+        style={{
+          marginHorizontal: 17,
+          height: Dimensions.get('window').height - 120,
+        }}>
+        <View style={{flex: 1}}>
           <IconButton icon="window-close" onPress={() => navigation.goBack()} />
           <View
             style={{
-              height: Dimensions.get('screen').height,
+              flex: 1,
               justifyContent: 'space-between',
             }}>
-            <View style={{height: '50%'}}>
+            <View>
               <List.Section>
                 <List.Item
                   title="Delivery address"
@@ -51,7 +54,6 @@ const Checkout = () => {
             </View>
             <View
               style={{
-                height: '50%',
                 marginHorizontal: 17,
                 justifyContent: 'space-between',
                 // backgroundColor: 'red',
@@ -68,3 +70,10 @@ const Checkout = () => {
 };
 
 export default Checkout;
+
+const styles = StyleSheet.create({
+  root: {
+    backgroundColor: 'white',
+    height: Dimensions.get('window').height,
+  },
+});

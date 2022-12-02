@@ -15,7 +15,7 @@ export interface IItem {
 }
 
 export interface IItemProps {
-  item: IItem;
+  item: IItem | null;
   customStyles?: StyleProp<TextStyle> | any;
   showHeartIcon?: boolean;
 }
