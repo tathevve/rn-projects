@@ -32,13 +32,8 @@ const AccountRoute = (): JSX.Element => {
   };
   console.log(loggedUserData, 'ajaj');
   return (
-    <ScrollView style={{backgroundColor: 'white'}}>
-      <View
-        style={{
-          display: 'flex',
-          marginLeft: 17,
-          marginRight: 17,
-        }}>
+    <ScrollView style={styles.root}>
+      <View style={styles.rootContainer}>
         <View>
           <View>
             <View>
@@ -100,25 +95,6 @@ const AccountRoute = (): JSX.Element => {
             )}
           </View>
           <View>
-            {/* <View>
-              <List.Section>
-                <List.Subheader style={styles.sectionHeader}>
-                  My Location
-                </List.Subheader>
-                <List.Item
-                  title="Armenia (USD)"
-                  style={{height: 60}}
-                  left={() => (
-                    <Image
-                      style={{marginTop: 18}}
-                      source={require('../../../../assets/Armenia.png')}
-                    />
-                  )}
-                  right={() => <List.Icon icon="arrow-right-thin" />}
-                  onPress={() => console.log('aaa')}
-                />
-              </List.Section>
-            </View> */}
             <View>
               <Text style={styles.text}>
                 This location defines your language and currency
@@ -167,6 +143,14 @@ const AccountRoute = (): JSX.Element => {
 };
 
 const styles = StyleSheet.create({
+  root: {
+    backgroundColor: 'white',
+  },
+  rootContainer: {
+    display: 'flex',
+    marginLeft: 17,
+    marginRight: 17,
+  },
   typesText: {
     fontWeight: '900',
     fontSize: 18,
