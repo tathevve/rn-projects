@@ -1,17 +1,14 @@
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {IconButton, List} from 'react-native-paper';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {EPath} from '../../shared/models/enums/path.enum';
-
-interface IRouteParams {
-  totalPrice: number;
-}
+import {useSelector} from 'react-redux';
+import {selectTotalPrice} from '../../redux/slicers/shoppingBagSlice';
 
 const Checkout = () => {
   const navigation = useNavigation();
-  const route = useRoute();
-  const params = route.params as IRouteParams;
+  const totalPrice = useSelector(selectTotalPrice);
 
   return (
     <View style={styles.root}>
@@ -63,7 +60,7 @@ const Checkout = () => {
                 flexDirection: 'row',
               }}>
               <Text style={{fontWeight: 'bold', color: 'black'}}>Total:</Text>
-              <Text style={{color: 'black'}}>${params.totalPrice}</Text>
+              <Text style={{color: 'black'}}>${totalPrice}</Text>
             </View>
           </View>
         </View>
