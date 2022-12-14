@@ -11,8 +11,8 @@ import React, {useCallback, useMemo, useState} from 'react';
 import {IconButton} from 'react-native-paper';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import ItemSlider from './ItemSlider';
-import {useSelector} from 'react-redux';
-import {selectItems} from '../../redux/slicers/allItemsSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {selectItems, setItems} from '../../redux/slicers/allItemsSlice';
 import {IItem} from '../../shared/models/interfaces/item.interface';
 import ContactUs from '../../shared/ContactUs';
 import {EPath} from '../../shared/models/enums/path.enum';
@@ -20,19 +20,22 @@ import RNPicker from '../../shared/Picker';
 import RNAccordion from '../../shared/Accordion';
 import RNButton from '../../shared/Button';
 import useAddedToBagHook from '../../shared/hooks/useAddedToBagHook';
-import {selectBagItemsData} from '../../redux/slicers/shoppingBagSlice';
 import {EItemType} from '../../shared/models/enums/itemType.enum';
 import RNModal from '../../shared/Modal';
 import OneItem from '../shopNow/OneItem';
+import {AppDispatch} from '../../redux';
+import {selectItemData, setItemData} from '../../redux/slicers/wishlistSlice';
 
 const ItemDetails = ({route}: any): JSX.Element => {
   const itemParams = route.params;
   const navigation = useNavigation();
+  const dispatch = useDispatch<AppDispatch>();
   const items = useSelector(selectItems);
-  const bagItemsData = useSelector(selectBagItemsData);
   const [pickerValue, setPickerValue] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const addedToBagItemsHandler = useAddedToBagHook();
+  const wishListItemsData = useSelector(selectItemData);
+  const allItemsData = useSelector(selectItems);
 
   useFocusEffect(
     useCallback(() => {
@@ -55,7 +58,8 @@ const ItemDetails = ({route}: any): JSX.Element => {
 
   // console.log(findItemDetail, 'findItemDetail');
 
-  console.log(bagItemsData, 'bagItemsData');
+  console.log(wishListItemsData, 'wishListItemsData');
+  console.log(findItemDetail, 'findItemDetail');
 
   const handlePickerChange = (value: any) => {
     setPickerValue(value);
@@ -68,6 +72,49 @@ const ItemDetails = ({route}: any): JSX.Element => {
   const handleContinueBtnPress = () => {
     navigation.navigate(EPath.SHOPPINGBAG as never);
     handleCloseModal();
+  };
+
+  const heartedItemsHandler = () => {
+    const findedHeartedData = wishListItemsData.find(
+      (i: IItem) => i.id === itemParams?.item?.id,
+    );
+    const findedHeartedDataInAllItems = allItemsData.find(
+      (i: IItem) => i.id === itemParams?.item?.id,
+    );
+
+    if (findedHeartedData) {
+      dispatch(
+        setItemData(
+          wishListItemsData.filter((i: IItem) => i.id !== findedHeartedData.id),
+        ),
+      );
+      dispatch(
+        setItems(
+          allItemsData.map((i: IItem) =>
+            i.id === findedHeartedDataInAllItems.id
+              ? {...i, isHearted: false}
+              : i,
+          ),
+        ),
+      );
+    } else {
+      dispatch(
+        setItemData([
+          ...wishListItemsData,
+          {...itemParams.item, isHearted: true},
+        ]),
+      );
+
+      dispatch(
+        setItems(
+          allItemsData.map((i: IItem) =>
+            i.id === findedHeartedDataInAllItems.id
+              ? {...i, isHearted: true}
+              : i,
+          ),
+        ),
+      );
+    }
   };
 
   return (
@@ -98,6 +145,11 @@ const ItemDetails = ({route}: any): JSX.Element => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
+            <IconButton
+              icon={findItemDetail.isHearted ? 'heart' : 'heart-outline'}
+              style={styles.heartedStyle}
+              onPress={heartedItemsHandler}
+            />
             <Text>{findItemDetail.brand}</Text>
             <ItemSlider sliderData={findItemDetail.imagesArray} height={300} />
             <Text> {findItemDetail.season}</Text>
@@ -216,6 +268,14 @@ const styles = StyleSheet.create({
   },
   item: {
     flexDirection: 'row',
+  },
+  heartedStyle: {
+    position: 'absolute',
+    top: 12,
+    right: 12,
+    height: 22,
+    width: 22,
+    zIndex: 2,
   },
 });
 

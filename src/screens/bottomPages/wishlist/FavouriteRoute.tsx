@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Text} from 'react-native-paper';
 import RNButton from '../../../shared/Button';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
@@ -11,17 +11,17 @@ import {selectItemData} from '../../../redux/slicers/wishlistSlice';
 import OneItem from '../../shopNow/OneItem';
 import {IItem} from '../../../shared/models/interfaces/item.interface';
 import {EPath} from '../../../shared/models/enums/path.enum';
-import RBSheet from 'react-native-raw-bottom-sheet';
+import RNModal from '../../../shared/Modal';
 import RNPicker from '../../../shared/Picker';
 import useAddedToBagHook from '../../../shared/hooks/useAddedToBagHook';
 import {EItemType} from '../../../shared/models/enums/itemType.enum';
-import RNModal from '../../../shared/Modal';
+import {useToast} from 'react-native-toast-notifications';
 
 const FavouriteRoute = (): JSX.Element => {
   const navigation = useNavigation();
+  const toast = useToast();
   const loggedUserData = useSelector(selectUserData);
   const wishListItemsData = useSelector(selectItemData);
-  const refRBSheet = useRef<any>();
   const addedToBagItemsHandler = useAddedToBagHook();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<null | IItem>(null);
@@ -33,45 +33,58 @@ const FavouriteRoute = (): JSX.Element => {
     }, []),
   );
 
+  const handleSheetClose = () => {
+    setSelectedItem(null);
+    setIsOpen(false);
+    // refRBSheet.current?.close();
+  };
+
   const handlePickerChange = (value: any) => {
-    // setPickerValue(value);
     if (selectedItem) {
       addedToBagItemsHandler(selectedItem, value);
       // Alert.alert('', 'Item added successfully');
       setIsOpen(true);
+      toast.show('Task finished successfully', {
+        type: 'success',
+        placement: 'top',
+        duration: 4000,
+        animationType: 'slide-in',
+      });
+      // handleSheetClose();
+      handleCloseModal();
+      console.log('aaaa');
     }
-  };
-
-  // console.log(bagItemsData, 'bagItemsData');
-
-  const handleSheetOpen = () => {
-    refRBSheet.current?.open();
   };
 
   const handleAddToBag = (item: IItem) => {
     setSelectedItem(item);
+    console.log(item.type, 'item.type');
     if (item.type !== EItemType.ONE_SIZE) {
-      handleSheetOpen();
+      // handleSheetOpen();
+      setIsOpen(true);
     } else {
       addedToBagItemsHandler(item, EItemType.ONE_SIZE);
-      // Alert.alert('', 'Item added successfully');
-      setIsOpen(true);
+      toast.show('Task finished successfully', {
+        type: 'success',
+        placement: 'top',
+        duration: 4000,
+        animationType: 'slide-in',
+      });
+      // handleSheetClose();
+      handleCloseModal();
     }
   };
 
-  const handleSheetClose = () => {
-    setSelectedItem(null);
-  };
-
   console.log(selectedItem, 'selectedItem');
+
   const handleCloseModal = () => {
     setIsOpen(false);
   };
 
-  const handleContinueBtnPress = () => {
-    navigation.navigate(EPath.SHOPPINGBAG as never);
-    handleCloseModal();
-  };
+  // const handleContinueBtnPress = () => {
+  //   navigation.navigate(EPath.SHOPPINGBAG as never);
+  //   handleCloseModal();
+  // };
 
   return (
     <>
@@ -169,46 +182,15 @@ const FavouriteRoute = (): JSX.Element => {
           </View>
         </View>
       </ScrollView>
-      <RBSheet
-        ref={refRBSheet}
-        closeOnDragDown
-        onClose={handleSheetClose}
-        closeOnPressMask
-        animationType="slide"
-        openDuration={450}
-        customStyles={{
-          wrapper: {
-            backgroundColor: 'transparent',
-          },
-          container: {
-            backgroundColor: 'white',
-            height: 300,
-          },
-        }}>
+      <RNModal
+        visible={isOpen}
+        modalTitle="Please, sign in to see your bag."
+        hideModal={handleSheetClose}>
         <>
           <Text>Select size</Text>
           <RNPicker onChangeCB={handlePickerChange} />
         </>
-      </RBSheet>
-      {isOpen && (
-        <RNModal
-          visible={isOpen}
-          hideModal={handleCloseModal}
-          modalTitle="Added to Bag">
-          <View>
-            <View style={{width: '50%'}}>
-              <OneItem item={selectedItem} customStyles={styles.modalItem} />
-            </View>
-            <View>
-              <RNButton
-                title="Go to bag"
-                onPress={handleContinueBtnPress}
-                buttonStyle={styles.button}
-              />
-            </View>
-          </View>
-        </RNModal>
-      )}
+      </RNModal>
     </>
   );
 };

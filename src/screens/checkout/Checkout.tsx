@@ -2,6 +2,7 @@ import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {IconButton, List} from 'react-native-paper';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import {EPath} from '../../shared/models/enums/path.enum';
 
 interface IRouteParams {
   totalPrice: number;
@@ -32,7 +33,9 @@ const Checkout = () => {
                   title="Delivery address"
                   titleStyle={{fontWeight: 'bold'}}
                   right={() => <List.Icon icon="arrow-right-thin" />}
-                  onPress={() => console.log('aaa')}
+                  onPress={() =>
+                    navigation.navigate(EPath.DELIVERY_ADDRESS as never)
+                  }
                   description="Add a delivery address"
                 />
 

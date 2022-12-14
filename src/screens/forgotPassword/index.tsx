@@ -27,7 +27,11 @@ const ForgotPassword = (): JSX.Element => {
     mode: 'all',
   });
 
-  const {handleSubmit, control} = methods;
+  const {
+    handleSubmit,
+    control,
+    formState: {errors},
+  } = methods;
 
   const handleOpenModal = (formData: IUserForm) => {
     console.log(formData, 'forմ');
@@ -83,6 +87,7 @@ const ForgotPassword = (): JSX.Element => {
                 required: requiredField(),
                 pattern: emailValidation(),
               }}
+              errors={errors}
               props={{maxLength: 100}}
               customInputStyles={styles.input}
             />

@@ -22,8 +22,14 @@ const RNAccordion = ({
   const handlePress = () => setExpanded(!expanded);
   return (
     <>
-      <List.Section>
+      <List.Section style={{marginTop: 17}}>
         <List.Accordion
+          style={{
+            backgroundColor: 'white',
+            borderWidth: 1,
+            borderColor: 'black',
+            borderRadius: 5,
+          }}
           titleStyle={{color: 'black'}}
           title={accordionTitle}
           // left={props => <List.Icon {...props} icon="folder" />}

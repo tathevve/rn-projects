@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, StyleSheet} from 'react-native';
 import React from 'react';
 import {IItem, IItemProps} from '../../shared/models/interfaces/item.interface';
 import {IconButton} from 'react-native-paper';
@@ -19,10 +19,10 @@ const OneItem = ({
 
   const heartedItemsHandler = () => {
     const findedHeartedData = wishListItemsData.find(
-      (i: IItem) => i.id === item.id,
+      (i: IItem) => i.id === item?.id,
     );
     const findedHeartedDataInAllItems = allItemsData.find(
-      (i: IItem) => i.id === item.id,
+      (i: IItem) => i.id === item?.id,
     );
 
     if (findedHeartedData) {
@@ -56,27 +56,12 @@ const OneItem = ({
   };
 
   return (
-    <View
-      style={{
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'relative',
-        height: 250,
-        marginTop: 45,
-      }}>
+    <View style={styles.root}>
       {/* <Text>{brand}</Text> */}
       {showHeartIcon ? (
         <IconButton
-          icon={item.isHearted ? 'heart' : 'heart-outline'}
-          style={{
-            position: 'absolute',
-            top: 7,
-            right: 13,
-            height: 22,
-            width: 22,
-            zIndex: 2,
-          }}
+          icon={item?.isHearted ? 'heart' : 'heart-outline'}
+          style={styles.heartedStyle}
           onPress={heartedItemsHandler}
         />
       ) : null}
@@ -86,21 +71,38 @@ const OneItem = ({
           style={{
             width: '100%',
             height: 150,
-            // position:'absolute'
-            // backgroundColor: 'gray',
           }}
-          source={item.image}
+          source={item?.image}
         />
         <View style={{paddingLeft: 13}}>
-          <Text> {item.season}</Text>
+          <Text> {item?.season}</Text>
           {/* <Text> {item.type}</Text> */}
-          <Text>{item.brand} </Text>
-          <Text>{item.description}</Text>
-          <Text>{item.price}</Text>
+          <Text>{item?.brand} </Text>
+          <Text>{item?.description}</Text>
+          <Text>{item?.price}</Text>
         </View>
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  root: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+    height: 250,
+    marginTop: 45,
+  },
+  heartedStyle: {
+    position: 'absolute',
+    top: 12,
+    right: 12,
+    height: 22,
+    width: 22,
+    zIndex: 2,
+  },
+});
 
 export default OneItem;

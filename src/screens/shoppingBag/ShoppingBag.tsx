@@ -304,18 +304,20 @@ const ShoppingBag = (): JSX.Element => {
           </FormProvider>
         </View>
         <ContactUs />
-        <RNButton
-          title="Proceed To Checkout"
-          onPress={() =>
-            navigation.navigate(
-              EPath.CHECKOUT as never,
-              {
-                totalPrice,
-              } as never,
-            )
-          }
-          buttonStyle={styles.button}
-        />
+        {bagItemsData.length !== 0 ? (
+          <RNButton
+            title="Proceed To Checkout"
+            onPress={() =>
+              navigation.navigate(
+                EPath.CHECKOUT as never,
+                {
+                  totalPrice,
+                } as never,
+              )
+            }
+            buttonStyle={styles.button}
+          />
+        ) : null}
       </View>
     </ScrollView>
   );
@@ -343,6 +345,7 @@ const styles = StyleSheet.create({
   input: {
     marginBottom: 30,
     width: '50%',
+    height: 55,
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 7,
@@ -373,6 +376,14 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     color: 'black',
     marginBottom: 15,
+  },
+  customHeartedStyle: {
+    position: 'absolute',
+    bottom: 37,
+    right: -40,
+    height: 22,
+    width: 22,
+    zIndex: 2,
   },
 });
 

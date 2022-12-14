@@ -50,7 +50,7 @@ const AllItems = (): JSX.Element => {
             flexDirection: 'row',
             flexWrap: 'wrap',
           }}>
-          {items.map((item: Omit<IItem, 'count'>, index: number) => {
+          {items.map((item: IItem, index: number) => {
             return (
               <TouchableOpacity
                 onPress={() =>
