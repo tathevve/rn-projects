@@ -28,6 +28,11 @@ const inputMaxLengthLimit = (value: number) => {
   };
 };
 
+const onlyNumbers = (value: string) => {
+  const REG_EX = /^[0-9]+$/;
+  return REG_EX.test(value) ? null : 'please enter only number';
+};
+
 const inputMinLengthLimit = (value: number) => {
   return {
     value: value,
@@ -41,4 +46,5 @@ export {
   onlyLatin,
   inputMaxLengthLimit,
   inputMinLengthLimit,
+  onlyNumbers,
 };

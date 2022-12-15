@@ -5,6 +5,7 @@ import appReducer from './slicers/app';
 import wishlistReducer from './slicers/wishlistSlice';
 import allItemsReducer from './slicers/allItemsSlice';
 import shoppingBagReducer from './slicers/shoppingBagSlice';
+import shippingAddressReducer from './slicers/shippingAddressSlice';
 
 const combinedReducers = combineReducers({
   login: loginReducer,
@@ -12,6 +13,7 @@ const combinedReducers = combineReducers({
   wishlist: wishlistReducer,
   allItems: allItemsReducer,
   shoppingBag: shoppingBagReducer,
+  shippingAddress: shippingAddressReducer,
 });
 
 const rootReducer = (state: any | undefined, action: Action) =>

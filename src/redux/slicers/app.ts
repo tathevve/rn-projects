@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { createSlice } from "@reduxjs/toolkit";
-
+import {createSlice} from '@reduxjs/toolkit';
 
 export type IIdentityInitialState = {
   isLoading: boolean;
@@ -13,7 +12,6 @@ const initialState: IIdentityInitialState = {
   isLoading: false,
   location: null,
 };
-
 
 const appSlicer = createSlice({
   name,
@@ -34,8 +32,10 @@ const appSlicer = createSlice({
 export const selectIsLoading = (state: any) => state.app.isLoading;
 export const selectLocation = (state: any) => state.app.location;
 
-export const { loadingStateOff, loadingStateOn, 
-  //setGeolocation 
+export const {
+  loadingStateOff,
+  loadingStateOn,
+  //setGeolocation
 } = appSlicer.actions;
 
 export default appSlicer.reducer;
