@@ -5,10 +5,12 @@ import {useNavigation} from '@react-navigation/native';
 import {EPath} from '../../shared/models/enums/path.enum';
 import {useSelector} from 'react-redux';
 import {selectTotalPrice} from '../../redux/slicers/shoppingBagSlice';
+import {selectShippingData} from '../../redux/slicers/shippingAddressSlice';
 
 const Checkout = () => {
   const navigation = useNavigation();
   const totalPrice = useSelector(selectTotalPrice);
+  const shippingData = useSelector(selectShippingData);
 
   return (
     <View style={styles.root}>
@@ -33,21 +35,26 @@ const Checkout = () => {
                   onPress={() =>
                     navigation.navigate(EPath.DELIVERY_ADDRESS as never)
                   }
-                  description="Add a delivery address"
+                  description={
+                    shippingData?.addressOne
+                      ? shippingData?.addressOne
+                      : 'Add a delivery address'
+                  }
                 />
-
                 <List.Item
                   title="Delivery Method"
                   titleStyle={{fontWeight: 'bold'}}
                   right={() => <List.Icon icon="arrow-right-thin" />}
-                  onPress={() => console.log('aaa')}
+                  onPress={() =>
+                    navigation.navigate(EPath.DELIVERY_METHOD as never)
+                  }
                   description="Select a delivery method"
                 />
                 <List.Item
                   title="Payment"
                   titleStyle={{fontWeight: 'bold'}}
                   right={() => <List.Icon icon="arrow-right-thin" />}
-                  onPress={() => console.log('aaa')}
+                  onPress={() => console.log('aa')}
                   description="Select a payment method"
                 />
               </List.Section>

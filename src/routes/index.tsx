@@ -22,6 +22,7 @@ import {EPath} from '../shared/models/enums/path.enum';
 import SizeGuide from '../screens/itemDetails/SizeGuide';
 import Checkout from '../screens/checkout/Checkout';
 import DeliveryAddress from '../screens/checkout/deliveryAddress';
+import DeliveryMethod from '../screens/checkout/deliveryMethod';
 
 const RootStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -245,6 +246,13 @@ const RootNavigator = (): JSX.Element => {
       <RootStack.Screen
         name={EPath.DELIVERY_ADDRESS}
         component={DeliveryAddress}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStack.Screen
+        name={EPath.DELIVERY_METHOD}
+        component={DeliveryMethod}
         options={{
           headerShown: false,
         }}
