@@ -23,6 +23,7 @@ import SizeGuide from '../screens/itemDetails/SizeGuide';
 import Checkout from '../screens/checkout/Checkout';
 import DeliveryAddress from '../screens/checkout/deliveryAddress';
 import DeliveryMethod from '../screens/checkout/deliveryMethod';
+import Payment from '../screens/checkout/payment';
 
 const RootStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -253,6 +254,13 @@ const RootNavigator = (): JSX.Element => {
       <RootStack.Screen
         name={EPath.DELIVERY_METHOD}
         component={DeliveryMethod}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStack.Screen
+        name={EPath.PAYMENT}
+        component={Payment}
         options={{
           headerShown: false,
         }}

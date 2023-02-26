@@ -8,7 +8,14 @@ import {
   DeepPartial,
   FieldError,
 } from 'react-hook-form';
-import {StyleProp, StyleSheet, Text, TextInput, TextStyle} from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextInput,
+  TextStyle,
+  View,
+} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
 interface ITextInputField {
@@ -31,6 +38,7 @@ interface ITextInputField {
   selectTextOnFocus?: boolean;
   props?: any;
   inputRef?: any;
+  customIcon?: any;
 }
 
 const TextInputField = ({
@@ -52,6 +60,7 @@ const TextInputField = ({
   editable = true,
   selectTextOnFocus = false,
   inputRef,
+  customIcon,
 }: ITextInputField) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
@@ -83,6 +92,7 @@ const TextInputField = ({
           />
         )}
       />
+      {customIcon ? <View>{customIcon}</View> : null}
       {errors && (errors[name] || errorMessage) ? (
         <Text style={[styles.errorMessage, errorMessageStyles]}>
           {errorMessage ? errorMessage : errors[name]?.message}

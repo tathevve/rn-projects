@@ -18,4 +18,5 @@ export interface IItemProps {
   item: IItem | null;
   customStyles?: StyleProp<TextStyle> | any;
   showHeartIcon?: boolean;
+  showSizeAndQty?: boolean;
 }

@@ -15,6 +15,7 @@ import {
   selectShippingData,
   setShippingData,
 } from '../../../redux/slicers/shippingAddressSlice';
+import {IconButton} from 'react-native-paper';
 
 interface IShippingAddress {
   firstName: string;
@@ -56,13 +57,18 @@ const DeliveryAddress = () => {
     navigation.navigate(EPath.CHECKOUT as never);
   };
 
-  console.log(errors, 'errors');
-
-  // console.log(shippingData, 'shippingData');
 
   return (
     <ScrollView>
       <View style={styles.root}>
+        <IconButton
+          icon="arrow-left-thin"
+          // style={{
+          //   height: 20,
+          // }}
+          size={32}
+          onPress={() => navigation.goBack()}
+        />
         <FormProvider {...methods}>
           <TextInputField
             placeholder="First Name"

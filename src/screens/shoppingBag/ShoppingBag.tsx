@@ -118,15 +118,11 @@ const ShoppingBag = (): JSX.Element => {
       <View
         style={{
           position: 'relative',
-          // height: 25,
           zIndex: 2,
           marginHorizontal: 17,
         }}>
         <IconButton
           icon="arrow-left-thin"
-          // style={{
-          //   height: 20,
-          // }}
           size={32}
           onPress={() => navigation.goBack()}
         />

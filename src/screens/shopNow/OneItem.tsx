@@ -12,6 +12,7 @@ const OneItem = ({
   item,
   customStyles,
   showHeartIcon = false,
+  showSizeAndQty = false,
 }: IItemProps): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const wishListItemsData = useSelector(selectItemData);
@@ -80,6 +81,11 @@ const OneItem = ({
           <Text>{item?.brand} </Text>
           <Text>{item?.description}</Text>
           <Text>{item?.price}</Text>
+          {showSizeAndQty && (
+            <Text>
+              Quantity: {item?.count} Size: {item?.size}
+            </Text>
+          )}
         </View>
       </View>
     </View>
