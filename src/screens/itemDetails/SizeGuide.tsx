@@ -7,8 +7,6 @@ import {IItem} from '../../shared/models/interfaces/item.interface';
 const SizeGuide = ({route}: any): JSX.Element => {
   const itemParams = route.params?.item as IItem;
 
-  console.log(itemParams, 'itemParams');
-
   return (
     <View style={{backgroundColor: 'white', height: '100%'}}>
       <View style={{marginHorizontal: 17}}>

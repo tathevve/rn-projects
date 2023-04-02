@@ -10,11 +10,14 @@ import {
   selectTotalPrice,
 } from '../../redux/slicers/shoppingBagSlice';
 import {selectShippingData} from '../../redux/slicers/shippingAddressSlice';
+import {selectPayment} from '../../redux/slicers/paymentSlice';
+import RNButton from '../../shared/Button';
 
 const Checkout = () => {
   const navigation = useNavigation();
   const totalPrice = useSelector(selectTotalPrice);
   const shippingData = useSelector(selectShippingData);
+  const payment = useSelector(selectPayment);
   const bagItems = useSelector(selectBagItemsData);
 
   return (
@@ -42,7 +45,7 @@ const Checkout = () => {
                   }
                   description={
                     shippingData?.addressOne
-                      ? shippingData?.addressOne
+                      ? `${shippingData?.addressOne}, ${shippingData?.city}-${shippingData?.destinationRegion}`
                       : 'Add a delivery address'
                   }
                 />
@@ -65,7 +68,11 @@ const Checkout = () => {
                   titleStyle={{fontWeight: 'bold'}}
                   right={() => <List.Icon icon="arrow-right-thin" />}
                   onPress={() => navigation.navigate(EPath.PAYMENT as never)}
-                  description="Select a payment method"
+                  description={
+                    payment?.cardNumber
+                      ? `Visa (**** ${payment?.cardNumber.slice(12)})`
+                      : 'Select a payment method'
+                  }
                   // disabled={!shippingData?.addressOne}
                 />
               </List.Section>
@@ -81,6 +88,21 @@ const Checkout = () => {
               <Text style={{color: 'black'}}>${totalPrice}</Text>
             </View>
           </View>
+          <RNButton
+            title="Place Order"
+            onPress={() => {
+              // if (shippingData?.addressOne && payment?.cardNumber) {
+              //   navigation.navigate(EPath.SUCCESS('success') as never);
+              // }else {}
+              navigation.navigate(EPath.PAYMENT_STATUS, {
+                type: 'success',
+              } as never);
+            }}
+            buttonStyle={styles.button}
+            textStyle={styles.btnText}
+            disabled={!payment?.cardNumber}
+            disabledStyles={styles.disabledBtn}
+          />
         </View>
       </View>
     </View>
@@ -93,5 +115,26 @@ const styles = StyleSheet.create({
   root: {
     backgroundColor: 'white',
     height: Dimensions.get('window').height,
+  },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 5,
+    width: '100%',
+    height: 35,
+    marginTop: 35,
+    borderStyle: 'solid',
+    // marginBottom: 0,
+  },
+  btnText: {
+    color: 'white',
+  },
+  disabledBtn: {
+    backgroundColor: '#ededed',
+    borderColor: '#ededed',
+    textDecorationColor: 'black',
   },
 });

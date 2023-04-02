@@ -30,7 +30,6 @@ const AccountRoute = (): JSX.Element => {
     setData(null);
     dispatch(setUserData(null));
   };
-  console.log(loggedUserData, 'ajaj');
   return (
     <ScrollView style={styles.root}>
       <View style={styles.rootContainer}>
@@ -76,13 +75,15 @@ const AccountRoute = (): JSX.Element => {
                     <List.Item
                       title="Orders"
                       right={() => <List.Icon icon="arrow-right-thin" />}
-                      onPress={() => console.log('aaa')}
+                      onPress={() => navigation.navigate(EPath.ORDERS as never)}
                     />
 
                     <List.Item
                       title="Details & Password"
                       right={() => <List.Icon icon="arrow-right-thin" />}
-                      onPress={() => console.log('aaa')}
+                      onPress={() =>
+                        navigation.navigate(EPath.ACCOUNT_DETAILS as never)
+                      }
                     />
                     <List.Item
                       title="Refer a friend"
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     fontSize: 18,
     fontFamily: 'Mulish',
-    letterSpacing: 3,
+    letterSpacing: 2,
     textTransform: 'uppercase',
   },
   text: {

@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         fontWeight: '900',
         fontSize: 18,
         fontFamily: 'Mulish',
-        letterSpacing: 3,
+        letterSpacing: 2,
         textTransform:'uppercase',
     },
 })

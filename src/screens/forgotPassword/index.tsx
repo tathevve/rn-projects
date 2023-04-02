@@ -34,7 +34,6 @@ const ForgotPassword = (): JSX.Element => {
   } = methods;
 
   const handleOpenModal = (formData: IUserForm) => {
-    console.log(formData, 'forմ');
     setIsOpen(true);
   };
   const handleCloseModal = () => {

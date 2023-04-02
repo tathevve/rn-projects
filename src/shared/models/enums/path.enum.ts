@@ -16,4 +16,9 @@ export enum EPath {
   DELIVERY_ADDRESS = 'DeliveryAddress',
   DELIVERY_METHOD = 'DeliveryMethod',
   PAYMENT = 'Payment',
+  PAYMENT_STATUS = 'PaymentStatus',
+  ORDERS = 'Orders',
+  ACCOUNT_DETAILS = 'AccountDetails',
+  PASSWORD = 'Password',
+  DELETE_ACCOUNT = 'DeleteAccount'
 }

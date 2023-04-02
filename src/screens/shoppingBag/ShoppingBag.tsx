@@ -27,6 +27,7 @@ import {FormProvider, useForm} from 'react-hook-form';
 import {EItemType} from '../../shared/models/enums/itemType.enum';
 import RNPicker from '../../shared/Picker';
 import RNButton from '../../shared/Button';
+import Line from '../../shared/Line';
 
 interface ICount {
   count: string | number;
@@ -34,7 +35,6 @@ interface ICount {
 
 const ShoppingBag = (): JSX.Element => {
   const navigation = useNavigation();
-  // const wishListItemsData = useSelector(selectItemData);
   const bagItemsData = useSelector(selectBagItemsData);
   const dispatch = useDispatch<AppDispatch>();
   const totalPrice = useSelector(selectTotalPrice);
@@ -99,11 +99,6 @@ const ShoppingBag = (): JSX.Element => {
     dispatch(setBagItemsData(updatedData));
   };
 
-  // const handleRefClick = (id: number) => {
-  //   const findedData = bagItemsData?.find((item) => item.id === id)
-  //    inputRef?.current?.focus();
-  // };
-
   const handleRedirect = (item: IItem) => {
     console.log(item.id, 'redirectedItem');
     navigation.navigate(
@@ -117,7 +112,7 @@ const ShoppingBag = (): JSX.Element => {
     <ScrollView style={{backgroundColor: 'white'}}>
       <View
         style={{
-          position: 'relative',
+          // position: 'relative',
           zIndex: 2,
           marginHorizontal: 17,
         }}>
@@ -130,6 +125,9 @@ const ShoppingBag = (): JSX.Element => {
         <View style={styles.typesOfSections}>
           <Text style={styles.typesText}>
             SHOPPING BAG
+            <View>
+              <Line />
+            </View>
             {bagItemsData?.length === 0 ? (
               ''
             ) : (
@@ -182,9 +180,6 @@ const ShoppingBag = (): JSX.Element => {
                     // height: "40%",
                     flexDirection: 'row-reverse',
                     marginBottom: 35,
-                    borderBottomWidth: 1,
-                    // borderTopWidth: 1,
-                    borderBottomColor: 'grey',
                   }}
                   key={index}>
                   <IconButton
@@ -202,6 +197,7 @@ const ShoppingBag = (): JSX.Element => {
                     size={25}
                     onPress={() => removeItemFromBag(item)}
                   />
+                  <Line />
                   <View
                     style={{
                       width: '90%',
@@ -251,7 +247,6 @@ const ShoppingBag = (): JSX.Element => {
                           name="quantity"
                           // inputRef={inputRef}
                           customValue={item?.count}
-                          labelIsVisible
                           secureTextEntry
                           changeHandler={text => valueOfInput(text, item)}
                           control={control}
@@ -294,6 +289,7 @@ const ShoppingBag = (): JSX.Element => {
                       </View>
                     </View>
                   </View>
+                  <Line />
                 </View>
               );
             })}
@@ -328,7 +324,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     fontSize: 18,
     fontFamily: 'Mulish',
-    letterSpacing: 3,
+    letterSpacing: 2,
     textTransform: 'uppercase',
   },
   input: {

@@ -52,11 +52,9 @@ const DeliveryAddress = () => {
   }, [reset, shippingData]);
 
   const handleSubmitAddress = (formData: IShippingAddress) => {
-    console.log('formData', formData);
     dispatch(setShippingData(formData));
     navigation.navigate(EPath.CHECKOUT as never);
   };
-
 
   return (
     <ScrollView>
@@ -73,7 +71,6 @@ const DeliveryAddress = () => {
           <TextInputField
             placeholder="First Name"
             name="firstName"
-            labelIsVisible
             secureTextEntry
             control={control}
             rules={{
@@ -87,7 +84,6 @@ const DeliveryAddress = () => {
           <TextInputField
             placeholder="Last Name"
             name="lastName"
-            labelIsVisible
             secureTextEntry
             control={control}
             rules={{
@@ -101,7 +97,6 @@ const DeliveryAddress = () => {
           <TextInputField
             placeholder="Destination/Region"
             name="destinationRegion"
-            labelIsVisible
             secureTextEntry
             control={control}
             rules={{
@@ -115,7 +110,6 @@ const DeliveryAddress = () => {
           <TextInputField
             placeholder="Address line 1"
             name="addressOne"
-            labelIsVisible
             secureTextEntry
             control={control}
             rules={{
@@ -129,7 +123,6 @@ const DeliveryAddress = () => {
           <TextInputField
             placeholder="Address line 2(optional)"
             name="addressTwo"
-            labelIsVisible
             secureTextEntry
             control={control}
             props={{maxLength: 100}}
@@ -138,7 +131,6 @@ const DeliveryAddress = () => {
           <TextInputField
             placeholder="Address line 3(optional)"
             name="addressThree"
-            labelIsVisible
             secureTextEntry
             control={control}
             errors={errors}
@@ -148,7 +140,6 @@ const DeliveryAddress = () => {
           <TextInputField
             placeholder="City"
             name="city"
-            labelIsVisible
             secureTextEntry
             control={control}
             rules={{
@@ -162,7 +153,6 @@ const DeliveryAddress = () => {
           <TextInputField
             placeholder="State(optional)"
             name="state"
-            labelIsVisible
             secureTextEntry
             control={control}
             errors={errors}
@@ -172,7 +162,6 @@ const DeliveryAddress = () => {
           <TextInputField
             placeholder="Postal Code"
             name="postalCode"
-            labelIsVisible
             secureTextEntry
             control={control}
             rules={{
@@ -185,7 +174,6 @@ const DeliveryAddress = () => {
           <TextInputField
             placeholder="Phone"
             name="phone"
-            labelIsVisible
             secureTextEntry
             control={control}
             rules={{
@@ -196,9 +184,13 @@ const DeliveryAddress = () => {
             props={{maxLength: 100}}
             customInputStyles={styles.input}
           />
-          <Text style={styles.inputText}>
-            We'll only contact you by phone if there's a problem with your order
-          </Text>
+          {errors ? (
+            <Text style={styles.inputText}>
+              We'll only contact you by phone if there's a problem with your
+              order
+            </Text>
+          ) : null}
+
           <RNButton
             title="Save And Continue"
             onPress={handleSubmit(handleSubmitAddress)}
@@ -244,7 +236,7 @@ const styles = StyleSheet.create({
   inputText: {
     fontSize: 12,
     color: 'grey',
-    marginTop: -25,
+    marginTop: -15,
   },
 });
 

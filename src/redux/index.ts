@@ -6,6 +6,7 @@ import wishlistReducer from './slicers/wishlistSlice';
 import allItemsReducer from './slicers/allItemsSlice';
 import shoppingBagReducer from './slicers/shoppingBagSlice';
 import shippingAddressReducer from './slicers/shippingAddressSlice';
+import paymentReducer from './slicers/paymentSlice';
 
 const combinedReducers = combineReducers({
   login: loginReducer,
@@ -14,6 +15,7 @@ const combinedReducers = combineReducers({
   allItems: allItemsReducer,
   shoppingBag: shoppingBagReducer,
   shippingAddress: shippingAddressReducer,
+  payment: paymentReducer,
 });
 
 const rootReducer = (state: any | undefined, action: Action) =>

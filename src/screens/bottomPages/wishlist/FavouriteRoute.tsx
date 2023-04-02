@@ -52,13 +52,11 @@ const FavouriteRoute = (): JSX.Element => {
       });
       // handleSheetClose();
       handleCloseModal();
-      console.log('aaaa');
     }
   };
 
   const handleAddToBag = (item: IItem) => {
     setSelectedItem(item);
-    console.log(item.type, 'item.type');
     if (item.type !== EItemType.ONE_SIZE) {
       // handleSheetOpen();
       setIsOpen(true);
@@ -75,7 +73,6 @@ const FavouriteRoute = (): JSX.Element => {
     }
   };
 
-  console.log(selectedItem, 'selectedItem');
 
   const handleCloseModal = () => {
     setIsOpen(false);
@@ -184,7 +181,7 @@ const FavouriteRoute = (): JSX.Element => {
       </ScrollView>
       <RNModal
         visible={isOpen}
-        modalTitle="Please, sign in to see your bag."
+        modalTitle="Please, select your size"
         hideModal={handleSheetClose}>
         <>
           <Text>Select size</Text>
@@ -204,7 +201,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     fontSize: 18,
     fontFamily: 'Mulish',
-    letterSpacing: 3,
+    letterSpacing: 2,
     textTransform: 'uppercase',
   },
   itemsCount: {

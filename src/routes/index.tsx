@@ -24,6 +24,11 @@ import Checkout from '../screens/checkout/Checkout';
 import DeliveryAddress from '../screens/checkout/deliveryAddress';
 import DeliveryMethod from '../screens/checkout/deliveryMethod';
 import Payment from '../screens/checkout/payment';
+import PaymentStatus from '../screens/checkout/paymentStatus';
+import Orders from '../screens/orders';
+import AccountDetails from '../screens/accountDetails';
+import Password from '../screens/accountDetails/password';
+import DeleteAccount from '../screens/accountDetails/deleteAccount';
 
 const RootStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -261,6 +266,41 @@ const RootNavigator = (): JSX.Element => {
       <RootStack.Screen
         name={EPath.PAYMENT}
         component={Payment}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStack.Screen
+        name={EPath.PAYMENT_STATUS}
+        component={PaymentStatus}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStack.Screen
+        name={EPath.ORDERS}
+        component={Orders}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStack.Screen
+        name={EPath.ACCOUNT_DETAILS}
+        component={AccountDetails}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStack.Screen
+        name={EPath.PASSWORD}
+        component={Password}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStack.Screen
+        name={EPath.DELETE_ACCOUNT}
+        component={DeleteAccount}
         options={{
           headerShown: false,
         }}

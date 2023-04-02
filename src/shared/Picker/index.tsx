@@ -22,7 +22,6 @@ const RNPicker = ({
 }: IRNPickerProps) => {
   const handleChange = (value: any) => {
     onChangeCB?.(value);
-    // console.log(value, 'changeValue');
   };
 
   return (

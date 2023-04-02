@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 15,
     marginBottom: 10,
+    marginLeft: 0,
   },
   passwordIcon: {
     position: 'absolute',

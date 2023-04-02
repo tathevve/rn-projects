@@ -27,10 +27,8 @@ const DeliveryMethod = () => {
     return date;
   }, [getDay]);
 
-  console.log(bagItems, 'bagItem');
 
   const handleSubmitAddress = (formData: IShippingAddress) => {
-    console.log('formData', formData);
     // dispatch(setShippingData(formData));
     navigation.navigate(EPath.CHECKOUT as never);
   };
@@ -103,7 +101,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     fontSize: 18,
     fontFamily: 'Mulish',
-    letterSpacing: 3,
+    letterSpacing: 2,
     textTransform: 'uppercase',
   },
   item: {

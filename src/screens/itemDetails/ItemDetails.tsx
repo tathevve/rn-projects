@@ -7,26 +7,27 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import React, {useCallback, useMemo, useState} from 'react';
-import {IconButton} from 'react-native-paper';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import React, { useCallback, useMemo, useState } from 'react';
+import { IconButton } from 'react-native-paper';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import ItemSlider from './ItemSlider';
-import {useDispatch, useSelector} from 'react-redux';
-import {selectItems, setItems} from '../../redux/slicers/allItemsSlice';
-import {IItem} from '../../shared/models/interfaces/item.interface';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectItems, setItems } from '../../redux/slicers/allItemsSlice';
+import { IItem } from '../../shared/models/interfaces/item.interface';
 import ContactUs from '../../shared/ContactUs';
-import {EPath} from '../../shared/models/enums/path.enum';
+import { EPath } from '../../shared/models/enums/path.enum';
 import RNPicker from '../../shared/Picker';
 import RNAccordion from '../../shared/Accordion';
 import RNButton from '../../shared/Button';
 import useAddedToBagHook from '../../shared/hooks/useAddedToBagHook';
-import {EItemType} from '../../shared/models/enums/itemType.enum';
+import { EItemType } from '../../shared/models/enums/itemType.enum';
 import RNModal from '../../shared/Modal';
 import OneItem from '../shopNow/OneItem';
-import {AppDispatch} from '../../redux';
-import {selectItemData, setItemData} from '../../redux/slicers/wishlistSlice';
+import { AppDispatch } from '../../redux';
+import { selectItemData, setItemData } from '../../redux/slicers/wishlistSlice';
+import { selectUserData } from '../../redux/slicers/loginSlice';
 
-const ItemDetails = ({route}: any): JSX.Element => {
+const ItemDetails = ({ route }: any): JSX.Element => {
   const itemParams = route.params;
   const navigation = useNavigation();
   const dispatch = useDispatch<AppDispatch>();
@@ -36,6 +37,10 @@ const ItemDetails = ({route}: any): JSX.Element => {
   const addedToBagItemsHandler = useAddedToBagHook();
   const wishListItemsData = useSelector(selectItemData);
   const allItemsData = useSelector(selectItems);
+  const loggedUserData = useSelector(selectUserData);
+
+  console.log(loggedUserData, 'logged')
+
 
   useFocusEffect(
     useCallback(() => {
@@ -56,11 +61,6 @@ const ItemDetails = ({route}: any): JSX.Element => {
     }
   };
 
-  // console.log(findItemDetail, 'findItemDetail');
-
-  console.log(wishListItemsData, 'wishListItemsData');
-  console.log(findItemDetail, 'findItemDetail');
-
   const handlePickerChange = (value: any) => {
     setPickerValue(value);
   };
@@ -70,7 +70,11 @@ const ItemDetails = ({route}: any): JSX.Element => {
   };
 
   const handleContinueBtnPress = () => {
-    navigation.navigate(EPath.SHOPPINGBAG as never);
+    if (loggedUserData) {
+      navigation.navigate(EPath.SHOPPINGBAG as never);
+    } else {
+
+    }
     handleCloseModal();
   };
 
@@ -92,7 +96,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
         setItems(
           allItemsData.map((i: IItem) =>
             i.id === findedHeartedDataInAllItems.id
-              ? {...i, isHearted: false}
+              ? { ...i, isHearted: false }
               : i,
           ),
         ),
@@ -101,7 +105,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
       dispatch(
         setItemData([
           ...wishListItemsData,
-          {...itemParams.item, isHearted: true},
+          { ...itemParams.item, isHearted: true },
         ]),
       );
 
@@ -109,7 +113,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
         setItems(
           allItemsData.map((i: IItem) =>
             i.id === findedHeartedDataInAllItems.id
-              ? {...i, isHearted: true}
+              ? { ...i, isHearted: true }
               : i,
           ),
         ),
@@ -124,7 +128,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
           backgroundColor: 'white',
           position: 'relative',
         }}>
-        <View style={{marginHorizontal: 17}}>
+        <View style={{ marginHorizontal: 17 }}>
           <IconButton
             icon="arrow-left-thin"
             // iconColor={MD3Colors.error50}
@@ -186,7 +190,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
                   } as never,
                 )
               }>
-              <Text style={{textAlign: 'center'}}>View size guide</Text>
+              <Text style={{ textAlign: 'center' }}>View size guide</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
@@ -197,7 +201,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
                 // backgroundColor: 'white',
               }}
               onPress={() => console.log('bbb')}>
-              <Text style={{textAlign: 'center'}}>Size missing?</Text>
+              <Text style={{ textAlign: 'center' }}>Size missing?</Text>
             </TouchableOpacity>
           </View>
           <View>
@@ -224,17 +228,18 @@ const ItemDetails = ({route}: any): JSX.Element => {
             title="Add to bag"
             onPress={() => addToBag(findItemDetail)}
             buttonStyle={styles.button}
+            textStyle={styles.textBtn}
           />
           <ContactUs />
         </View>
       </ScrollView>
-      {isOpen && (
+      {loggedUserData ? isOpen && (
         <RNModal
           visible={isOpen}
           hideModal={handleCloseModal}
           modalTitle="Added to Bag">
           <View>
-            <View style={{width: '50%'}}>
+            <View style={{ width: '50%' }}>
               <OneItem item={findItemDetail} customStyles={styles.item} />
             </View>
             <View>
@@ -242,11 +247,29 @@ const ItemDetails = ({route}: any): JSX.Element => {
                 title="Go to bag"
                 onPress={handleContinueBtnPress}
                 buttonStyle={styles.button}
+                textStyle={styles.textBtn}
               />
             </View>
           </View>
         </RNModal>
-      )}
+      ) : <RNModal
+        visible={isOpen}
+        hideModal={() => setIsOpen(false)}
+        modalTitle="Please, sign in to see your bag.">
+        <View>
+          <View>
+            <RNButton
+              title="Sign In"
+              onPress={() => {
+                navigation.navigate(EPath.SIGNIN as never);
+                handleCloseModal();
+              }}
+              buttonStyle={styles.button}
+              textStyle={styles.textBtn}
+            />
+          </View>
+        </View>
+      </RNModal>}
     </>
   );
 };
@@ -255,7 +278,7 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 5,
@@ -263,9 +286,10 @@ const styles = StyleSheet.create({
     height: 35,
     marginTop: 45,
     borderStyle: 'solid',
-    color: 'black',
+    // color: 'black',
     marginBottom: 15,
   },
+  textBtn: { color: 'white' },
   item: {
     flexDirection: 'row',
   },

@@ -86,7 +86,7 @@ const Register = (): JSX.Element => {
           </View>
           <Text style={styles.header}> Create an account </Text>
         </View>
-        <View style={styles.inputAreas}>
+        <View>
           <FormProvider {...methods}>
             <TextInputField
               placeholder="First Name"
@@ -179,7 +179,6 @@ const Register = (): JSX.Element => {
 };
 
 const styles = StyleSheet.create({
-  inputAreas: {},
   text: {
     marginBottom: 15,
   },
