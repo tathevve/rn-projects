@@ -1,16 +1,15 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, Image, Dimensions, ScrollView} from 'react-native';
-import React, {useEffect} from 'react';
-import {Button, Text} from 'react-native-paper';
+import React from 'react';
+import {Text} from 'react-native-paper';
 import {styles} from '../../../shared/Styles';
 import RNButton from '../../../shared/Button';
 import Slider from './Slider';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
-import {selectItems} from '../../../redux/slicers/allItemsSlice';
+// import {selectItems} from '../../../redux/slicers/allItemsSlice';
 import {EPath} from '../../../shared/models/enums/path.enum';
-import {selectRecommendItems} from '../../../redux/slicers/recommendSlice';
-// import {PushNotification} from 'react-native-push-notification';
+import {selectItems} from '../../../redux/slicers/allItemsSlice';
 
 export const windowWidth = Dimensions.get('window').width;
 export const windowHeight = Dimensions.get('window').height;
@@ -27,8 +26,8 @@ export const windowHeight = Dimensions.get('window').height;
 
 export default function HomeRoute(): JSX.Element {
   const navigation = useNavigation();
-  // const items = useSelector(selectItems);
-  const items = useSelector(selectRecommendItems);
+  const items = useSelector(selectItems);
+  // const items = useSelector(selectRecommendItems);
 
   // const createChannels = () => {
   //   PushNotification.createChannels({
@@ -66,7 +65,7 @@ export default function HomeRoute(): JSX.Element {
     <ScrollView contentContainerStyle={{backgroundColor: 'white'}}>
       <View style={styles.bodyHome}>
         <View style={styles.logo}>
-          <Button onPress={onCall}>abo</Button>
+          {/* <Button onPress={onCall}>abo</Button> */}
           <Image
             style={{width: windowWidth, height: windowHeight / 2}}
             resizeMode="contain"
@@ -171,7 +170,6 @@ export default function HomeRoute(): JSX.Element {
           </View>
           <View style={{flex: 1, marginBottom: 25}}>
             <Slider height={windowHeight / 3} sliderData={items} />
-            {/* sider5.jpg */}
           </View>
           <RNButton
             onPress={() => navigation.navigate(EPath.ALLITEMS as never)}

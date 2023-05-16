@@ -3,17 +3,15 @@ import {
   View,
   Text,
   ScrollView,
-  TouchableOpacity,
   StyleSheet,
   Alert,
   Image,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import React, {useCallback, useMemo, useState} from 'react';
 import {IconButton} from 'react-native-paper';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import ItemSlider from './ItemSlider';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectItems, setItems} from '../../redux/slicers/allItemsSlice';
 import {IItem} from '../../shared/models/interfaces/item.interface';
 import ContactUs from '../../shared/ContactUs';
 import {EPath} from '../../shared/models/enums/path.enum';
@@ -31,6 +29,7 @@ import {
   selectRecommendItems,
   setItem,
 } from '../../redux/slicers/recommendSlice';
+import {recommendedDataList} from './recommendedDataList';
 
 const ItemDetails = ({route}: any): JSX.Element => {
   const itemParams = route.params;
@@ -41,13 +40,25 @@ const ItemDetails = ({route}: any): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const addedToBagItemsHandler = useAddedToBagHook();
   const wishListItemsData = useSelector(selectItemData);
-  const allItemsData = useSelector(selectRecommendItems);
+  // const allItemsData = useSelector(selectRecommendItems);
   const loggedUserData = useSelector(selectUserData);
+  const [recommendedData, setRecommendedData] = useState(recommendedDataList);
 
   useFocusEffect(
     useCallback(() => {
       setPickerValue('');
     }, []),
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      if (itemParams?.item) {
+        setRecommendedData(
+          recommendedDataList.filter(item => item.id !== itemParams?.item?.id),
+        );
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [itemParams?.item]),
   );
 
   const findItemDetail = useMemo(() => {
@@ -83,7 +94,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
     const findedHeartedData = wishListItemsData.find(
       (i: IItem) => i.id === itemParams?.item?.id,
     );
-    const findedHeartedDataInAllItems = allItemsData.find(
+    const findedHeartedDataInAllItems = items.find(
       (i: IItem) => i.id === itemParams?.item?.id,
     );
 
@@ -95,7 +106,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
       );
       dispatch(
         setItem(
-          allItemsData.map((i: IItem) =>
+          items.map((i: IItem) =>
             i.id === findedHeartedDataInAllItems.id
               ? {...i, isHearted: false}
               : i,
@@ -112,7 +123,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
 
       dispatch(
         setItem(
-          allItemsData.map((i: IItem) =>
+          items.map((i: IItem) =>
             i.id === findedHeartedDataInAllItems.id
               ? {...i, isHearted: true}
               : i,
@@ -121,6 +132,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
       );
     }
   };
+
   return (
     <>
       <ScrollView
@@ -131,7 +143,6 @@ const ItemDetails = ({route}: any): JSX.Element => {
         <View style={{marginHorizontal: 17}}>
           <IconButton
             icon="arrow-left-thin"
-            // iconColor={MD3Colors.error50}
             style={{
               position: 'absolute',
               top: 0,
@@ -150,12 +161,11 @@ const ItemDetails = ({route}: any): JSX.Element => {
               alignItems: 'center',
             }}>
             <IconButton
-              icon={findItemDetail.isHearted ? 'heart' : 'heart-outline'}
+              icon={findItemDetail?.isHearted ? 'heart' : 'heart-outline'}
               style={styles.heartedStyle}
               onPress={heartedItemsHandler}
             />
-            <Text>{findItemDetail.brand}</Text>
-            {/* <ItemSlider sliderData={findItemDetail.imagesArray} height={300} /> */}
+            <Text>{findItemDetail?.brand}</Text>
             <Image
               resizeMode="contain"
               style={{
@@ -167,10 +177,10 @@ const ItemDetails = ({route}: any): JSX.Element => {
               source={findItemDetail?.image}
               // source={require(item)}
             />
-            <Text> {findItemDetail.season}</Text>
-            <Text>{findItemDetail.brand} </Text>
-            <Text>{findItemDetail.description}</Text>
-            <Text>{findItemDetail.price}</Text>
+            <Text> {findItemDetail?.season}</Text>
+            <Text>{findItemDetail?.brand} </Text>
+            <Text>{findItemDetail?.description}</Text>
+            <Text>{findItemDetail?.price}</Text>
           </View>
 
           <RNPicker
@@ -243,18 +253,51 @@ const ItemDetails = ({route}: any): JSX.Element => {
               flexDirection: 'row',
               flexWrap: 'wrap',
             }}>
-            {findItemDetail?.imagesArray?.map((item: IItem, index: number) => {
+            {/* {findItemDetail?.imagesArray?.map((item: IItem, index: number) => {
               return (
-                <View
+                <TouchableWithoutFeedback
                   key={index}
-                  style={{
-                    width: '50%',
-                    // flexWrap: 'wrap',
-                  }}>
-                  <OneItem item={item} />
-                </View>
+                  onPress={() =>
+                    navigation.navigate(
+                      EPath.ITEMDETAILS as never,
+                      {
+                        item,
+                      } as never,
+                    )
+                  }>
+                  <View
+                    style={{
+                      width: '50%',
+                    }}>
+                    <OneItem item={item} recommendedId={item.id} />
+                  </View>
+                </TouchableWithoutFeedback>
               );
-            })}
+            })} */}
+            {recommendedData
+              .filter(i => i.keyWord === itemParams?.item?.keyWord)
+              .slice(0, 5)
+              .map((item, index) => {
+                return (
+                  <TouchableWithoutFeedback
+                    key={index}
+                    onPress={() =>
+                      navigation.navigate(
+                        EPath.ITEMDETAILS as never,
+                        {
+                          item,
+                        } as never,
+                      )
+                    }>
+                    <View
+                      style={{
+                        width: '50%',
+                      }}>
+                      <OneItem item={item} recommendedId={item.id} />
+                    </View>
+                  </TouchableWithoutFeedback>
+                );
+              })}
           </View>
           <RNButton
             title="Add to bag"
@@ -322,7 +365,6 @@ const styles = StyleSheet.create({
     height: 35,
     marginTop: 45,
     borderStyle: 'solid',
-    // color: 'black',
     marginBottom: 15,
   },
   textBtn: {color: 'white'},

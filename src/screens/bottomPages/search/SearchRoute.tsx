@@ -34,7 +34,7 @@ const SearchRoute = (): JSX.Element => {
     );
     setFilteredList(updatedList.length > 0 ? updatedList : []);
   };
-  console.log(searchQuery, 'aa');
+
   return (
     <ScrollView
       contentContainerStyle={{

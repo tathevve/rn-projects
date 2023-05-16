@@ -18,6 +18,7 @@ const OneItem = ({
   customStyles,
   showHeartIcon = false,
   showSizeAndQty = false,
+  recommendedId = 0,
 }: IItemProps): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const wishListItemsData = useSelector(selectItemData);
@@ -63,7 +64,10 @@ const OneItem = ({
     }
   };
 
-  // let abo = '../../../assets/photos_without_duplicates/activewear_1_10.png';
+  // console.log(item, 'ITEM');
+  // console.log(recommendedId, 'recommendedId');
+
+  // let abo = '../../../assheartedItemsHandlerets/photos_without_duplicates/activewear_1_10.png';
   return (
     <View style={styles.root}>
       {/* <Text>{brand}</Text> */}
