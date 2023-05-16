@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, {memo} from 'react';
 import {ActivityIndicator, StyleSheet} from 'react-native';
 

@@ -161,7 +161,6 @@ const ShoppingBag = (): JSX.Element => {
             </View>
           </View>
         )}
-
         <View
           style={{
             width: '100%',
@@ -177,7 +176,6 @@ const ShoppingBag = (): JSX.Element => {
                   style={{
                     display: 'flex',
                     width: '100%',
-                    // height: "40%",
                     flexDirection: 'row-reverse',
                     marginBottom: 35,
                   }}
@@ -186,13 +184,6 @@ const ShoppingBag = (): JSX.Element => {
                     icon="close"
                     style={{
                       width: '10%',
-                      // backgroundColor: 'grey',
-                      // position: 'absolute',
-                      // top: 35,
-                      // right: 0,
-                      // height: 30,
-                      // width: 30,
-                      // zIndex: 2,
                     }}
                     size={25}
                     onPress={() => removeItemFromBag(item)}
@@ -207,7 +198,6 @@ const ShoppingBag = (): JSX.Element => {
                       key={index}
                       style={{
                         width: '50%',
-                        // flexWrap: 'wrap',
                       }}>
                       <OneItem item={item} customStyles={styles.item} />
                     </TouchableOpacity>
@@ -217,15 +207,11 @@ const ShoppingBag = (): JSX.Element => {
                         width: '70%',
                         marginTop: -25,
                         marginLeft: 120,
-                        // height: 300,
                         justifyContent: 'flex-start',
-                        // alignItems: 'flex-start',
                       }}>
                       <View
                         style={{
                           backgroundColor: 'white',
-                          // marginTop: 15,
-                          // marginLeft: -13,
                           width: '80%',
                           position: 'relative',
                         }}>
@@ -243,9 +229,7 @@ const ShoppingBag = (): JSX.Element => {
                         </Text>
 
                         <TextInputField
-                          // placeholder="Count"
                           name="quantity"
-                          // inputRef={inputRef}
                           customValue={item?.count}
                           secureTextEntry
                           changeHandler={text => valueOfInput(text, item)}
@@ -257,7 +241,6 @@ const ShoppingBag = (): JSX.Element => {
                       <View
                         style={{
                           backgroundColor: 'white',
-                          // marginTop: 15,
                           marginLeft: -80,
                           width: '100%',
                           position: 'relative',

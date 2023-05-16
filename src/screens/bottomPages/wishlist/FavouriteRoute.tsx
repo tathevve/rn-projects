@@ -44,7 +44,7 @@ const FavouriteRoute = (): JSX.Element => {
       addedToBagItemsHandler(selectedItem, value);
       // Alert.alert('', 'Item added successfully');
       setIsOpen(true);
-      toast.show('Task finished successfully', {
+      toast.show('Size changed successfully', {
         type: 'success',
         placement: 'top',
         duration: 4000,
@@ -62,7 +62,7 @@ const FavouriteRoute = (): JSX.Element => {
       setIsOpen(true);
     } else {
       addedToBagItemsHandler(item, EItemType.ONE_SIZE);
-      toast.show('Task finished successfully', {
+      toast.show('The item added to bag', {
         type: 'success',
         placement: 'top',
         duration: 4000,
@@ -72,7 +72,6 @@ const FavouriteRoute = (): JSX.Element => {
       handleCloseModal();
     }
   };
-
 
   const handleCloseModal = () => {
     setIsOpen(false);

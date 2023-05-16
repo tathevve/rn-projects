@@ -1,15 +1,15 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import React, { useEffect } from 'react';
-import { IconButton } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
-import { FormProvider, useForm } from 'react-hook-form';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {IconButton} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
+import {FormProvider, useForm} from 'react-hook-form';
 import TextInputField from '../../shared/TextInput/TextInputField';
-import { requiredField } from '../../shared/models/validations/Validation';
-import { selectShippingData } from '../../redux/slicers/shippingAddressSlice';
-import { useSelector } from 'react-redux';
-import { selectUserData } from '../../redux/slicers/loginSlice';
+import {requiredField} from '../../shared/models/validations/Validation';
+import {selectShippingData} from '../../redux/slicers/shippingAddressSlice';
+import {useSelector} from 'react-redux';
+import {selectUserData} from '../../redux/slicers/loginSlice';
 import RNButton from '../../shared/Button';
-import { EPath } from '../../shared/models/enums/path.enum';
+import {EPath} from '../../shared/models/enums/path.enum';
 
 const AccountDetails = () => {
   const navigation = useNavigation();
@@ -20,20 +20,28 @@ const AccountDetails = () => {
   });
 
   const {
-    handleSubmit,
     control,
-    formState: { errors },
+    formState: {errors},
     reset,
   } = methods;
 
   console.log(user, 'user');
 
   useEffect(() => {
-    if (shippingData && user) {
-      reset({ ...shippingData, ...user });
+    if (user) {
+      reset({...shippingData, ...user});
       //   reset({...user});
     }
   }, [reset, shippingData, user]);
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     setData({...user, ...shippingData});
+  //     return () => setData(null);
+  //   }, [user]),
+  // );
+
+  console.log(shippingData, 'shi[');
 
   return (
     <ScrollView style={styles.root}>
@@ -48,41 +56,41 @@ const AccountDetails = () => {
         <FormProvider {...methods}>
           <TextInputField
             placeholder="First Name"
-            name="firstName"
-            secureTextEntry
+            name="name"
+            editable={false}
             control={control}
             rules={{
               required: requiredField(),
               // pattern: emailValidation(),
             }}
             errors={errors}
-            props={{ maxLength: 100 }}
+            props={{maxLength: 100}}
             customInputStyles={styles.input}
           />
           <TextInputField
             placeholder="Last Name"
-            name="lastName"
-            secureTextEntry
+            name="surname"
+            editable={false}
             control={control}
             rules={{
               required: requiredField(),
               // pattern: emailValidation(),
             }}
             errors={errors}
-            props={{ maxLength: 100 }}
+            props={{maxLength: 100}}
             customInputStyles={styles.input}
           />
           <TextInputField
             placeholder="Email"
             name="email"
-            secureTextEntry
+            editable={false}
             control={control}
             rules={{
               required: requiredField(),
               // pattern: emailValidation(),
             }}
             errors={errors}
-            props={{ maxLength: 50 }}
+            props={{maxLength: 50}}
             customInputStyles={styles.input}
           />
         </FormProvider>
@@ -101,7 +109,8 @@ const AccountDetails = () => {
         <View>
           <Text style={styles.sectionHeader}>Delete Account</Text>
           <Text>
-            You can request for your account or your personal details to be deleted at any time.
+            You can request for your account or your personal details to be
+            deleted at any time.
           </Text>
           <RNButton
             title="Request To Delete"

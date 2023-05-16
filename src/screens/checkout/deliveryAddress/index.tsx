@@ -61,9 +61,6 @@ const DeliveryAddress = () => {
       <View style={styles.root}>
         <IconButton
           icon="arrow-left-thin"
-          // style={{
-          //   height: 20,
-          // }}
           size={32}
           onPress={() => navigation.goBack()}
         />

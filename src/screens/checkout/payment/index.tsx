@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';

@@ -20,5 +20,8 @@ export enum EPath {
   ORDERS = 'Orders',
   ACCOUNT_DETAILS = 'AccountDetails',
   PASSWORD = 'Password',
-  DELETE_ACCOUNT = 'DeleteAccount'
+  DELETE_ACCOUNT = 'DeleteAccount',
+  ADDRESS_BOOK = 'AddressBook',
+  ABOUT_US = 'AboutUs',
+  PRIVACY = 'Privacy',
 }

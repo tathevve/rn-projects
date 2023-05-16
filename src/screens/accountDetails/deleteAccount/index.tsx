@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import React from 'react';
-import { IconButton } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
-import { FormProvider, useForm } from 'react-hook-form';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import React, {useEffect} from 'react';
+import {IconButton} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
+import {FormProvider, useForm} from 'react-hook-form';
 import TextInputField from '../../../shared/TextInput/TextInputField';
 import {
   inputMaxLengthLimit,
@@ -10,9 +10,17 @@ import {
   requiredField,
 } from '../../../shared/models/validations/Validation';
 import RNButton from '../../../shared/Button';
+import {selectUserData, setUserData} from '../../../redux/slicers/loginSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useToast} from 'react-native-toast-notifications';
+import {EPath} from '../../../shared/models/enums/path.enum';
 
 const DeleteAccount = () => {
   const navigation = useNavigation();
+  const user = useSelector(selectUserData);
+  const dispatch = useDispatch();
+  const toast = useToast();
   const methods = useForm<any>({
     mode: 'all',
   });
@@ -20,13 +28,35 @@ const DeleteAccount = () => {
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    formState: {errors},
     reset,
   } = methods;
 
-  const deleteAccountHandler = () => {
-    
-  }
+  const deleteAccountHandler = async (formData: any) => {
+    const data = {
+      ...formData,
+    };
+    if (data?.password === data?.passwordEntry) {
+      await AsyncStorage.removeItem('user');
+      await dispatch(setUserData({}));
+      navigation.navigate(EPath.ACCOUNT as never);
+    } else {
+      toast.show('Incorrect password', {
+        type: 'danger',
+        placement: 'top',
+        duration: 4000,
+        animationType: 'slide-in',
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      reset({...user});
+      //   reset({...user});
+    }
+  }, [reset, user]);
+  console.log(user, 'user');
 
   return (
     <View style={styles.root}>
@@ -39,50 +69,43 @@ const DeleteAccount = () => {
         <Text style={styles.typesText}>Request To Delete</Text>
         <FormProvider {...methods}>
           <TextInputField
-            name="firstName"
+            name="name"
             labelIsVisible
             control={control}
-            isPassword
             placeholder="First Name"
             rules={{
               required: requiredField(),
-              minLength: inputMinLengthLimit(8),
-              maxLength: inputMaxLengthLimit(13),
             }}
             customInputStyles={styles.input}
-            customPasswordStyles={styles.passwordIcon}
-          />
-          <TextInputField
-            name="lastName"
-            labelIsVisible
-            control={control}
-            isPassword
-            placeholder="Last Name"
-            rules={{
-              required: requiredField(),
-              minLength: inputMinLengthLimit(8),
-              maxLength: inputMaxLengthLimit(13),
-            }}
-            customInputStyles={styles.input}
-            customPasswordStyles={styles.passwordIcon}
           />
           <TextInputField
             name="email"
             labelIsVisible
             control={control}
-            isPassword
             placeholder="Email"
-            rules={{  
+            rules={{
+              required: requiredField(),
+            }}
+            customInputStyles={styles.input}
+          />
+          <TextInputField
+            name="passwordEntry"
+            labelIsVisible
+            control={control}
+            isPassword
+            secureTextEntry
+            placeholder="Password"
+            rules={{
               required: requiredField(),
               minLength: inputMinLengthLimit(8),
               maxLength: inputMaxLengthLimit(13),
             }}
             customInputStyles={styles.input}
-            customPasswordStyles={styles.passwordIconSecond}
+            customPasswordStyles={styles.passwordIcon}
           />
           <RNButton
             title="Submit"
-            onPress={() => deleteAccountHandler()}
+            onPress={handleSubmit(deleteAccountHandler)}
             buttonStyle={styles.button}
             textStyle={styles.btnText}
           />
@@ -125,12 +148,7 @@ const styles = StyleSheet.create({
   passwordIcon: {
     position: 'absolute',
     right: 20,
-    top: 95,
-  },
-  passwordIconSecond: {
-    position: 'absolute',
-    right: 20,
-    top: 162,
+    top: 227,
   },
   button: {
     justifyContent: 'center',

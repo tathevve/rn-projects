@@ -2,8 +2,12 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import {IconButton} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
+import {EPath} from '../models/enums/path.enum';
 
 const ContactUs = (): JSX.Element => {
+  const navigation = useNavigation();
+
   return (
     <View
       style={{
@@ -32,9 +36,9 @@ const ContactUs = (): JSX.Element => {
             icon="phone-outline"
             // iconColor={MD3Colors.error50}
             size={25}
-            onPress={() => console.log('phone')}
+            onPress={() => navigation.navigate(EPath.ABOUT_US as never)}
           />
-          <Text>phone</Text>
+          <Text>By Phone</Text>
         </View>
         <View
           style={{
@@ -47,9 +51,9 @@ const ContactUs = (): JSX.Element => {
             icon="email-outline"
             // iconColor={MD3Colors.error50}
             size={25}
-            onPress={() => console.log('email')}
+            onPress={() => navigation.navigate(EPath.ABOUT_US as never)}
           />
-          <Text>email</Text>
+          <Text>By Email</Text>
         </View>
       </View>
       <Text style={styles.text}>Available Monday to Friday 9am - 6pm GMT</Text>

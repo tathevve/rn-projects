@@ -10,9 +10,14 @@ import {
   requiredField,
 } from '../../../shared/models/validations/Validation';
 import RNButton from '../../../shared/Button';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useToast} from 'react-native-toast-notifications';
+import {EPath} from '../../../shared/models/enums/path.enum';
 
 const Password = () => {
   const navigation = useNavigation();
+  const toast = useToast();
+
   const methods = useForm<any>({
     mode: 'all',
   });
@@ -23,6 +28,31 @@ const Password = () => {
     formState: {errors},
     reset,
   } = methods;
+
+  const passChangeHandler = async (formData: any) => {
+    const data = {...formData};
+
+    const getUser: string | null = await AsyncStorage.getItem('user');
+    const user = JSON.parse(getUser);
+    if (user?.password === data?.password) {
+      const newUser = {password: data?.newPassword};
+      AsyncStorage.setItem('user', JSON.stringify(user), () => {
+        AsyncStorage.mergeItem('user', JSON.stringify(newUser), () => {
+          AsyncStorage.getItem('user', (err, result) => {
+            console.log(result, err);
+          });
+        });
+      });
+      navigation.navigate(EPath.ACCOUNT as never);
+    } else {
+      toast.show('Incorrect password', {
+        type: 'danger',
+        placement: 'top',
+        duration: 4000,
+        animationType: 'slide-in',
+      });
+    }
+  };
 
   return (
     <View style={styles.root}>
@@ -35,12 +65,12 @@ const Password = () => {
         <Text style={styles.typesText}>Details & Password</Text>
         <FormProvider {...methods}>
           <TextInputField
-            name="Current password"
+            name="password"
             labelIsVisible
             secureTextEntry
             control={control}
             isPassword
-            placeholder="Password"
+            placeholder="Current Password"
             rules={{
               required: requiredField(),
               minLength: inputMinLengthLimit(8),
@@ -66,7 +96,7 @@ const Password = () => {
           />
           <RNButton
             title="Confirm new password"
-            onPress={() => {}}
+            onPress={handleSubmit(passChangeHandler)}
             buttonStyle={styles.button}
             textStyle={styles.btnText}
           />

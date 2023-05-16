@@ -6,7 +6,12 @@ import {IconButton} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch} from '../../redux';
 import {selectItemData, setItemData} from '../../redux/slicers/wishlistSlice';
-import {selectItems, setItems} from '../../redux/slicers/allItemsSlice';
+// import {selectItems, setItems} from '../../redux/slicers/allItemsSlice';
+import {
+  selectRecommendItems,
+  setItem,
+} from '../../redux/slicers/recommendSlice';
+// import seventh from "../../../assets/"
 
 const OneItem = ({
   item,
@@ -16,7 +21,9 @@ const OneItem = ({
 }: IItemProps): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const wishListItemsData = useSelector(selectItemData);
-  const allItemsData = useSelector(selectItems);
+  const allItemsData = useSelector(selectRecommendItems);
+  // const [img, setImg] = useState<string>('');
+  // console.log(item, 'alalallal');
 
   const heartedItemsHandler = () => {
     const findedHeartedData = wishListItemsData.find(
@@ -33,7 +40,7 @@ const OneItem = ({
         ),
       );
       dispatch(
-        setItems(
+        setItem(
           allItemsData.map((i: IItem) =>
             i.id === findedHeartedDataInAllItems.id
               ? {...i, isHearted: false}
@@ -45,7 +52,7 @@ const OneItem = ({
       dispatch(setItemData([...wishListItemsData, {...item, isHearted: true}]));
 
       dispatch(
-        setItems(
+        setItem(
           allItemsData.map((i: IItem) =>
             i.id === findedHeartedDataInAllItems.id
               ? {...i, isHearted: true}
@@ -56,6 +63,7 @@ const OneItem = ({
     }
   };
 
+  // let abo = '../../../assets/photos_without_duplicates/activewear_1_10.png';
   return (
     <View style={styles.root}>
       {/* <Text>{brand}</Text> */}
@@ -73,14 +81,16 @@ const OneItem = ({
             width: '100%',
             height: 150,
           }}
+          // source={require(`../../../assets/${item}`)}
+          // source=  {{uri: item} as any}
           source={item?.image}
+          // source={require(item)}
         />
         <View style={{paddingLeft: 13}}>
           <Text> {item?.season}</Text>
-          {/* <Text> {item.type}</Text> */}
           <Text>{item?.brand} </Text>
           <Text>{item?.description}</Text>
-          <Text>{item?.price}</Text>
+          <Text>{item?.price} $</Text>
           {showSizeAndQty && (
             <Text>
               Quantity: {item?.count} Size: {item?.size}

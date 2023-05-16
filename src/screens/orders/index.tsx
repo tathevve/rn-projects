@@ -46,12 +46,7 @@ const Orders = () => {
         {bagItems.length > 0 ? (
           <View
             style={{
-              //   flex: 1,
               width: '100%',
-              //   paddingBottom: 100,
-              // display: 'flex',
-              // flexDirection: 'row',
-              // flexWrap: 'wrap',
             }}>
             {bagItems.map((item: IItem, index: number) => {
               return (
@@ -59,25 +54,10 @@ const Orders = () => {
                   style={{
                     display: 'flex',
                     width: '100%',
-                    // height: "40%",
-                    flexDirection: 'row-reverse',
-
-                    // marginBottom: 35,
                   }}
                   key={index}>
-                  <View
-                    style={{
-                      width: '100%',
-                    }}>
-                    <TouchableOpacity
-                      onPress={() => handleRedirect(item)}
-                      key={index}
-                      style={{
-                        width: '90%',
-                        backgroundColor: 'gray',
-                      }}>
-                      <OneItem item={item} customStyles={styles.item} />
-                    </TouchableOpacity>
+                  <View style={{width: '50%'}}>
+                    <OneItem item={item} customStyles={styles.item} />
                   </View>
                   <Line />
                 </View>
@@ -124,8 +104,7 @@ const styles = StyleSheet.create({
   },
   item: {
     flexDirection: 'row',
-    backgroundColor: 'red',
-    width: '50%',
+    width: '100%',
   },
   boldText: {
     fontWeight: '900',

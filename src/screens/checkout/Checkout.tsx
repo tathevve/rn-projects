@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {IconButton, List} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
@@ -21,11 +21,11 @@ const Checkout = () => {
   const bagItems = useSelector(selectBagItemsData);
 
   return (
-    <View style={styles.root}>
+    <ScrollView style={styles.root}>
       <View
         style={{
           marginHorizontal: 17,
-          height: Dimensions.get('window').height - 120,
+          height: Dimensions.get('window').height - 50,
         }}>
         <View style={{flex: 1}}>
           <IconButton icon="window-close" onPress={() => navigation.goBack()} />
@@ -73,7 +73,6 @@ const Checkout = () => {
                       ? `Visa (**** ${payment?.cardNumber.slice(12)})`
                       : 'Select a payment method'
                   }
-                  // disabled={!shippingData?.addressOne}
                 />
               </List.Section>
             </View>
@@ -105,7 +104,7 @@ const Checkout = () => {
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

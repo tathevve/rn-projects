@@ -22,16 +22,16 @@ const Categories = ({typeTitle}: {typeTitle: string}): JSX.Element => {
         // left={props => <List.Icon {...props} icon="folder" />}
         expanded={expanded}
         onPress={handlePress}>
-        <List.Accordion title="A Accordion" titleStyle={{color: 'black'}}>
-          <List.Item
-            title="First item"
-            onPress={() => console.log('first item')}
-          />
-          <List.Item
-            title="Second item"
-            onPress={() => console.log('second item')}
-          />
-        </List.Accordion>
+        {/* <List.Accordion title="A Accordion" titleStyle={{color: 'black'}}> */}
+        {/* <List.Item
+          title="First item"
+          onPress={() => console.log('first item')}
+        />
+        <List.Item
+          title="Second item"
+          onPress={() => console.log('second item')}
+        /> */}
+        {/* </List.Accordion> */}
       </List.Accordion>
     </List.Section>
   );

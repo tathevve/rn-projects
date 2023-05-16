@@ -31,7 +31,6 @@ const RNPicker = ({
           label: placeholder,
           color: placeholderColor,
         }}
-        // disabled={findItemDetail.type === 'One Size' ? true : false}
         disabled={disabled}
         onValueChange={value => handleChange(value)}
         value={pickerValue}

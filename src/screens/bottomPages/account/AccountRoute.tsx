@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import {View, StyleSheet} from 'react-native';
 import React from 'react';
 import {Text} from 'react-native-paper';
@@ -86,22 +85,18 @@ const AccountRoute = (): JSX.Element => {
                       }
                     />
                     <List.Item
-                      title="Refer a friend"
+                      title="Address book"
                       right={() => <List.Icon icon="arrow-right-thin" />}
-                      onPress={() => console.log('aaa')}
+                      onPress={() =>
+                        navigation.navigate(EPath.ADDRESS_BOOK as never)
+                      }
                     />
                   </List.Section>
                 </View>
               </View>
             )}
           </View>
-          <View>
-            <View>
-              <Text style={styles.text}>
-                This location defines your language and currency
-              </Text>
-            </View>
-          </View>
+
           {data?.name ? (
             <View>
               <List.Section>
@@ -111,17 +106,17 @@ const AccountRoute = (): JSX.Element => {
                 <List.Item
                   title="About Us"
                   right={() => <List.Icon icon="arrow-right-thin" />}
-                  onPress={() => console.log('aaa')}
+                  onPress={() => navigation.navigate(EPath.ABOUT_US as never)}
                 />
                 <List.Item
                   title="Terms & Conditions"
                   right={() => <List.Icon icon="arrow-right-thin" />}
-                  onPress={() => console.log('aaa')}
+                  onPress={() => navigation.navigate(EPath.PRIVACY as never)}
                 />
                 <List.Item
                   title="Privacy Policy"
                   right={() => <List.Icon icon="arrow-right-thin" />}
-                  onPress={() => console.log('aaa')}
+                  onPress={() => navigation.navigate(EPath.PRIVACY as never)}
                 />
               </List.Section>
             </View>

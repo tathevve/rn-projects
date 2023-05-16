@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, Image, Dimensions, ScrollView} from 'react-native';
-import React from 'react';
-import {Text} from 'react-native-paper';
+import React, {useEffect} from 'react';
+import {Button, Text} from 'react-native-paper';
 import {styles} from '../../../shared/Styles';
 import RNButton from '../../../shared/Button';
 import Slider from './Slider';
@@ -9,9 +9,11 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {selectItems} from '../../../redux/slicers/allItemsSlice';
 import {EPath} from '../../../shared/models/enums/path.enum';
+import {selectRecommendItems} from '../../../redux/slicers/recommendSlice';
+// import {PushNotification} from 'react-native-push-notification';
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+export const windowWidth = Dimensions.get('window').width;
+export const windowHeight = Dimensions.get('window').height;
 
 // const secondSlider = [
 //   {
@@ -25,12 +27,46 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function HomeRoute(): JSX.Element {
   const navigation = useNavigation();
-  const items = useSelector(selectItems);
+  // const items = useSelector(selectItems);
+  const items = useSelector(selectRecommendItems);
+
+  // const createChannels = () => {
+  //   PushNotification.createChannels({
+  //     channeId: 'test-channel',
+  //     channelName: 'Test channel',
+  //   });
+  // };
+
+  const onCall = () => {
+    // await fetch(
+    //   'http://10.0.2.2:5000/find_similar?n_similar=10&image_name=photos_without_duplicates/dresses_1_120.png',
+    //   {
+    //     method: 'GET',
+    //   },
+    // )
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     console.log(data);
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
+    // PushNotification.localNotification({
+    //   channelId: 'test-channel',
+    //   title: 'You clicked on me',
+    //   message: 'abo ',
+    // });
+  };
+
+  // useEffect(() => {
+  //   createChannels();
+  // }, []);
 
   return (
     <ScrollView contentContainerStyle={{backgroundColor: 'white'}}>
       <View style={styles.bodyHome}>
         <View style={styles.logo}>
+          <Button onPress={onCall}>abo</Button>
           <Image
             style={{width: windowWidth, height: windowHeight / 2}}
             resizeMode="contain"
@@ -38,7 +74,7 @@ export default function HomeRoute(): JSX.Element {
           />
           <View style={styles.textView}>
             <Text style={styles.title}>
-              Pregomesh: where the 18th century meets Vogue
+              Theia: where the 18th century meets Vogue
             </Text>
             <Text style={styles.subtitle}>
               Pregomesh sets the standard for bold and stylish silver jewelry.

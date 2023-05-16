@@ -64,7 +64,7 @@ const ScreenLayout = ({children}: IScreenLayout): JSX.Element => {
 
   return (
     <>
-      <Header handleOpen={handleOpenModal} title={'Khanut'} />
+      <Header handleOpen={handleOpenModal} title={'Theia'} />
       <>{children}</>
       {!loggedUserData?.name && (
         <RNModal

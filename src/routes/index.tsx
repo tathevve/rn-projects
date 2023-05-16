@@ -5,7 +5,6 @@ import SignIn from '../screens/signIn/SignIn';
 import Register from '../screens/register/Register';
 import HomeRoute from '../screens/bottomPages/home/HomeRoute';
 import SearchRoute from '../screens/bottomPages/search/SearchRoute';
-import BrandsRoute from '../screens/bottomPages/brands/BrandsRoute';
 import FavouriteRoute from '../screens/bottomPages/wishlist/FavouriteRoute';
 import AccountRoute from '../screens/bottomPages/account/AccountRoute';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -29,6 +28,9 @@ import Orders from '../screens/orders';
 import AccountDetails from '../screens/accountDetails';
 import Password from '../screens/accountDetails/password';
 import DeleteAccount from '../screens/accountDetails/deleteAccount';
+import AddressBook from '../screens/accountDetails/addressBook';
+import AboutUs from '../screens/accountDetails/aboutUs';
+import Privacy from '../screens/accountDetails/privacy';
 
 const RootStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -48,17 +50,9 @@ const TabNavigator = (): JSX.Element => (
         ),
         tabBarIcon: ({focused}) => {
           return focused ? (
-            <IconButton
-              icon="home"
-              // iconColor={MD3Colors.error50}
-              size={22}
-            />
+            <IconButton icon="home" size={22} />
           ) : (
-            <IconButton
-              icon="home-outline"
-              // iconColor={MD3Colors.error50}
-              size={20}
-            />
+            <IconButton icon="home-outline" size={20} />
           );
         },
       }}
@@ -74,43 +68,9 @@ const TabNavigator = (): JSX.Element => (
         ),
         tabBarIcon: ({focused}) => {
           return focused ? (
-            <IconButton
-              icon="tag-search"
-              // iconColor={MD3Colors.error50}
-              size={22}
-            />
+            <IconButton icon="tag-search" size={22} />
           ) : (
-            <IconButton
-              icon="tag-search-outline"
-              // iconColor={MD3Colors.error50}
-              size={20}
-            />
-          );
-        },
-      }}
-    />
-    <Tab.Screen
-      name={EPath.BRANDS}
-      component={BrandsRoute}
-      options={{
-        tabBarLabel: ({focused}) => (
-          <Text style={{color: focused ? 'black' : 'gray', fontSize: 13}}>
-            Brands
-          </Text>
-        ),
-        tabBarIcon: ({focused}) => {
-          return focused ? (
-            <IconButton
-              icon="tag"
-              // iconColor={MD3Colors.error50}
-              size={22}
-            />
-          ) : (
-            <IconButton
-              icon="tag-outline"
-              // iconColor={MD3Colors.error50}
-              size={20}
-            />
+            <IconButton icon="tag-search-outline" size={20} />
           );
         },
       }}
@@ -126,17 +86,9 @@ const TabNavigator = (): JSX.Element => (
         ),
         tabBarIcon: ({focused}) => {
           return focused ? (
-            <IconButton
-              icon="heart"
-              // iconColor={MD3Colors.error50}
-              size={22}
-            />
+            <IconButton icon="heart" size={22} />
           ) : (
-            <IconButton
-              icon="heart-outline"
-              // iconColor={MD3Colors.error50}
-              size={20}
-            />
+            <IconButton icon="heart-outline" size={20} />
           );
         },
       }}
@@ -152,17 +104,9 @@ const TabNavigator = (): JSX.Element => (
         ),
         tabBarIcon: ({focused}) => {
           return focused ? (
-            <IconButton
-              icon="account"
-              // iconColor={MD3Colors.error50}
-              size={22}
-            />
+            <IconButton icon="account" size={22} />
           ) : (
-            <IconButton
-              icon="account-outline"
-              // iconColor={MD3Colors.error50}
-              size={20}
-            />
+            <IconButton icon="account-outline" size={20} />
           );
         },
       }}
@@ -182,7 +126,6 @@ const RootNavigator = (): JSX.Element => {
         headerTintColor: 'black',
         headerTitleStyle: {
           fontSize: 35,
-          // fontWeight: 'bold'
         },
       }}>
       <RootStack.Screen
@@ -301,6 +244,27 @@ const RootNavigator = (): JSX.Element => {
       <RootStack.Screen
         name={EPath.DELETE_ACCOUNT}
         component={DeleteAccount}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStack.Screen
+        name={EPath.ADDRESS_BOOK}
+        component={AddressBook}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStack.Screen
+        name={EPath.ABOUT_US}
+        component={AboutUs}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStack.Screen
+        name={EPath.PRIVACY}
+        component={Privacy}
         options={{
           headerShown: false,
         }}

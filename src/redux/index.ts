@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import {Action, combineReducers, configureStore} from '@reduxjs/toolkit';
 import loginReducer from './slicers/loginSlice';
 import appReducer from './slicers/app';
@@ -7,6 +6,7 @@ import allItemsReducer from './slicers/allItemsSlice';
 import shoppingBagReducer from './slicers/shoppingBagSlice';
 import shippingAddressReducer from './slicers/shippingAddressSlice';
 import paymentReducer from './slicers/paymentSlice';
+import recommendItemsReducer from './slicers/recommendSlice';
 
 const combinedReducers = combineReducers({
   login: loginReducer,
@@ -16,6 +16,7 @@ const combinedReducers = combineReducers({
   shoppingBag: shoppingBagReducer,
   shippingAddress: shippingAddressReducer,
   payment: paymentReducer,
+  recommendItems: recommendItemsReducer,
 });
 
 const rootReducer = (state: any | undefined, action: Action) =>

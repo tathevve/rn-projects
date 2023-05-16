@@ -50,6 +50,7 @@ const Register = (): JSX.Element => {
       email: data.email,
       password: data.password,
       name: data.name,
+      surname: data.surname
     };
 
     if (!(data.email && data.password)) {
