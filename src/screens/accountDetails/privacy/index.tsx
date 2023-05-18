@@ -16,14 +16,20 @@ const isCloseToBottom = ({
   );
 };
 
-const Privacy = () => {
+const Privacy = ({route}: any) => {
+  const itemParams = route.params;
+  console.log(itemParams, 'aaa');
   const navigation = useNavigation();
   const [accepted, setAccepted] = useState<boolean>(false);
 
   return (
     <View>
       <View style={styles.container}>
-        <Text style={styles.title}>Terms and conditions</Text>
+        {itemParams === 'Terms' ? (
+          <Text style={styles.title}> Terms and conditions</Text>
+        ) : (
+          <Text style={styles.title}> Privacy Policy</Text>
+        )}
         <ScrollView
           style={styles.tcContainer}
           onScroll={({nativeEvent}) => {

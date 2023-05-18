@@ -8,7 +8,7 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from 'react-native';
-import React, {useCallback, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {IconButton} from 'react-native-paper';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -43,14 +43,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
   const wishListItemsData = useSelector(selectItemData);
   const loggedUserData = useSelector(selectUserData);
   const [recommendedData, setRecommendedData] = useState(recommendedDataList);
-  // const ref = React.useRef(null);
   const scrollRef = useRef(null);
-
-  // useScrollToTop(
-  //   React.useRef({
-  //     scrollToTop: () => ref.current?.scrollTo({y: 100}) as never,
-  //   }),
-  // );
 
   useFocusEffect(
     useCallback(() => {
@@ -146,6 +139,10 @@ const ItemDetails = ({route}: any): JSX.Element => {
       );
     }
   };
+
+  useEffect(() => {
+    scrollRef?.current?.scrollTo({x: 0, y: 0, animated: true});
+  }, [itemParams]);
 
   return (
     <>
@@ -243,20 +240,24 @@ const ItemDetails = ({route}: any): JSX.Element => {
           <View>
             <RNAccordion accordionTitle="Size & Fit">
               <Text>
-                We've sent an email to the address provided. Can't find it?
-                Check your junk folder.
+                The product is designed to provide a flattering and comfortable
+                fit for various body types. We recommend referring to the size
+                chart below to find your perfect fit.
               </Text>
             </RNAccordion>
             <RNAccordion accordionTitle="Composition & Care">
               <Text>
-                We've sent an email to the address provided. Can't find it?
-                Check your junk folder.
+                The product is expertly crafted from a high-quality blend of 95%
+                polyester and 5% spandex. The polyester fabric offers durability
+                and wrinkle-resistance, while the addition of spandex ensures a
+                comfortable stretch and flexibility.
               </Text>
             </RNAccordion>
             <RNAccordion accordionTitle="Delivery & Returns">
               <Text>
-                We've sent an email to the address provided. Can't find it?
-                Check your junk folder.
+                We want you to be completely satisfied with your dress. If, for
+                any reason, you are not happy with your purchase, we offer a
+                hassle-free return and exchange policy.
               </Text>
             </RNAccordion>
           </View>

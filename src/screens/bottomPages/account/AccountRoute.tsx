@@ -111,12 +111,22 @@ const AccountRoute = (): JSX.Element => {
                 <List.Item
                   title="Terms & Conditions"
                   right={() => <List.Icon icon="arrow-right-thin" />}
-                  onPress={() => navigation.navigate(EPath.PRIVACY as never)}
+                  onPress={() =>
+                    navigation.navigate(
+                      EPath.PRIVACY as never,
+                      'Terms' as never,
+                    )
+                  }
                 />
                 <List.Item
                   title="Privacy Policy"
                   right={() => <List.Icon icon="arrow-right-thin" />}
-                  onPress={() => navigation.navigate(EPath.PRIVACY as never)}
+                  onPress={() =>
+                    navigation.navigate(
+                      EPath.PRIVACY as never,
+                      'Privacy' as never,
+                    )
+                  }
                 />
               </List.Section>
             </View>

@@ -17,6 +17,7 @@ import {setUserData} from '../../redux/slicers/loginSlice';
 import {IRegisterUser} from '../../shared/models/interfaces/user.interface';
 import {IconButton} from 'react-native-paper';
 import {EPath} from '../../shared/models/enums/path.enum';
+import {useToast} from 'react-native-toast-notifications';
 
 interface IUserForm {
   email: string;
@@ -31,6 +32,7 @@ const defaultValues = {
 const SignIn = (): JSX.Element => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const toast = useToast();
 
   const methods = useForm<IUserForm>({
     mode: 'all',
@@ -54,7 +56,12 @@ const SignIn = (): JSX.Element => {
             '   parsed.email   ',
           );
           dispatch(setUserData(parsed));
-          Alert.alert('Success!', 'Logged in successfully');
+          toast.show('Logged in successfully', {
+            type: 'success',
+            placement: 'top',
+            duration: 4000,
+            animationType: 'slide-in',
+          });
           navigation.navigate(EPath.PARENTHOME as never);
         } else {
           console.log(
@@ -64,23 +71,63 @@ const SignIn = (): JSX.Element => {
             '   parsed.emailf   ',
           );
         }
+      } else {
+        toast.show('There is no such user. Please register', {
+          type: 'danger',
+          placement: 'top',
+          duration: 4000,
+          animationType: 'slide-in',
+        });
       }
     } catch (error: any) {
       Alert.alert(error);
     }
   };
 
+  const signinHandler = async (formData: IUserForm) => {
+    const data = {...formData};
+
+    fetch('http://10.0.2.2:5000/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: data.email,
+        password: data.password,
+      }),
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error: ' + response.status);
+        }
+      })
+      .then(data => {
+        toast.show(data.message, {
+          type: 'success',
+          placement: 'top',
+          duration: 4000,
+          animationType: 'slide-in',
+        });
+      })
+      .catch(error => {
+        toast.show('An error occurred: ' + error.message, {
+          type: 'danger',
+          placement: 'top',
+          duration: 4000,
+          animationType: 'slide-in',
+        });
+      });
+  };
   return (
     <View style={{backgroundColor: 'white', height: '100%'}}>
-      {/* <ActionSheet ref={actionSheetRef}> */}
-      {/* <Text>alo</Text> */}
-      {/* </ActionSheet> */}
       <View style={{marginHorizontal: 17}}>
         <View style={{height: '82%'}}>
           <View style={{marginBottom: 35}}>
             <IconButton
               icon="arrow-left-thin"
-              // iconColor={MD3Colors.error50}
               style={{
                 position: 'absolute',
                 top: 0,

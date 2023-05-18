@@ -34,6 +34,8 @@ const Password = () => {
 
     const getUser: string | null = await AsyncStorage.getItem('user');
     const user = JSON.parse(getUser);
+    console.log(user?.password, 'aa');
+    console.log(data?.password, 'aass');
     if (user?.password === data?.password) {
       const newUser = {password: data?.newPassword};
       AsyncStorage.setItem('user', JSON.stringify(user), () => {
@@ -43,6 +45,12 @@ const Password = () => {
           });
         });
       });
+      toast.show('Password changed', {
+        type: 'success',
+        placement: 'top',
+        duration: 4000,
+        animationType: 'slide-in',
+      });
       navigation.navigate(EPath.ACCOUNT as never);
     } else {
       toast.show('Incorrect password', {
@@ -51,6 +59,40 @@ const Password = () => {
         duration: 4000,
         animationType: 'slide-in',
       });
+    }
+  };
+
+  const deleteHandler = async (formData: any) => {
+    const data = {...formData};
+    const user = JSON.parse(getUser);
+    const response = await fetch('http://10.0.2.2:5000/changepassword', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: user.email,
+        current_password: user.password,
+        new_password: data.newPassword,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      toast.show(data.message, {
+        type: 'success',
+        placement: 'top',
+        duration: 4000,
+        animationType: 'slide-in',
+      });
+    } else {
+      toast.show('An error occurred: ' + response.status, {
+        type: 'danger',
+        placement: 'top',
+        duration: 4000,
+        animationType: 'slide-in',
+      });
+      throw new Error('Error: ' + response.status);
     }
   };
 

@@ -17,6 +17,7 @@ import {IconButton} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {IRegisterUser} from '../../shared/models/interfaces/user.interface';
 import {EPath} from '../../shared/models/enums/path.enum';
+import { useToast } from 'react-native-toast-notifications';
 
 const defaultValues: IRegisterUser = {
   email: '',
@@ -28,6 +29,7 @@ const defaultValues: IRegisterUser = {
 const Register = (): JSX.Element => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const toast = useToast();
 
   const methods = useForm<IRegisterUser>({
     mode: 'all',
@@ -50,7 +52,7 @@ const Register = (): JSX.Element => {
       email: data.email,
       password: data.password,
       name: data.name,
-      surname: data.surname
+      surname: data.surname,
     };
 
     if (!(data.email && data.password)) {
@@ -59,6 +61,12 @@ const Register = (): JSX.Element => {
       try {
         await AsyncStorage.setItem('user', JSON.stringify(userObj));
         await dispatch(setUserData(userObj));
+        toast.show('Registered successfully', {
+          type: 'success',
+          placement: 'top',
+          duration: 4000,
+          animationType: 'slide-in',
+        });
         navigation.navigate(EPath.PARENTHOME as never);
       } catch (error) {
         console.log(error);

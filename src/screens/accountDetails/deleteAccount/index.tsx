@@ -39,6 +39,7 @@ const DeleteAccount = () => {
     if (data?.password === data?.passwordEntry) {
       await AsyncStorage.removeItem('user');
       await dispatch(setUserData({}));
+
       navigation.navigate(EPath.ACCOUNT as never);
     } else {
       toast.show('Incorrect password', {
@@ -53,10 +54,46 @@ const DeleteAccount = () => {
   useEffect(() => {
     if (user) {
       reset({...user});
-      //   reset({...user});
     }
   }, [reset, user]);
   console.log(user, 'user');
+
+  const deleteHandlerAccount = async () => {
+    fetch('http://10.0.2.2:5000/users', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_id: 1,
+      }),
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error: ' + response.status);
+        }
+      })
+      .then(data => {
+        // Alert.alert(data.message);
+        toast.show(data.message, {
+          type: 'success',
+          placement: 'top',
+          duration: 4000,
+          animationType: 'slide-in',
+        });
+      })
+      .catch(error => {
+        // Alert.alert('An error occurred: ' + error.message);
+        toast.show('An error occurred: ' + error.message, {
+          type: 'danger',
+          placement: 'top',
+          duration: 4000,
+          animationType: 'slide-in',
+        });
+      });
+  };
 
   return (
     <View style={styles.root}>

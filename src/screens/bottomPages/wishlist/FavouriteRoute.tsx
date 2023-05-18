@@ -42,7 +42,6 @@ const FavouriteRoute = (): JSX.Element => {
   const handlePickerChange = (value: any) => {
     if (selectedItem) {
       addedToBagItemsHandler(selectedItem, value);
-      // Alert.alert('', 'Item added successfully');
       setIsOpen(true);
       toast.show('Size changed successfully', {
         type: 'success',
