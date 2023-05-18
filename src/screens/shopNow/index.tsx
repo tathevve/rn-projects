@@ -1,6 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, ScrollView, TouchableOpacity} from 'react-native';
-// import * as All from '../../../assets';
 import React, {useEffect, useMemo, useState} from 'react';
 import OneItem from './OneItem';
 import {useNavigation} from '@react-navigation/native';

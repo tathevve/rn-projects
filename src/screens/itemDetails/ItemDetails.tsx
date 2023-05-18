@@ -8,7 +8,7 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from 'react-native';
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {IconButton} from 'react-native-paper';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -30,6 +30,7 @@ import {
   setItem,
 } from '../../redux/slicers/recommendSlice';
 import {recommendedDataList} from './recommendedDataList';
+import {useScrollToTop} from '@react-navigation/native';
 
 const ItemDetails = ({route}: any): JSX.Element => {
   const itemParams = route.params;
@@ -40,9 +41,22 @@ const ItemDetails = ({route}: any): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const addedToBagItemsHandler = useAddedToBagHook();
   const wishListItemsData = useSelector(selectItemData);
-  // const allItemsData = useSelector(selectRecommendItems);
   const loggedUserData = useSelector(selectUserData);
   const [recommendedData, setRecommendedData] = useState(recommendedDataList);
+  // const ref = React.useRef(null);
+  const scrollRef = useRef(null);
+
+  // useScrollToTop(
+  //   React.useRef({
+  //     scrollToTop: () => ref.current?.scrollTo({y: 100}) as never,
+  //   }),
+  // );
+
+  useFocusEffect(
+    useCallback(() => {
+      scrollRef?.current?.scrollTo({x: 0, y: 0, animated: true});
+    }, [scrollRef]),
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -136,6 +150,7 @@ const ItemDetails = ({route}: any): JSX.Element => {
   return (
     <>
       <ScrollView
+        ref={scrollRef}
         style={{
           backgroundColor: 'white',
           position: 'relative',

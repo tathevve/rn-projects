@@ -1,7 +1,6 @@
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
-// import {DesktopDatePicker} from '@mui/x-date-pickers/DesktopDatePicker';
 import TextInputField from '../../../shared/TextInput/TextInputField';
 import RNButton from '../../../shared/Button';
 import {useNavigation} from '@react-navigation/native';
@@ -52,7 +51,10 @@ const Payment = () => {
 
   const handleSubmitPayment = (formData: IPayment) => {
     dispatch(setPayment(formData));
-    navigation.navigate(EPath.CHECKOUT as never);
+    // navigation.navigate(EPath.CHECKOUT as never);
+    navigation.navigate(EPath.PAYMENT_STATUS, {
+      type: 'success',
+    } as never);
   };
 
   return (
@@ -159,10 +161,7 @@ const Payment = () => {
               of your card
             </Text>
           </View>
-          <View>
-            <Text>Save my card details for next time?</Text>
-            <Line />
-          </View>
+          <Line />
           <View style={styles.billingSection}>
             <Text style={styles.textStyle}>Billing Address</Text>
             <View>
@@ -254,7 +253,7 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   input: {
-    marginBottom: 30,
+    marginBottom: 10,
     width: '100%',
     borderBottomWidth: 1,
     borderColor: 'black',

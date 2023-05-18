@@ -1,23 +1,17 @@
 /* eslint-disable react-native/no-inline-styles */
 import {
   View,
-  Dimensions,
   ScrollView,
   TouchableWithoutFeedback,
 } from 'react-native';
 import React, {useState} from 'react';
 import {Searchbar} from 'react-native-paper';
-import Categories from './Categories';
-// import AllItems from '../../shopNow';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {IItem} from '../../../shared/models/interfaces/item.interface';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {EPath} from '../../../shared/models/enums/path.enum';
 import OneItem from '../../shopNow/OneItem';
 import {selectRecommendItems} from '../../../redux/slicers/recommendSlice';
-
-const windowHeight = Dimensions.get('window').height;
 
 const SearchRoute = (): JSX.Element => {
   const navigation = useNavigation();
@@ -30,7 +24,7 @@ const SearchRoute = (): JSX.Element => {
     setSearchQuery(query);
 
     const updatedList = items.filter((item: any) =>
-      item?.keyWord?.includes(query),
+      item?.keyWord?.includes(query.toLocaleLowerCase()),
     );
     setFilteredList(updatedList.length > 0 ? updatedList : []);
   };
@@ -39,7 +33,7 @@ const SearchRoute = (): JSX.Element => {
     <ScrollView
       contentContainerStyle={{
         backgroundColor: 'white',
-        height: windowHeight,
+        // height: windowHeight,
       }}>
       <View
         style={{

@@ -11,20 +11,16 @@ import {
   selectRecommendItems,
   setItem,
 } from '../../redux/slicers/recommendSlice';
-// import seventh from "../../../assets/"
 
 const OneItem = ({
   item,
   customStyles,
   showHeartIcon = false,
   showSizeAndQty = false,
-  recommendedId = 0,
 }: IItemProps): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const wishListItemsData = useSelector(selectItemData);
   const allItemsData = useSelector(selectRecommendItems);
-  // const [img, setImg] = useState<string>('');
-  // console.log(item, 'alalallal');
 
   const heartedItemsHandler = () => {
     const findedHeartedData = wishListItemsData.find(
@@ -64,10 +60,6 @@ const OneItem = ({
     }
   };
 
-  // console.log(item, 'ITEM');
-  // console.log(recommendedId, 'recommendedId');
-
-  // let abo = '../../../assheartedItemsHandlerets/photos_without_duplicates/activewear_1_10.png';
   return (
     <View style={styles.root}>
       {/* <Text>{brand}</Text> */}

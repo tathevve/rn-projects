@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {IconButton, List} from 'react-native-paper';
@@ -63,7 +62,7 @@ const Checkout = () => {
                   }
                   disabled={!shippingData?.addressOne}
                 />
-                <List.Item
+                {/* <List.Item
                   title="Payment"
                   titleStyle={{fontWeight: 'bold'}}
                   right={() => <List.Icon icon="arrow-right-thin" />}
@@ -73,14 +72,13 @@ const Checkout = () => {
                       ? `Visa (**** ${payment?.cardNumber.slice(12)})`
                       : 'Select a payment method'
                   }
-                />
+                /> */}
               </List.Section>
             </View>
             <View
               style={{
                 marginHorizontal: 17,
                 justifyContent: 'space-between',
-                // backgroundColor: 'red',
                 flexDirection: 'row',
               }}>
               <Text style={{fontWeight: 'bold', color: 'black'}}>Total:</Text>
@@ -93,13 +91,14 @@ const Checkout = () => {
               // if (shippingData?.addressOne && payment?.cardNumber) {
               //   navigation.navigate(EPath.SUCCESS('success') as never);
               // }else {}
-              navigation.navigate(EPath.PAYMENT_STATUS, {
-                type: 'success',
-              } as never);
+              // navigation.navigate(EPath.PAYMENT_STATUS, {
+              //   type: 'success',
+              // } as never);
+              navigation.navigate(EPath.PAYMENT as never);
             }}
             buttonStyle={styles.button}
             textStyle={styles.btnText}
-            disabled={!payment?.cardNumber}
+            disabled={!shippingData?.addressOne}
             disabledStyles={styles.disabledBtn}
           />
         </View>
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
     height: 35,
     marginTop: 35,
     borderStyle: 'solid',
-    // marginBottom: 0,
+    marginBottom: 20,
   },
   btnText: {
     color: 'white',
@@ -135,5 +134,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ededed',
     borderColor: '#ededed',
     textDecorationColor: 'black',
+    marginBottom: 20,
   },
 });
